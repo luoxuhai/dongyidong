@@ -1,4 +1,4 @@
-# 动亿动
+# 动亿动体育小程序
 
 > A Mpvue project
 
