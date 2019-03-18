@@ -1,0 +1,47 @@
+{
+  "pages": ["pages/home/main", "pages/logs/main", "pages/counter/main"],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "动亿动体育",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7F8389",
+    "backgroundColor": "#fff",
+    "selectedColor": "#FFC83A",
+    "borderStyle": "black",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/home/main",
+        "iconPath": "static/tabs/home.png",
+        "selectedIconPath": "static/tabs/course.png"
+      },
+      {
+        "text": "课程",
+        "pagePath": "pages/logs/main",
+        "iconPath": "static/tabs/course.png",
+        "selectedIconPath": "static/tabs/course.png"
+      },
+      {
+        "text": "训练",
+        "pagePath": "pages/logs/main",
+        "iconPath": "static/tabs/drill.png",
+        "selectedIconPath": "static/tabs/course.png"
+      },
+      {
+        "text": "动态",
+        "pagePath": "pages/logs/main",
+        "iconPath": "static/tabs/dynamic.png",
+        "selectedIconPath": "static/tabs/course.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/logs/main",
+        "iconPath": "static/tabs/my.png",
+        "selectedIconPath": "static/tabs/course.png"
+      }
+    ]
+  }
+}
