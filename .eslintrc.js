@@ -23,6 +23,8 @@ module.exports = {
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
         "eol-last": 0,
         "space-before-function-paren": 0,
+        // 末尾分号
+        'semi': 0,
         // 配置四格缩进
         "indent": "off",
         "vue/script-indent": [
