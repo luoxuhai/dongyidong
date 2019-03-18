@@ -11,8 +11,8 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wx037562790c5d5253",
-	"projectname": "%E5%8A%A8%E4%BA%BF%E5%8A%A8",
+	"appid": "wx45cd5d286cde47dc",
+	"projectname": "dongyidong",
 	"condition": {
 		"search": {
 			"current": -1,
