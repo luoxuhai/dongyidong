@@ -1,6 +1,5 @@
 <template>
   <div @click="clickHandle">
-
     <div class="userinfo"
          @click="bindViewTap">
       <img class="userinfo-avatar"
@@ -17,7 +16,6 @@
     </div>
     <a href="/pages/counter/main"
        class="counter">去往Vuex示例页面</a>
-
   </div>
 </template>
 
