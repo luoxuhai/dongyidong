@@ -1,14 +1,19 @@
 <template>
     <div>
-        home
+        {{name}}
     </div>
 </template>
 
 <script>
     export default {
-        name: 'home'
+        name: 'home',
+        data() {
+            return {
+                name: 'home'
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 </style>

@@ -1,15 +1,19 @@
 <template>
     <div>
-        course
+        {{name}}
     </div>
 </template>
 
 <script>
     export default {
-        name: "course"
+        name: "course",
+        data() {
+            return {
+                name: "course"
+            }
+        }
     }
 </script>
 
 <style scoped>
-
 </style>
