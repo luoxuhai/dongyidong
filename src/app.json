@@ -1,8 +1,10 @@
 {
     "pages": [
         "pages/home/main",
-        "pages/logs/main",
-        "pages/counter/main"
+        "pages/course/main",
+        "pages/train/main",
+        "pages/trends/main",
+        "pages/mine/main"
     ],
     "window": {
         "backgroundTextStyle": "dark",
@@ -19,32 +21,32 @@
             {
                 "text": "首页",
                 "pagePath": "pages/home/main",
-                "iconPath": "static/tabs/home.png",
-                "selectedIconPath": "static/tabs/course.png"
+                "iconPath": "static/images/tabs/home1.png",
+                "selectedIconPath": "static/images/tabs/home2.png"
             },
             {
                 "text": "课程",
-                "pagePath": "pages/logs/main",
-                "iconPath": "static/tabs/course.png",
-                "selectedIconPath": "static/tabs/course.png"
+                "pagePath": "pages/course/main",
+                "iconPath": "static/images/tabs/course1.png",
+                "selectedIconPath": "static/images/tabs/course2.png"
             },
             {
                 "text": "训练",
-                "pagePath": "pages/logs/main",
-                "iconPath": "static/tabs/drill.png",
-                "selectedIconPath": "static/tabs/course.png"
+                "pagePath": "pages/train/main",
+                "iconPath": "static/images/tabs/train1.png",
+                "selectedIconPath": "static/images/tabs/train2.png"
             },
             {
                 "text": "动态",
-                "pagePath": "pages/logs/main",
-                "iconPath": "static/tabs/dynamic.png",
-                "selectedIconPath": "static/tabs/course.png"
+                "pagePath": "pages/trends/main",
+                "iconPath": "static/images/tabs/trends1.png",
+                "selectedIconPath": "static/images/tabs/trends2.png"
             },
             {
                 "text": "我的",
-                "pagePath": "pages/logs/main",
-                "iconPath": "static/tabs/my.png",
-                "selectedIconPath": "static/tabs/course.png"
+                "pagePath": "pages/mine/main",
+                "iconPath": "static/images/tabs/mine1.png",
+                "selectedIconPath": "static/images/tabs/mine2.png"
             }
         ]
     }

@@ -1,14 +1,15 @@
 <template>
     <div>
-        home
+        course
     </div>
 </template>
 
 <script>
     export default {
-        name: 'home'
+        name: "course"
     }
 </script>
 
 <style scoped>
+
 </style>

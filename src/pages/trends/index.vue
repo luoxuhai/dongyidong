@@ -1,14 +1,15 @@
 <template>
     <div>
-        home
+        trends
     </div>
 </template>
 
 <script>
     export default {
-        name: 'home'
+        name: "trends"
     }
 </script>
 
 <style scoped>
+
 </style>
