@@ -136,6 +136,7 @@
             width: 100%;
             height: 177px;
             position: relative;
+            border-bottom: 1px solid #ccc;
 
             .base-wrap {
                 position: absolute;
@@ -144,32 +145,48 @@
                 right: 0;
                 bottom: 0;
                 margin: auto;
-                width: 160px;
-                height: 111px;
+                width: 270px;
+                height: 133px;
                 display: flex;
                 justify-content: space-between;
+                align-content: center;
 
                 ul {
-                    width: 100px;
+                    width: 95px;
+                    padding-top: 20px;
                     color: #4A5060;
                     font-size: 14px;
+                    display: flex;
+                    flex-flow: column wrap;
+                    align-content: space-between;
+
+                    li + li {
+                        margin-top: 15px;
+                    }
                 }
 
                 .body-line {
-                    width: 72px;
+                    width: 85px;
+                    padding-top: 26px;
 
                     img {
+                        display: block;
                         width: 100%;
+                        height: 6px;
+
+                        & + img {
+                            margin-top: 31px;
+                        }
                     }
                 }
 
                 .body-pic {
-                    width: 43px;
-                    height: 100%;
+                    width: 70px;
+                    text-align: center;
 
                     img {
-                        width: 100%;
-                        height: 100%;
+                        width: 90px;
+                        height: 150px;
                     }
                 }
             }
