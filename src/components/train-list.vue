@@ -1,15 +1,14 @@
 <template>
-    <div class="hot-course">
+    <div class="train-list">
         <h4>{{title}}</h4>
         <ul>
             <li v-for="(item, index) in data" :key="index" :data-index="index" @click="selectItem">
-                <div class="course-pic">
+                <div class="train-pic">
                     <img :src="item.url" alt="">
                     <span>{{item.interval}}</span>
                 </div>
-                <div class="course-con">
-                    <h5>{{item.title}}</h5>
-                    <p>{{item.num}}人正在学习</p>
+                <div class="train-con">
+                    <p>{{item.title}}</p>
                 </div>
             </li>
         </ul>
@@ -20,13 +19,14 @@
     import { selectItemMixin } from "@/common/js/mixin"
 
     export default {
-        name: "course-list",
+        name: "train-list",
         mixins: [selectItemMixin]
     }
 </script>
 
 <style scoped lang="scss">
-    .hot-course {
+    .train-list {
+        margin-top: 28px;
 
         h4 {
             text-indent: 7px;
@@ -35,27 +35,23 @@
         }
 
         ul {
-            display: flex;
-            flex-flow: wrap;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-top: 9px;
+            padding-top: 10px;
 
             li {
-                width: 168px;
-                margin-bottom: 15px;
+                display: flex;
+                justify-content: space-between;
 
-
-                &:last-child, &:nth-last-child(2) {
-                    margin-bottom: 0;
+                & + li {
+                    margin-top: 16px;
                 }
 
-                .course-pic {
-                    width: 168px;
-                    height: 95px;
+                .train-pic {
+                    width: 150px;
+                    height: 85px;
                     border-radius: 6px;
                     overflow: hidden;
                     position: relative;
+                    margin-right: 9px;
 
                     img {
                         width: 100%;
@@ -74,17 +70,14 @@
                     }
                 }
 
-                .course-con {
-                    font-size: 13px;
-
-                    h5 {
-                        margin-top: 6px;
-                        margin-bottom: 5px;
-                    }
+                .train-con {
+                    flex: 1;
 
                     p {
-                        color: #80848F;
-                        font-size: 10px;
+                        width: 100%;
+                        text-align: left;
+                        color: #1C2438;
+                        font-size: 15px;
                     }
                 }
             }
