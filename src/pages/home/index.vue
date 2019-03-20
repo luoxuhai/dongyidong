@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <div class="home-con">
+        <view-scroll class="home-con">
             <div class="weather">
                 <div class="weather-left">
                     <p class="local">天津 <span>滨海新区</span></p>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <course-list :title="courseTitle" :data="courseData"></course-list>
-        </div>
+        </view-scroll>
     </div>
 </template>
 
@@ -66,9 +66,18 @@
                 // 课程组件数据
                 courseTitle: '热门课程',
                 courseData: [
-                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640'
+                    {
+                        title: '长跑的技巧基础教学',
+                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        interval: '10:02',
+                        num: 1465
+                    },
+                    {
+                        title: '长跑的技巧基础教学',
+                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        interval: '10:02',
+                        num: 1465
+                    }
                 ]
             }
         },
@@ -83,7 +92,7 @@
         padding: 0 15px;
 
         .home-con {
-            border: 1px solid #ccc;
+            /*border: 1px solid #ccc;*/
 
             .weather {
                 display: flex;
