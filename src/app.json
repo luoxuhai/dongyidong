@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/body-report/main",
         "pages/home/main",
+        "pages/body-report/main",
         "pages/course/main",
         "pages/train/main",
         "pages/trends/main",

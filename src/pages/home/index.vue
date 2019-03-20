@@ -36,7 +36,7 @@
                     <img src="../../../static/images/home-collect.png" alt="">
                     <span>我的收藏</span>
                 </div>
-                <div class="report">
+                <div class="report" @click="bodyReportLink">
                     <img src="../../../static/images/home-report.png" alt="">
                     <span>体质报告</span>
                 </div>
@@ -112,16 +112,21 @@
             }
         },
         methods: {
-            myTrainLink() {
-                wx.navigateTo({
-                    url: '../my-train/main'
-                })
-            },
             selectCourse(index) {
                 console.log(index)
             },
             selectInfo(index) {
                 console.log(index)
+            },
+            myTrainLink() {
+                wx.navigateTo({
+                    url: '../my-train/main'
+                })
+            },
+            bodyReportLink() {
+                wx.navigateTo({
+                    url: '../body-report/main'
+                })
             }
         },
         components: {
