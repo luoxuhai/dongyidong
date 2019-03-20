@@ -1,10 +1,12 @@
 {
     "pages": [
+        "pages/body-report/main",
         "pages/home/main",
         "pages/course/main",
         "pages/train/main",
         "pages/trends/main",
-        "pages/mine/main"
+        "pages/mine/main",
+        "pages/my-train/main"
     ],
     "window": {
         "backgroundTextStyle": "dark",

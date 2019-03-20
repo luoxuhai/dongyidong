@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <view-scroll class="home-con">
+        <scroll-view class="home-con" :scrollY="scrollY">
             <div class="weather">
                 <div class="weather-left">
                     <p class="local">天津 <span>滨海新区</span></p>
@@ -28,7 +28,7 @@
                 </swiper>
             </div>
             <div class="nav">
-                <div class="train">
+                <div class="train" @click="myTrainLink">
                     <img src="../../../static/images/home-train.png" alt="">
                     <span>我的训练</span>
                 </div>
@@ -41,18 +41,27 @@
                     <span>体质报告</span>
                 </div>
             </div>
-            <course-list :title="courseTitle" :data="courseData"></course-list>
-        </view-scroll>
+            <div class="course-wrap">
+                <course-list :title="courseTitle" :data="courseData" @select="selectCourse"></course-list>
+            </div>
+            <div class="info-wrap">
+                <info-list :title="infoTitle" :data="infoData" @select="selectInfo"></info-list>
+            </div>
+        </scroll-view>
     </div>
 </template>
 
 <script>
     import CourseList from '@/components/course-list'
+    import InfoList from '@/components/info-list'
 
     export default {
         name: "home",
         data() {
             return {
+                // 滚动视图组件配置
+                scrollY: true,
+
                 // 轮播组件数据
                 imgUrls: [
                     'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640'
@@ -77,12 +86,47 @@
                         url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
                         interval: '10:02',
                         num: 1465
+                    },
+                    {
+                        title: '长跑的技巧基础教学',
+                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        interval: '10:02',
+                        num: 1465
+                    }
+                ],
+
+                // 资讯组件数据
+                infoTitle: '热门资讯',
+                infoData: [
+                    {
+                        con: '如何成功逆转，做到以全新面貌迎接新赛季的',
+                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        num: 1453
+                    },
+                    {
+                        con: '如何成功逆转，做到以全新面貌迎接新赛季的',
+                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        num: 1453
                     }
                 ]
             }
         },
+        methods: {
+            myTrainLink() {
+                wx.navigateTo({
+                    url: '../my-train/main'
+                })
+            },
+            selectCourse(index) {
+                console.log(index)
+            },
+            selectInfo(index) {
+                console.log(index)
+            }
+        },
         components: {
-            CourseList
+            CourseList,
+            InfoList
         }
     }
 </script>
@@ -92,7 +136,7 @@
         padding: 0 15px;
 
         .home-con {
-            /*border: 1px solid #ccc;*/
+            padding-bottom: 10px;
 
             .weather {
                 display: flex;
@@ -216,6 +260,9 @@
                 }
             }
 
+            .course-wrap, .info-wrap {
+                margin-top: 28px;
+            }
 
         }
 
