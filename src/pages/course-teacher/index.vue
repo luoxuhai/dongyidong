@@ -1,6 +1,6 @@
 <template>
     <div class="teacher-container">
-        <div class="teacher-item">
+        <div class="teacher-item" @click="selectItem">
             <div class="avatar">
                 <img mode="aspectFill"
                      src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1425832846,3875149543&fm=26&gp=0.jpg">
@@ -35,7 +35,7 @@
         <div class="teacher-item">
             <div class="avatar">
                 <img mode="aspectFill"
-                     src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1425832846,3875149543&fm=26&gp=0.jpg">
+                     src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1425832846,3875149543&fm=26&gp=0.jpg" alt="">
             </div>
             <p class="name">邱秀兰</p>
             <p class="intro">“体育老师，擅长长跑”</p>
@@ -48,6 +48,13 @@
         name: "",
         data() {
             return {}
+        },
+        methods: {
+            selectItem () {
+                wx.navigateTo({
+                    url: '../course-teacher-detail/main'
+                })
+            }
         }
     }
 </script>

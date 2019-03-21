@@ -51,7 +51,7 @@
         methods: {
             handleEnterDetail(index) {
                 wx.navigateTo({
-                    url: `/pages/mineCollect/main`
+                    url: `/pages/mine-collect/main`
                 })
             }
         }

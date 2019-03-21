@@ -3,11 +3,11 @@
         <div class="teacher-detail">
             <div class="avatar">
                 <img mode="aspectFill"
-                     src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1425832846,3875149543&fm=26&gp=0.jpg">
+                     src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1425832846,3875149543&fm=26&gp=0.jpg" alt="">
             </div>
             <div class="desc">
                 <p class="name">龙芳</p>
-                <p class="intro">“跟我一起跳起来”</p>
+                <p class="intro">"跟我一起跳起来"</p>
                 <p class="syn">男，32岁，本科毕业于上海体育学院，研究生毕业于浙江大学。主讲公共体育课，主要承担篮球、无线电测向运动的教学工作。</p>
                 <div class="tag">
                     <div class="tag-item">短跑</div>
@@ -81,7 +81,7 @@
                     height: 20px;
                     margin: 4px;
                     padding: 0 9px;
-                    background-color: #ffcc3a;
+                    background-color: rgb(255, 240, 196);
                     border-radius: 2px;
                     font-size: 10px;
                     line-height: 21px;

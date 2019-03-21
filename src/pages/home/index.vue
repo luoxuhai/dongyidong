@@ -32,7 +32,7 @@
                     <img src="../../../static/images/home-train.png" alt="">
                     <span>我的训练</span>
                 </div>
-                <div class="collect">
+                <div class="collect" @click="mineCollectLink">
                     <img src="../../../static/images/home-collect.png" alt="">
                     <span>我的收藏</span>
                 </div>
@@ -116,13 +116,24 @@
         methods: {
             selectCourse(index) {
                 console.log(index)
+                wx.navigateTo({
+                    url: '../course-detail/main'
+                })
             },
             selectInfo(index) {
                 console.log(index)
+                wx.navigateTo({
+                    url: `/pages/trends-detail/main?id=${index}`
+                })
             },
             myTrainLink() {
                 wx.navigateTo({
                     url: "../my-train/main"
+                })
+            },
+            mineCollectLink() {
+                wx.navigateTo({
+                    url: `/pages/mine-collect/main`
                 })
             },
             bodyReportLink() {
