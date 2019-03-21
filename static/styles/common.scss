@@ -1,23 +1,17 @@
-$Black: #000000;
-$Semi: #353535;
-$Grey: #888888;
-$Light: #b2b2b2;
-$Place: #f7f7f7;
-$Theme: #ea5a49;
-$Title: #1c2438;
-$Content: #495060;
-$Minor: #b2b2b2;
-$Divider: #e9eaec;
 @mixin flex($justify: start, $align: start, $direction: row, $wrap: nowrap) {
   display: flex;
-  justify-content: $justify;
-  flex-direction: $direction;
-  align-items: $align;
-  flex-wrap: $wrap;
-}
-
-@mixin boxShaow {
-  box-shadow: 0 5px 20px 2px rgba(0, 0, 0, 0.1);
+  @if $justify {
+    justify-content: $justify;
+  }
+  @if $align {
+    flex-direction: $direction;
+  }
+  @if $direction {
+    align-items: $align;
+  }
+  @if $wrap {
+    flex-wrap: $wrap;
+  }
 }
 
 @mixin ellipsis($line) {

@@ -100,7 +100,6 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 375px;
   height: 40px;
   margin-bottom: 10px;
   .navbar-item {

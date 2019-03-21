@@ -50,15 +50,16 @@ export default {
   },
   methods: {
     handleEnterDetail(index) {
-        wx.navigateTo({
-             url: `/pages/mineCollect/main` 
-             });
+      wx.navigateTo({
+        url: `/pages/mineCollect/main`
+      });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "static/styles/common.scss";
 .container {
   height: 100vh;
   background-color: #f8f8f8;
@@ -69,7 +70,6 @@ export default {
   position: relative;
   .header-user {
     display: flex;
-    flex-direction: row;
     width: 375px;
     height: 128px;
     background-color: #ffc83a;
@@ -83,21 +83,22 @@ export default {
       display: flex;
       flex-direction: column;
       margin-top: 19px;
+      .text-address,
+      .text-school,
+      .text-user-name {
+        color: #fff;
+      }
       .text-user-name {
         font-size: 16px;
-        color: #fff;
-        font-family: PingFangSC-Medium;
         font-weight: 500;
       }
       .text-address {
         margin-top: 12px;
         font-size: 12px;
-        color: #fff;
       }
       .text-school {
         margin-top: 5px;
         font-size: 12px;
-        color: #fff;
       }
     }
   }
@@ -118,7 +119,6 @@ export default {
     }
     .function-images {
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       margin: 0 46px;
       .function-images-text {
