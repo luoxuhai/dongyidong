@@ -14,11 +14,11 @@
             </div>
             <div class="slider">
                 <swiper
-                        indicator-dots="indicatorDots"
-                        autoplay="autoplay"
-                        interval="interval"
-                        duration="duration"
-                        circular="circular"
+                        :indicator-dots="indicatorDots"
+                        :autoplay="autoplay"
+                        :interval="interval"
+                        :duration="duration"
+                        :circular="circular"
                 >
                     <block v-for="(item, index) in imgUrls" :key="index">
                         <swiper-item>
@@ -36,7 +36,7 @@
                     <img src="../../../static/images/home-collect.png" alt="">
                     <span>我的收藏</span>
                 </div>
-                <div class="report">
+                <div class="report" @click="bodyReportLink">
                     <img src="../../../static/images/home-report.png" alt="">
                     <span>体质报告</span>
                 </div>
@@ -64,13 +64,15 @@
 
                 // 轮播组件数据
                 imgUrls: [
-                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640'
+                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                    'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
+                    'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
                 ],
-                indicatorDots: false,
-                autoplay: false,
-                interval: 5000,
-                duration: 500,
-                circular: false,
+                indicatorDots: true,
+                autoplay: true,
+                interval: 3000,
+                duration: 300,
+                circular: true,
 
                 // 课程组件数据
                 courseTitle: '热门课程',
@@ -112,16 +114,21 @@
             }
         },
         methods: {
-            myTrainLink() {
-                wx.navigateTo({
-                    url: '../my-train/main'
-                })
-            },
             selectCourse(index) {
                 console.log(index)
             },
             selectInfo(index) {
                 console.log(index)
+            },
+            myTrainLink() {
+                wx.navigateTo({
+                    url: '../my-train/main'
+                })
+            },
+            bodyReportLink() {
+                wx.navigateTo({
+                    url: '../body-report/main'
+                })
             }
         },
         components: {

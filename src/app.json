@@ -2,7 +2,6 @@
     "pages": [
         "pages/home/main",
         "pages/body-report/main",
-        "pages/course/main",
         "pages/courseTeacher/main",
         "pages/courseTeacherDetail/main",
         "pages/train/main",
@@ -10,6 +9,9 @@
         "pages/trendsDetail/main",
         "pages/mine/main",
         "pages/mineCollect/main",
+        "pages/course-detail/main",
+        "pages/course/main",
+        "pages/course-sec/main",
         "pages/my-train/main"
     ],
     "window": {

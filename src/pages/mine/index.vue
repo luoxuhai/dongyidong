@@ -4,7 +4,7 @@
       <div class="header-user">
         <img class="heder-user-img"
              mode="aspectFill"
-             src="../../../static/images/课程/名师.png">
+             src="../../../static/images/course/teacher.png">
         <div class="heaeder-text">
           <text class="text-user-name">谭敏仪</text>
           <text class="text-address">北京</text>

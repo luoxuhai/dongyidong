@@ -1,6 +1,6 @@
 <template>
     <div class="hot-course">
-        <h4>{{title}}</h4>
+        <h4 v-if="title">{{title}}</h4>
         <ul>
             <li v-for="(item, index) in data" :key="index" :data-index="index" @click="selectItem">
                 <div class="course-pic">
