@@ -1,9 +1,9 @@
 {
     "pages": [
+        "pages/home/main",
         "pages/course-detail/main",
         "pages/course/main",
         "pages/course-sec/main",
-        "pages/home/main",
         "pages/body-report/main",
         "pages/train/main",
         "pages/trends/main",
