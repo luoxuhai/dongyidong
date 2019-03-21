@@ -2,13 +2,27 @@
   <div>
     <img class="cover"
          mode="aspectFill"
-         src="http://pic170.nipic.com/file/20180623/10999358_103116704000_2.jpg">
-    <h1 class="title">中小学必须养成的健康饮食习惯</h1>
-    <p class="browse-count">1453人浏览</p>
+         :src="detailContent.coverUrl">
+    <h1 class="title">{{ detailContent.title }}</h1>
+    <p class="browse-count">{{ detailContent.browseCount + '人浏览' }}</p>
     <text class="article"
           selectable
           decode
-          space="nbsp"> 坚持喝水，做到水杯不离身。水是生命之源。营养学家建议，每天要
+          space="nbsp">{{ detailContent.mainContent }}</text>
+    <div class="button-collect">加入收藏</div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: '',
+  data() {
+    return {
+      detailContent: {
+        title: '中小学必须养成的健康饮食习惯',
+        browseCount: 1566,
+        coverUrl: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+        mainContent: `坚持喝水，做到水杯不离身。水是生命之源。营养学家建议，每天要
       喝1500毫升左右的水。整日在办公室的人可以准备一个相同体积的容器，提醒自己每天
       完成喝水“任务”。经常外出的人可以自带水杯，现在很多公共场所都有饮水机，见到
       时不妨拿出水杯接一些喝；也可以带上瓶装水方便喝。此外，在不同的季节，还可以自
@@ -41,17 +55,8 @@
       就不用多说了。可是现在的水果五花八门，哪些吃了更有营养呢？一般来说，不同颜
       色的水果代表了不同的营养成分含量，比如，黄色水果中维生素B2的含量就较高。要
       均衡营养，各种颜色的水果都应该吃一些，每天选择三种颜色的水果摄入。在同类水果
-      中，通常颜色越深的，营养素含量越高。
-    </text>
-    <div class="button-collect">加入收藏</div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: '',
-  data() {
-    return {
+      中，通常颜色越深的，营养素含量越高。`
+      }
     }
   }
 }

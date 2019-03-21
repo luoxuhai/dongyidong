@@ -24,4 +24,7 @@
         -webkit-text-stroke-width: 0.2px;
         -moz-osx-font-smoothing: grayscale;
     }
+    * {
+        box-sizing: border-box;
+    }
 </style>

@@ -1,14 +1,15 @@
 {
     "pages": [
-        "pages/body-report/main",
         "pages/home/main",
+        "pages/body-report/main",
         "pages/course/main",
         "pages/courseTeacher/main",
         "pages/courseTeacherDetail/main",
         "pages/train/main",
-        "pages/trainDetail/main",
         "pages/trends/main",
+        "pages/trendsDetail/main",
         "pages/mine/main",
+        "pages/mineCollect/main",
         "pages/my-train/main"
     ],
     "window": {
