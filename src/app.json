@@ -2,14 +2,16 @@
     "pages": [
         "pages/home/main",
         "pages/course-detail/main",
-        "pages/body-report/main",
         "pages/course/main",
         "pages/course-sec/main",
-        "pages/courseTeacher/main",
-        "pages/courseTeacherDetail/main",
         "pages/train/main",
         "pages/trends/main",
+        "pages/body-report/main",
+        "pages/courseTeacher/main",
+        "pages/courseTeacherDetail/main",
+        "pages/trendsDetail/main",
         "pages/mine/main",
+        "pages/mineCollect/main",
         "pages/my-train/main"
     ],
     "window": {

@@ -52,20 +52,21 @@
 </template>
 
 <script>
-    import CourseList from '@/components/course-list'
+    import CourseList from "@/components/course-list"
+    import InfoList from "@/components/info-list"
 
     export default {
         name: "home",
         data() {
             return {
-                // 滚动视图代码
+                // 滚动视图组件配置
                 scrollY: true,
 
                 // 轮播组件数据
                 imgUrls: [
-                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                    'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-                    'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+                    "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                    "https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640",
+                    "https://images.unsplash.com/photo-1551446591-142875a901a1?w=640"
                 ],
                 indicatorDots: true,
                 autoplay: true,
@@ -74,33 +75,39 @@
                 circular: true,
 
                 // 课程组件数据
-                courseTitle: '热门课程',
+                courseTitle: "热门课程",
                 courseData: [
                     {
-                        title: '长跑的技巧基础教学',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                        interval: '10:02',
+                        title: "长跑的技巧基础教学",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                        interval: "10:02",
                         num: 1465
                     },
                     {
-                        title: '长跑的技巧基础教学',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                        interval: '10:02',
+                        title: "长跑的技巧基础教学",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                        interval: "10:02",
+                        num: 1465
+                    },
+                    {
+                        title: "长跑的技巧基础教学",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                        interval: "10:02",
                         num: 1465
                     }
                 ],
 
                 // 资讯组件数据
-                infoTitle: '热门资讯',
+                infoTitle: "热门资讯",
                 infoData: [
                     {
-                        con: '如何成功逆转，做到以全新面貌迎接新赛季的',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        con: "如何成功逆转，做到以全新面貌迎接新赛季的",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
                         num: 1453
                     },
                     {
-                        con: '如何成功逆转，做到以全新面貌迎接新赛季的',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        con: "如何成功逆转，做到以全新面貌迎接新赛季的",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
                         num: 1453
                     }
                 ]
@@ -115,17 +122,18 @@
             },
             myTrainLink() {
                 wx.navigateTo({
-                    url: '../my-train/main'
+                    url: "../my-train/main"
                 })
             },
             bodyReportLink() {
                 wx.navigateTo({
-                    url: '../body-report/main'
+                    url: "../body-report/main"
                 })
             }
         },
         components: {
-            CourseList
+            CourseList,
+            InfoList
         }
     }
 </script>
@@ -135,7 +143,7 @@
         padding: 0 15px;
 
         .home-con {
-            /*border: 1px solid #ccc;*/
+            padding-bottom: 10px;
 
             .weather {
                 display: flex;
@@ -259,6 +267,9 @@
                 }
             }
 
+            .course-wrap, .info-wrap {
+                margin-top: 28px;
+            }
 
         }
 

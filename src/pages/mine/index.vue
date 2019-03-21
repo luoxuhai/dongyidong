@@ -2,10 +2,10 @@
     <div class="container">
         <div class="header">
             <div class="header-user">
-                <img class="heder-user-img"
+                <img class="header-user-img"
                      mode="aspectFill"
                      src="../../../static/images/course/teacher.png" alt="">
-                <div class="heaeder-text">
+                <div class="header-text">
                     <text class="text-user-name">谭敏仪</text>
                     <text class="text-address">北京</text>
                     <text class="text-school">第一小学</text>
@@ -19,8 +19,8 @@
                          :key="index"
                          @click="handleEnterDetail(index)">
                         <img class="function-image"
-                             :src="item.img">
-                        <text class="function-textone">{{item.text}}</text>
+                             :src="item.img" alt="">
+                        <text class="function-text-one">{{item.text}}</text>
                     </div>
                 </div>
             </div>
@@ -76,14 +76,14 @@
             height: 128px;
             background-color: #ffc83a;
 
-            .heder-user-img {
+            .header-user-img {
                 width: 70px;
                 height: 70px;
                 margin: 13px 16px 0 16px;
                 border-radius: 50%;
             }
 
-            .heaeder-text {
+            .header-text {
                 display: flex;
                 flex-direction: column;
                 margin-top: 19px;
@@ -143,7 +143,7 @@
                         margin: auto;
                     }
 
-                    .function-textone {
+                    .function-text-one {
                         margin-top: 10px;
                         font-size: 10px;
                         color: #4a4a4a;
