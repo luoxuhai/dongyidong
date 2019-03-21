@@ -102,7 +102,7 @@ export default {
   align-items: center;
   width: 375px;
   height: 40px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   .navbar-item {
     width: 30px;
     height: 42px;

@@ -72,6 +72,7 @@ export default {
   .navbar {
     @include flex(space-around, center);
     height: 42px;
+    margin-bottom: 10px;
     background-color: #fff;
     .navbar-item {
       box-sizing: border-box;
