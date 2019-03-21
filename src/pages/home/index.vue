@@ -53,13 +53,12 @@
 
 <script>
     import CourseList from '@/components/course-list'
-    import InfoList from '@/components/info-list'
 
     export default {
         name: "home",
         data() {
             return {
-                // 滚动视图组件配置
+                // 滚动视图代码
                 scrollY: true,
 
                 // 轮播组件数据
@@ -77,12 +76,6 @@
                 // 课程组件数据
                 courseTitle: '热门课程',
                 courseData: [
-                    {
-                        title: '长跑的技巧基础教学',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                        interval: '10:02',
-                        num: 1465
-                    },
                     {
                         title: '长跑的技巧基础教学',
                         url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
@@ -132,8 +125,7 @@
             }
         },
         components: {
-            CourseList,
-            InfoList
+            CourseList
         }
     }
 </script>
@@ -143,7 +135,7 @@
         padding: 0 15px;
 
         .home-con {
-            padding-bottom: 10px;
+            /*border: 1px solid #ccc;*/
 
             .weather {
                 display: flex;
@@ -267,9 +259,6 @@
                 }
             }
 
-            .course-wrap, .info-wrap {
-                margin-top: 28px;
-            }
 
         }
 
