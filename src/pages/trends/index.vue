@@ -54,9 +54,9 @@ export default {
   },
   methods: {
     handleEnterDetail(index) {
-        wx.navigateTo({
-            url: `/pages/trendsDetail/main?id=${index}`
-        })
+      wx.navigateTo({
+        url: `/pages/trendsDetail/main?id=${index}`
+      })
     },
     handleItem(index) {
       this.activeIndex = index;
@@ -65,13 +65,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 @import "static/styles/common.scss";
 .container-trends {
   padding: 0 15px;
   .navbar {
     @include flex(space-around, center);
     height: 42px;
+    margin-bottom: 10px;
     background-color: #fff;
     .navbar-item {
       box-sizing: border-box;
