@@ -8,8 +8,12 @@
     <text class="article"
           selectable
           decode
-          space="nbsp">{{ detailContent.mainContent }}</text>
-    <div class="button-collect">加入收藏</div>
+          space="nbsp"
+          @click="handleShowButton">{{ detailContent.mainContent }}</text>
+    <div class="collect-panel"
+         :class="{show: buttonShow}">
+      <div class="button-collect">加入收藏</div>
+    </div>
   </div>
 </template>
 
@@ -18,6 +22,7 @@ export default {
   name: '',
   data() {
     return {
+      buttonShow: false,
       detailContent: {
         title: '中小学必须养成的健康饮食习惯',
         browseCount: 1566,
@@ -58,6 +63,11 @@ export default {
       中，通常颜色越深的，营养素含量越高。`
       }
     }
+  },
+  methods: {
+    handleShowButton() {
+      this.buttonShow = !this.buttonShow;
+    }
   }
 }
 </script>
@@ -83,20 +93,36 @@ export default {
   display: block;
   width: 333px;
   margin: 0 auto;
+  padding-bottom: 20px;
   font-size: 14px;
   color: #4a5060;
 }
-.button-collect {
+.collect-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
-  bottom: 42px;
-  left: calc(50% - 263px / 2);
-  width: 263px;
-  height: 38px;
-  border-radius: 24px;
-  background-color: #ffc83a;
-  font-size: 16px;
-  text-align: center;
-  line-height: 38px;
-  color: #fff;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  transform: translateY(120px);
+  transition: all 0.2s ease-out;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  .button-collect {
+    width: 263px;
+    height: 38px;
+    border-radius: 24px;
+    background-color: #ffc83a;
+    font-size: 16px;
+    text-align: center;
+    line-height: 38px;
+    color: #fff;
+  }
+  &.show {
+    transform: translateY(0);
+  }
 }
 </style>
