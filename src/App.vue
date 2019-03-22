@@ -1,6 +1,15 @@
 <script>
     export default {
         created() {
+            try {
+           const token = wx.getStorageSync('token')
+             if (token) {
+                wx.navigateTo({ url: `/pages/home/main` });
+            }
+            } catch (err) {
+            console.log(err);
+            }
+          
         }
     }
 </script>

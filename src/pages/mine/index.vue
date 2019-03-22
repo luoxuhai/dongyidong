@@ -10,6 +10,8 @@
           <text class="text-address">北京</text>
           <text class="text-school">第一小学</text>
         </div>
+        <!-- <button open-type="openSetting"
+                @opensetting="handleLogin">登录</button> -->
       </div>
       <div class="function">
         <div class="function-text">我的足迹</div>
@@ -55,7 +57,7 @@ export default {
       });
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
