@@ -32,7 +32,7 @@
                     <img src="../../../static/images/home-train.png" alt="">
                     <span>我的训练</span>
                 </div>
-                <div class="collect">
+                <div class="collect" @click="mineCollectLink">
                     <img src="../../../static/images/home-collect.png" alt="">
                     <span>我的收藏</span>
                 </div>
@@ -52,8 +52,8 @@
 </template>
 
 <script>
-    import CourseList from '@/components/course-list'
-    import InfoList from '@/components/info-list'
+    import CourseList from "@/components/course-list"
+    import InfoList from "@/components/info-list"
 
     export default {
         name: "home",
@@ -64,9 +64,9 @@
 
                 // 轮播组件数据
                 imgUrls: [
-                    'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                    'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-                    'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+                    "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                    "https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640",
+                    "https://images.unsplash.com/photo-1551446591-142875a901a1?w=640"
                 ],
                 indicatorDots: true,
                 autoplay: true,
@@ -75,39 +75,39 @@
                 circular: true,
 
                 // 课程组件数据
-                courseTitle: '热门课程',
+                courseTitle: "热门课程",
                 courseData: [
                     {
-                        title: '长跑的技巧基础教学',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                        interval: '10:02',
+                        title: "长跑的技巧基础教学",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                        interval: "10:02",
                         num: 1465
                     },
                     {
-                        title: '长跑的技巧基础教学',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                        interval: '10:02',
+                        title: "长跑的技巧基础教学",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                        interval: "10:02",
                         num: 1465
                     },
                     {
-                        title: '长跑的技巧基础教学',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-                        interval: '10:02',
+                        title: "长跑的技巧基础教学",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
+                        interval: "10:02",
                         num: 1465
                     }
                 ],
 
                 // 资讯组件数据
-                infoTitle: '热门资讯',
+                infoTitle: "热门资讯",
                 infoData: [
                     {
-                        con: '如何成功逆转，做到以全新面貌迎接新赛季的',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        con: "如何成功逆转，做到以全新面貌迎接新赛季的",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
                         num: 1453
                     },
                     {
-                        con: '如何成功逆转，做到以全新面貌迎接新赛季的',
-                        url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+                        con: "如何成功逆转，做到以全新面貌迎接新赛季的",
+                        url: "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
                         num: 1453
                     }
                 ]
@@ -116,18 +116,29 @@
         methods: {
             selectCourse(index) {
                 console.log(index)
+                wx.navigateTo({
+                    url: '../course-detail/main'
+                })
             },
             selectInfo(index) {
                 console.log(index)
+                wx.navigateTo({
+                    url: `/pages/trends-detail/main?id=${index}`
+                })
             },
             myTrainLink() {
                 wx.navigateTo({
-                    url: '../my-train/main'
+                    url: "../my-train/main"
+                })
+            },
+            mineCollectLink() {
+                wx.navigateTo({
+                    url: `/pages/mine-collect/main`
                 })
             },
             bodyReportLink() {
                 wx.navigateTo({
-                    url: '../body-report/main'
+                    url: "../body-report/main"
                 })
             }
         },

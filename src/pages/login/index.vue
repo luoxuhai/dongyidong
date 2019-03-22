@@ -76,7 +76,7 @@ export default {
   .name {
     margin-top: 20px;
     font-size: 18px;
-    word-spacing: 100px;
+    letter-spacing: 0.3em;
   }
   .hint {
     margin-bottom: 10px;
@@ -98,8 +98,6 @@ export default {
       left: 0;
       right: 0;
       bottom: 0;
-      top: 0;
-      z-index: 99;
       opacity: 0;
     }
   }

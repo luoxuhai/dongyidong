@@ -3,7 +3,7 @@ module.exports = {
         browser: true,
         es6: true
     },
-    extends: "airbnb-base",
+    extends: ['plugin:vue/essential', 'prettier', "airbnb-base"],
     globals: {
         Atomics: "readonly",
         SharedArrayBuffer: "readonly"

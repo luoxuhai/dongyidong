@@ -2,16 +2,14 @@
   <div class="container">
     <div class="header">
       <div class="header-user">
-        <img class="heder-user-img"
+        <img class="header-user-img"
              mode="aspectFill"
              src="../../../static/images/course/teacher.png">
-        <div class="heaeder-text">
+        <div class="header-text">
           <text class="text-user-name">谭敏仪</text>
           <text class="text-address">北京</text>
           <text class="text-school">第一小学</text>
         </div>
-        <!-- <button open-type="openSetting"
-                @opensetting="handleLogin">登录</button> -->
       </div>
       <div class="function">
         <div class="function-text">我的足迹</div>
@@ -44,17 +42,17 @@ export default {
           text: "帮助反馈"
         },
         {
-          img: "/static/images/我的/收藏.png",
+          img: "/static/images/我的/设置.png",
           text: "设置"
         }
       ]
-    };
+    }
   },
   methods: {
     handleEnterDetail(index) {
       wx.navigateTo({
-        url: `/pages/mineCollect/main`
-      });
+        url: `/pages/mine-collect/main`
+      })
     }
   }
 }
@@ -75,13 +73,13 @@ export default {
     width: 375px;
     height: 128px;
     background-color: #ffc83a;
-    .heder-user-img {
+    .header-user-img {
       width: 70px;
       height: 70px;
       margin: 13px 16px 0 16px;
       border-radius: 50%;
     }
-    .heaeder-text {
+    .header-text {
       display: flex;
       flex-direction: column;
       margin-top: 19px;
@@ -114,7 +112,7 @@ export default {
     border-radius: 6px;
     background-color: #fff;
     .function-text {
-      margin: 13px 0 0 12px;
+      margin: 13px;
       font-size: 17px;
       font-weight: 500;
       color: #4a4a4a;
@@ -126,17 +124,16 @@ export default {
       .function-images-text {
         display: flex;
         flex-direction: column;
-        margin-top: 12px;
+        align-items: center;
+        position: relative;
         .function-image {
           width: 22px;
           height: 22px;
-          margin: auto;
         }
         .function-textone {
           margin-top: 10px;
           font-size: 10px;
           color: #4a4a4a;
-          text-align: center;
         }
       }
     }
