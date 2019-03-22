@@ -56,6 +56,9 @@
         methods: {
             selectCourse(index) {
                 console.log(index)
+                wx.navigateTo({
+                    url: '../course-detail/main'
+                })
             }
         },
         components: {

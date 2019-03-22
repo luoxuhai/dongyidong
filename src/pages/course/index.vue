@@ -27,7 +27,7 @@
                     <img src="../../../static/images/course/info.png" alt="" width="90" height="90">
                     <p>资讯</p>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" @click="courseTeacherLink">
                     <img src="../../../static/images/course/teacher.png" alt="" width="90" height="90">
                     <p>名师</p>
                 </div>
@@ -90,10 +90,18 @@
         methods: {
             selectCourse(index) {
                 console.log(index)
+                wx.navigateTo({
+                    url: '../course-detail/main'
+                })
             },
             courseSecLink() {
                 wx.navigateTo({
                     url: '../course-sec/main'
+                })
+            },
+            courseTeacherLink () {
+                wx.navigateTo({
+                    url: '../course-teacher/main'
                 })
             }
         },
