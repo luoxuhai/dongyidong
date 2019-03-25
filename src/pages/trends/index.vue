@@ -18,7 +18,7 @@
 <script>
     import InfoList from "@/components/info-list"
     import LoadingMore from "@/components/loading-more"
-
+    import { MessageNews } from "@/api"
     export default {
         components: {
             InfoList,
@@ -33,24 +33,9 @@
                 loading: true,
                 trendsList: [
                     {
-                        con: "10分钟教会你6种上篮动作",
-                        num: "4258",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    },
-                    {
-                        con: "10分钟教会你6种上篮动作",
-                        num: "4258",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    },
-                    {
-                        con: "10分钟教会你6种上篮动作",
-                        num: "4258",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    },
-                    {
-                        con: "10分钟教会你6种上篮动作",
-                        num: "4258",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
+                        messageTitle: "10分钟教会你6种上篮动作",
+                        messageNum: "4258",
+                        messageUrl: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
                     }
                 ],
                 navbarList: ["全部", "技术训练", "营养饮食", "体育保健"]
@@ -62,23 +47,23 @@
                     this.loading = false
                     return false
                 } else  this.loading = true
-                //let data = {
-                    // currentPage: this.currentPage
-                    // type: this.navbarList[currentInedx]
-                    // token
-                //}
-            // api.then(res => {
-            //         this.trainList = [...this.trainList, ...res.data]
-            //         this.totalPage = res.totalPage
-            //         this.currentPage += 1
-            //          wx.stopPullDownRefresh()
-            // })
+                let data = {
+                    pageNum: this.currentPage,
+                    type: this.currentInedx
+                }
+            MessageNews.selectMessageByType(data).then(res => {
+                console.log(res.data);
+                     this.trainList = [...this.trainList, ...res.data.records]
+                     this.totalPage = res.totalPage
+                     this.currentPage += 1
+                     wx.stopPullDownRefresh()
+            })
             },
             handleEnterDetail(index) {
                 wx.navigateTo({
                     url: `/pages/trends-detail/main?id=${index}`
                 })
-            },        
+            },
             handleItem(index) {
                 this.currentPage = 1
                 this.currentInedx = index

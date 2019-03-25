@@ -2,12 +2,12 @@
     <div class="hot-info">
         <h4>{{title}}</h4>
         <ul>
-            <li v-for="(item, index) in data" :key="index" :data-index="index" @click="selectItem">
+            <li v-for="(item, index) in data" :key="index" :data-index="item.messageId" @click="selectItem">
                 <div class="info-pic">
-                    <img :src="item.url" alt="">
-                    <span>{{item.num}}人浏览</span>
+                    <img :src="item.messageUrl" alt="">
+                    <span>{{item.messageNum}}人浏览</span>
                 </div>
-                <p>{{item.con}}</p>
+                <p>{{item.messageTitle}}</p>
             </li>
         </ul>
     </div>

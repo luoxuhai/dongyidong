@@ -2,32 +2,36 @@
   <div>
     <img class="cover"
          mode="aspectFill"
-         :src="detailContent.coverUrl">
-    <h1 class="title">{{ detailContent.title }}</h1>
-    <p class="browse-count">{{ detailContent.browseCount + '人浏览' }}</p>
+         :src="detailContent.messageUrl">
+    <h1 class="title">{{ detailContent.messageTitle }}</h1>
+    <p class="browse-count">{{ detailContent.messageNum + '人浏览' }}</p>
     <text class="article"
           selectable
           decode
           space="nbsp"
-          @click="handleShowButton">{{ detailContent.mainContent }}</text>
+          @click="handleShowButton">{{ detailContent.messageContent }}</text>
     <div class="collect-panel"
          :class="{show: buttonShow}">
-      <div class="button-collect">加入收藏</div>
+      <div class="button-collect"
+           @click="handleCollect">{{ isCollect ? '取消收藏' : '加入收藏'}}</div>
     </div>
   </div>
 </template>
 
 <script>
+import { MessageNews } from "@/api"
 export default {
   name: '',
   data() {
     return {
       buttonShow: false,
+      messageId: '',
+      isCollect: false,
       detailContent: {
-        title: '中小学必须养成的健康饮食习惯',
-        browseCount: 1566,
-        coverUrl: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-        mainContent: `坚持喝水，做到水杯不离身。水是生命之源。营养学家建议，每天要
+        messageTitle: '中小学必须养成的健康饮食习惯',
+        messageNum: 1566,
+        messageUrl: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+        messageContent: `坚持喝水，做到水杯不离身。水是生命之源。营养学家建议，每天要
       喝1500毫升左右的水。整日在办公室的人可以准备一个相同体积的容器，提醒自己每天
       完成喝水“任务”。经常外出的人可以自带水杯，现在很多公共场所都有饮水机，见到
       时不妨拿出水杯接一些喝；也可以带上瓶装水方便喝。此外，在不同的季节，还可以自
@@ -65,9 +69,56 @@ export default {
     }
   },
   methods: {
+    handleCollect() {
+      //添加收藏
+      if (this.isCollect) {
+        MessageNews.addInCollect({
+          userId: this.$store.state.userId,
+          messageId: this.messageId
+        }).then(res => {
+          this.isCollect = true
+          wx.showToast({
+            title: '收藏成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }).catch(err => {
+          console.log(err);
+        })
+      } else
+        //取消收藏
+        MessageNews.cancelCollect({
+          userId: this.$store.state.userId,
+          messageId: this.messageId
+        }).then(res => {
+          this.isCollect = false
+          wx.showToast({
+            title: '已取消收藏',
+            icon: 'success',
+            duration: 2000
+          })
+        }).catch(err => {
+          console.log(err);
+        })
+    },
     handleShowButton() {
       this.buttonShow = !this.buttonShow;
     }
+  },
+  onLoad(option) {
+    this.messageId = option.id
+    MessageNews.selectMessageDetail({
+      userId: this.$store.state.userId,
+      messageId: this.messageId
+    }).then(res => {
+      this.detailContent = res.data
+      this.isCollect = Boolean(res.data.isCollect)
+    }).catch(err => {
+      console.log(err);
+    })
+  },
+  unOnload() {
+    Object.assign(this.$data, this.$options.data())
   }
 }
 </script>
@@ -108,7 +159,7 @@ export default {
   height: 120px;
   transform: translateY(120px);
   transition: all 0.2s ease-out;
-  border-radius: 10px 10px 0 0;
+  border-radius: 4px 4px 0 0;
   box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   .button-collect {

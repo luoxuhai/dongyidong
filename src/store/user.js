@@ -1,4 +1,5 @@
 export const userState = {
+    userId: '',
     token: '',
     openId: ''
 }

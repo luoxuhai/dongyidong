@@ -2,13 +2,13 @@
     <div class="train-list">
         <h4>{{title}}</h4>
         <ul>
-            <li v-for="(item, index) in data" :key="index" :data-index="index" @click="selectItem">
+            <li v-for="(item, index) in data" :key="index" :data-index="item.messageId" @click="selectItem">
                 <div class="train-pic">
-                    <img :src="item.url" alt="">
-                    <span>{{item.interval}}</span>
+                    <img :src="item.messageUrl" alt="">
+                    <span>{{item.messageNum}}</span>
                 </div>
                 <div class="train-con">
-                    <p>{{item.title}}</p>
+                    <p>{{item.messageTitle}}</p>
                 </div>
             </li>
         </ul>

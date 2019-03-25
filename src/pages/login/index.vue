@@ -10,20 +10,26 @@
         <button open-type="getUserInfo"
                 lang="zh-CN"
                 @getuserinfo="handleLogin"></button>
-                <span></span>
-                微信授权登录</div>
+        <span></span>
+        微信授权登录</div>
     </section>
   </div>
 </template>
 
 <script>
+import { login } from '@/api'
+import { mapMutations } from 'vuex'
 export default {
   name: '',
   data() {
     return {
     }
   },
+  onLoad() {
+    // wx.switchTab({ url: `/pages/home/main` });
+  },
   methods: {
+    ...mapMutations(['setUserInfo']),
     handleLogin() {
       wx.getSetting({
         success: res => {
@@ -40,11 +46,15 @@ export default {
           let data = res.userInfo;
           wx.login({
             success: res => {
-              if (res.code) {
-                  //调用登录api
-                wx.switchTab({ url: `/pages/home/main` });
-                console.log('code: ', res.code);
-              }
+              login({ code: res.code }).then(res => {
+                console.log(res);
+                this.setUserInfo({
+                  userId: res.data.userId
+                })
+              }).catch(err => {
+                console.error('errMsg:', err.message);
+              })
+              console.log('code: ', res.code);
             }
           });
         },

@@ -89,7 +89,10 @@
             handleItem(index) {
                 this.selectIndex = index
             }
-        }
+        },
+          unOnload() {
+    Object.assign(this.$data, this.$options.data())
+  }
     }
 </script>
 
