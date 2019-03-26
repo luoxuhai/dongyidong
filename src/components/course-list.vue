@@ -2,14 +2,14 @@
     <div class="hot-course">
         <h4 v-if="title">{{title}}</h4>
         <ul>
-            <li v-for="(item, index) in data" :key="index" :data-index="index" @click="selectItem">
+            <li v-for="(item, index) in data" :key="index" :data-index="item.courseId" @click="selectItem">
                 <div class="course-pic">
-                    <img :src="item.url" alt="">
-                    <span>{{item.interval}}</span>
+                    <img :src="item.courseImage">
+                    <span>{{item.courseTolTime}}</span>
                 </div>
                 <div class="course-con">
-                    <h5>{{item.title}}</h5>
-                    <p>{{item.num}}人正在学习</p>
+                    <h5>{{item.courseTitle}}</h5>
+                    <p>{{item.courseNum}}人正在学习</p>
                 </div>
             </li>
         </ul>

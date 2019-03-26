@@ -4,10 +4,10 @@
       <div class="header-user">
         <img class="header-user-img"
              mode="aspectFill"
-             src="../../../static/images/course/teacher.png">
+             :src="userInfo.userImage">
         <div class="header-text">
-          <text class="text-user-name">谭敏仪</text>
-          <text class="text-address">北京</text>
+          <text class="text-user-name">{{ userInfo.userNickname }}</text>
+          <text class="text-address">{{ userInfo.userCity }}</text>
           <text class="text-school">第一小学</text>
         </div>
       </div>
@@ -29,9 +29,11 @@
 </template>
 
 <script>
+import { UserInfo } from '@/api'
 export default {
   data() {
     return {
+      userInfo: {},
       List: [
         {
           img: "/static/images/我的/收藏.png",
@@ -54,6 +56,12 @@ export default {
         url: `/pages/mine-collect/main`
       })
     }
+  },
+  onLoad() {
+    UserInfo.selectUserInfo({ userId: this.userId }).then(res => {
+      this.userInfo = Object.assign({}, res.data)
+      console.log(res.data);
+    })
   }
 }
 </script>

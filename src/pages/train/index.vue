@@ -21,28 +21,7 @@
                 totalPage: 1,
                 loading: true,
                 title: "全部训练",
-                trainList: [
-                    {
-                        title: "10分钟教会你6种上篮动作",
-                        interval: "10:02",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    },
-                    {
-                        title: "10分钟教会你6种上篮动作",
-                        interval: "10:02",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    },
-                    {
-                        title: "10分钟教会你6种上篮动作",
-                        interval: "10:02",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    },
-                    {
-                        title: "10分钟教会你6种上篮动作",
-                        interval: "10:02",
-                        url: "http://img1.xcarimg.com/exp/2872/2875/2937/20101220130509576539.jpg"
-                    }
-                ]
+                trainList: []
             }
         },
         methods: {
@@ -52,10 +31,10 @@
                     return false
                 } else  this.loading = true
                 
-                //let data = {
-                    // currentPage,
-                    // token
-                //}
+                let data = {
+                    currentPage,
+                    token
+                }
             // api.then(res => {
             //         this.trainList = [...this.trainList, ...res.data]
             //         this.totalPage = res.totalPage

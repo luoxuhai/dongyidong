@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { login } from '@/api'
-import { mapMutations } from 'vuex'
+import { UserInfo } from '@/api'
+import { mapMutations, mapState } from 'vuex'
 export default {
   name: '',
   data() {
@@ -26,7 +26,7 @@ export default {
     }
   },
   onLoad() {
-    // wx.switchTab({ url: `/pages/home/main` });
+
   },
   methods: {
     ...mapMutations(['setUserInfo']),
@@ -42,14 +42,25 @@ export default {
     login() {
       wx.getUserInfo({
         withCredentials: true,
+        lang: 'zh_CN',
         success: res => {
           let data = res.userInfo;
           wx.login({
             success: res => {
-              login({ code: res.code }).then(res => {
-                console.log(res);
-                this.setUserInfo({
-                  userId: res.data.userId
+              let { avatarUrl, city, nickName } = data
+              UserInfo.login({
+                code: res.code,
+              }).then(res => {
+                  console.log(data);
+                this.setUserInfo({ userId: res.data.openId })
+                wx.switchTab({ url: `/pages/home/main` });
+                UserInfo.insertBasicUserInfo({
+                  openId: res.data.openId,
+                  userImage: avatarUrl,
+                  userCity: city,
+                  userNickname: nickName
+                }),then(res => {
+                    console.log(res);
                 })
               }).catch(err => {
                 console.error('errMsg:', err.message);
@@ -57,12 +68,12 @@ export default {
               console.log('code: ', res.code);
             }
           });
-        },
-        fail: err => {
-          console.error(err);
         }
       });
     }
+  },
+  computed: {
+    ...mapState(['userId'])
   }
 }
 </script>

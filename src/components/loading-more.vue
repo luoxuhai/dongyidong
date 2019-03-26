@@ -19,8 +19,7 @@
                 default: 24
             },
             loading: {
-                type: Boolean,
-                default: true
+                type: Boolean
             },
             tip: {
                 type: String,
@@ -32,8 +31,8 @@
 
 <style scoped>
     .load-more {
-        margin: 10 rpx auto;
-        line-height: 4em;
+        margin: 20rpx auto;
+        line-height: 5em;
         font-size: 14px;
         text-align: center;
     }
@@ -52,8 +51,8 @@
     .load-more-tip {
         display: inline-block;
         vertical-align: middle;
-        height: 90 rpx;
-        line-height: 110 rpx;
+        height: 90rpx;
+        line-height: 110rpx;
         color: #495060;
     }
 
