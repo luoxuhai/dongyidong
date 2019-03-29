@@ -49,7 +49,7 @@ export default {
       else this.infoList = [...records]
       this.totalPage = pages
       this.currentPage += 1
-      this.pageSize = size
+      this.pageSize = size || 1
       wx.stopPullDownRefresh()
     },
     loadMore(reachBottom = false) {
@@ -58,15 +58,17 @@ export default {
         return false
       } else this.loading = true
       let data = {
-        userId: this.userId,
         pageNum: this.currentPage
       }
+      let header = {
+        token: this.userId
+      }
       if (this.selectIndex === 1)
-        MessageNews.userCollectMessage(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
+        MessageNews.userCollectMessage(data, header).then(this.getSucc.bind(this, reachBottom)).catch(err => {
           console.log(err);
         })
       else
-        Course.userCourseList(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
+        Course.userCourseList(data, header).then(this.getSucc.bind(this, reachBottom)).catch(err => {
           console.log(err);
         })
     },

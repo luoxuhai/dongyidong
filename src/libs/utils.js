@@ -1,11 +1,13 @@
-export const request = (method, url, data) => {
+import store from '../store';
+export const request = (method, url, data, header = {}) => {
   return new Promise((resolve, reject) => {
     wx.request({
       url,
       data,
       method,
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
+          token: store.state.token
       },
       success: res => {
         if (res.statusCode === 200) resolve(res.data);
@@ -13,7 +15,7 @@ export const request = (method, url, data) => {
       },
       fail: err => {
         reject(err);
-      }
+      },
     });
   });
 };

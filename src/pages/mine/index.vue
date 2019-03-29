@@ -30,6 +30,7 @@
 
 <script>
 import { UserInfo } from '@/api'
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -57,9 +58,13 @@ export default {
       })
     }
   },
+  computed: {
+    ...mapState(['userId'])
+  },
   onLoad() {
     UserInfo.selectUserInfo({ userId: this.userId }).then(res => {
-      this.userInfo = Object.assign({}, res.data)
+      res.data.userNickname = decodeURI(res.data.userNickname)
+      this.userInfo = res.data
       console.log(res.data);
     })
   }

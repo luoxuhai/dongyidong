@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <div class="teacher-detail">
-      <div class="avatar">
-        <img mode="aspectFill"
-             :src="teacherDetail.teacherUrl">
-      </div>
-      <div class="desc">
-        <p class="name">{{ teacherDetail.teacherName }}</p>
-        <p class="intro">{{ teacherDetail.teacherSlogan }}</p>
-        <p class="syn">{{ teacherDetail.teacherDescription }}</p>
-        <div class="tag">
-          <div class="tag-item"
-               v-for="(item, index) of teacherDetail.teacherLabel"
-               :key="index">{{ item }}</div>
-        </div>
+  <div class="teacher-detail">
+    <div class="avatar">
+      <img mode="aspectFill"
+           :src="teacherDetail.teacherUrl">
+    </div>
+    <div class="desc">
+      <p class="name">{{ teacherDetail.teacherName }}</p>
+      <p class="intro">{{ teacherDetail.teacherSlogan }}</p>
+      <p class="syn">{{ teacherDetail.teacherDescription }}</p>
+      <div class="tag">
+        <div class="tag-item"
+             v-for="(item, index) of teacherDetail.teacherLabel"
+             :key="index">{{ item }}</div>
       </div>
     </div>
   </div>
@@ -44,8 +42,7 @@ export default {
 
 .teacher-detail {
   @include flex;
-  margin: 0 20px;
-
+  margin: 25px;
   .avatar {
     @include flex(center, center);
     width: 82px;

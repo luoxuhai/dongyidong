@@ -11,8 +11,9 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wx2dece24e9e9093e0",
+	"appid": "wx037562790c5d5253",
 	"projectname": "dongyidong",
+	"libVersion": "2.6.4",
 	"condition": {
 		"search": {
 			"current": -1,

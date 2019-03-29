@@ -31,6 +31,7 @@ export default {
   methods: {
     ...mapMutations(['setUserInfo']),
     handleLogin() {
+      this.login();
       wx.getSetting({
         success: res => {
           if (res.authSetting["scope.userInfo"]) {
@@ -51,25 +52,26 @@ export default {
               UserInfo.login({
                 code: res.code,
               }).then(res => {
-                  console.log(data);
-                this.setUserInfo({ userId: res.data.openId })
+                const { openId, token } = res.data
+                this.setUserInfo({
+                  userId: openId,
+                  openId,
+                  token
+                })
                 wx.switchTab({ url: `/pages/home/main` });
                 UserInfo.insertBasicUserInfo({
                   openId: res.data.openId,
                   userImage: avatarUrl,
                   userCity: city,
-                  userNickname: nickName
-                }),then(res => {
-                    console.log(res);
+                  userNickname: encodeURI(nickName)
+                }).then(res => {
                 })
               }).catch(err => {
-                console.error('errMsg:', err.message);
               })
-              console.log('code: ', res.code);
             }
           });
         }
-      });
+      })
     }
   },
   computed: {
@@ -115,6 +117,7 @@ export default {
     color: whitesmoke;
     button {
       position: absolute;
+      z-index: 999;
       top: 0;
       left: 0;
       right: 0;

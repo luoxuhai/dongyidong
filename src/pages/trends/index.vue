@@ -19,6 +19,7 @@
 import InfoList from "@/components/info-list"
 import LoadingMore from "@/components/loading-more"
 import { MessageNews } from "@/api"
+import { mapState } from 'vuex'
 export default {
   components: {
     InfoList,
@@ -40,7 +41,7 @@ export default {
     loadMore(reachBottom = false) {
       if (this.currentPage > this.totalPage) {
         this.loading = false
-        return false
+        return
       } else this.loading = true
       let data = {
         pageNum: this.currentPage,
@@ -49,10 +50,10 @@ export default {
       MessageNews.selectMessageByType(data).then(res => {
         console.log(res.data);
         const { pages, size, records } = res.data
-        if (this.currentPage === pages) this.loading = false
+        if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.trendsList = [...this.trendsList, ...records]
         else this.trendsList = [...records]
-        this.totalPage = pages
+        this.totalPage = pages || 1
         this.pageSize = size
         this.currentPage += 1
         wx.stopPullDownRefresh()
@@ -75,6 +76,9 @@ export default {
   },
   onReachBottom() {
     this.loadMore(true)
+  },
+  computed: {
+    ...mapState(['userId', 'token'])
   },
   watch: {
     currentPage() {
