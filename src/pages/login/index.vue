@@ -52,21 +52,25 @@ export default {
               UserInfo.login({
                 code: res.code,
               }).then(res => {
-                const { openId, token } = res.data
+                const { openId, token, status } = res.data
                 this.setUserInfo({
                   userId: openId,
                   openId,
                   token
                 })
                 wx.switchTab({ url: `/pages/home/main` });
-                UserInfo.insertBasicUserInfo({
-                  openId: res.data.openId,
-                  userImage: avatarUrl,
-                  userCity: city,
-                  userNickname: encodeURI(nickName)
-                }).then(res => {
-                })
-              }).catch(err => {
+                if (status !== 1)
+                  UserInfo.insertBasicUserInfo({
+                    openId: res.data.openId,
+                    userImage: avatarUrl,
+                    userCity: city,
+                    userNickname: encodeURI(nickName)
+                  }).then(res => {
+                    this.setUserInfo({
+                      userID: res.data.userId
+                    })
+                    console.log(res);
+                  })
               })
             }
           });

@@ -2,8 +2,8 @@
 import { mapMutations } from 'vuex';
 export default {
   onLaunch() {
-    const userId = wx.getStorageSync('userId')
-    if (userId) {
+    const token = wx.getStorageSync('token')
+    if (token) {
       wx.switchTab({ url: `/pages/home/main` });
     }
     let state = this.$store.state

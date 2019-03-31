@@ -59,13 +59,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userId'])
+    ...mapState(['userID'])
   },
   onLoad() {
-    UserInfo.selectUserInfo({ userId: this.userId }).then(res => {
+    UserInfo.selectUserInfo({ userId: this.userID }).then(res => {
       res.data.userNickname = decodeURI(res.data.userNickname)
       this.userInfo = res.data
-      console.log(res.data);
     })
   }
 }

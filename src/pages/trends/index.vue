@@ -96,21 +96,22 @@ export default {
 @import "static/styles/common.scss";
 
 .container-trends {
-  padding: 0 15px;
-
+  padding: 42px 15px;
   .navbar {
     @include flex(space-around, center);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 42px;
     margin-bottom: 10px;
     background-color: #fff;
-
     .navbar-item {
       box-sizing: border-box;
       height: 100%;
       line-height: 42px;
       font-size: 15px;
       color: #303030;
-
       &.active {
         border-bottom: 2px solid #ffc83a;
         color: #ffc83a;

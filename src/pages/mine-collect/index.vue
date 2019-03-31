@@ -47,9 +47,9 @@ export default {
       const { size, pages, records } = res.data
       if (reachBottom) this.infoList = [...this.infoList, ...records]
       else this.infoList = [...records]
-      this.totalPage = pages
+      this.totalPage = pages || 1
       this.currentPage += 1
-      this.pageSize = size || 1
+      this.pageSize = size
       wx.stopPullDownRefresh()
     },
     loadMore(reachBottom = false) {
@@ -58,17 +58,15 @@ export default {
         return false
       } else this.loading = true
       let data = {
+        userId: this.$store.state.userId,
         pageNum: this.currentPage
       }
-      let header = {
-        token: this.userId
-      }
       if (this.selectIndex === 1)
-        MessageNews.userCollectMessage(data, header).then(this.getSucc.bind(this, reachBottom)).catch(err => {
+        MessageNews.userCollectMessage(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
           console.log(err);
         })
       else
-        Course.userCourseList(data, header).then(this.getSucc.bind(this, reachBottom)).catch(err => {
+        Course.userCourseList(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
           console.log(err);
         })
     },
@@ -106,16 +104,19 @@ export default {
 
 <style lang="scss" scoped>
 .collect-container {
-  padding: 0 15px;
+  padding: 40px 15px;
 }
 
 .header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 375px;
+  position: fixed;
+  top: 0;
+  width: 100%;
   height: 40px;
   margin-bottom: 10px;
+  background-color: #fff;
 
   .navbar-item {
     width: 30px;

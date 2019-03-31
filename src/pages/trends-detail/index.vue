@@ -36,7 +36,7 @@ export default {
       if (this.isCollect) {
         MessageNews.cancelCollect({
           userId: this.$store.state.userId,
-          messageId: this.messageId
+          newsId: this.messageId
         }).then(res => {
           this.isCollect = false
           wx.showToast({
@@ -51,7 +51,7 @@ export default {
         //取消收藏
         MessageNews.addInCollect({
           userId: this.$store.state.userId,
-          messageId: this.messageId
+          newsId: this.messageId
         }).then(res => {
           this.isCollect = true
           wx.showToast({
@@ -71,7 +71,7 @@ export default {
     this.messageId = option.id
     MessageNews.selectMessageDetail({
       userId: this.$store.state.userId,
-      messageId: this.messageId
+      newsId: this.messageId
     }).then(res => {
       console.log(res.data);
       this.detailContent = res.data

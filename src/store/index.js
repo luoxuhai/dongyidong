@@ -5,6 +5,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     userId: '',
+    userID: '',
     token: '',
     openId: ''
   },
