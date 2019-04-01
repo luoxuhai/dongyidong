@@ -4,7 +4,7 @@
         <ul>
             <li v-for="(item, index) in data" :key="index" :data-index="item.messageId" @click="selectItem">
                 <div class="info-pic">
-                    <img :src="item.messageUrl" alt="">
+                    <img :src="item.messageUrl" lazy-load mode="aspectFill">
                     <span>{{item.messageNum}}人浏览</span>
                 </div>
                 <p>{{item.messageTitle}}</p>

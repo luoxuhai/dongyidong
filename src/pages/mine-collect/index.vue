@@ -63,11 +63,11 @@ export default {
       }
       if (this.selectIndex === 1)
         MessageNews.userCollectMessage(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
-          console.log(err);
+          
         })
       else
         Course.userCourseList(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
-          console.log(err);
+          
         })
     },
     handleItem(index) {

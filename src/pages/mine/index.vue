@@ -53,9 +53,12 @@ export default {
   },
   methods: {
     handleEnterDetail(index) {
-      wx.navigateTo({
-        url: `/pages/mine-collect/main`
-      })
+      switch (index) {
+        case 0:
+          wx.navigateTo({
+            url: `/pages/mine-collect/main`
+          })
+      }
     }
   },
   computed: {

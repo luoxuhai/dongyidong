@@ -50,14 +50,13 @@ export default {
     border: 1px solid #ffc83a;
     border-radius: 50%;
     overflow: hidden;
-
     img {
       width: 90%;
       height: 90%;
       border-radius: 50%;
+      background-color: #f7f7f7;
     }
   }
-
   .desc {
     flex: 1;
     margin-left: 15px;

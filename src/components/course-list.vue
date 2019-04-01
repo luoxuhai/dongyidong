@@ -4,7 +4,7 @@
         <ul>
             <li v-for="(item, index) in data" :key="index" :data-index="item.courseId" @click="selectItem">
                 <div class="course-pic">
-                    <img :src="item.courseImage">
+                    <img :src="item.courseImage" lazy-load mode="aspectFill">
                     <span>{{item.courseTolTime}}</span>
                 </div>
                 <div class="course-con">

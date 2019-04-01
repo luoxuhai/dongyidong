@@ -19,8 +19,10 @@
 
 <script>
 import { TrainingTeacher } from '@/api'
+import { pagingLoadingMixin } from '@/common/js/mixin'
 import LoadingMore from '@/components/loading-more'
 export default {
+  mixins: [pagingLoadingMixin],
   components: {
     LoadingMore
   },
@@ -44,12 +46,11 @@ export default {
         pageNum: this.currentPage
       }
       TrainingTeacher.teacherList(data).then(res => {
-        console.log(res.data);
-        const { pages, size, records } = res.data
-        if (this.currentPage === pages) this.loading = false
+        const { pages, size, records, total } = res.data
+        if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.teacherList = [...this.teacherList, ...records]
         else this.teacherList = [...records]
-        this.totalPage = pages
+        this.totalPage = pages || 1
         this.pageSize = size
         this.currentPage += 1
         wx.stopPullDownRefresh()
@@ -61,16 +62,16 @@ export default {
       })
     }
   },
-  onPullDownRefresh() {
-    this.currentPage = 1
-    this.loadMore()
-  },
-  onReachBottom() {
-    this.loadMore(true)
-  },
-  onLoad() {
-    this.loadMore()
-  },
+  //   onPullDownRefresh() {
+  //     this.currentPage = 1
+  //     this.loadMore()
+  //   },
+  //   onReachBottom() {
+  //     this.loadMore(true)
+  //   },
+  //   onLoad() {
+  //     this.loadMore()
+  //   },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
   }

@@ -20,7 +20,9 @@ import InfoList from "@/components/info-list"
 import LoadingMore from "@/components/loading-more"
 import { MessageNews } from "@/api"
 import { mapState } from 'vuex'
+import { pagingLoadingMixin } from '@/common/js/mixin'
 export default {
+  mixins: [pagingLoadingMixin],
   components: {
     InfoList,
     LoadingMore
@@ -48,7 +50,7 @@ export default {
         type: this.currentInedx
       }
       MessageNews.selectMessageByType(data).then(res => {
-        console.log(res.data);
+
         const { pages, size, records } = res.data
         if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.trendsList = [...this.trendsList, ...records]
@@ -60,6 +62,7 @@ export default {
       })
     },
     handleEnterDetail(index) {
+      console.log(index);
       wx.navigateTo({
         url: `/pages/trends-detail/main?id=${index}`
       })
@@ -70,13 +73,6 @@ export default {
       this.loadMore()
     }
   },
-  onPullDownRefresh() {
-    this.currentPage = 1
-    this.loadMore()
-  },
-  onReachBottom() {
-    this.loadMore(true)
-  },
   computed: {
     ...mapState(['userId', 'token'])
   },
@@ -85,9 +81,6 @@ export default {
       if (this.trendsList.length < this.pageSize)
         this.loading = false
     }
-  },
-  onLoad() {
-    this.loadMore()
   }
 }
 </script>

@@ -36,6 +36,34 @@ export class TrainingTeacher {
 
 //课程
 export class Course {
+  static courseList(data, header) {
+    const url = COURSE_URL + '/courseList';
+    return request('POST', url, data, header);
+  }
+  static courseDetail(data, header) {
+    const url = COURSE_URL + '/courseDetail';
+    return request('POST', url, data, header);
+  }
+  static collectCourse(data, header) {
+    const url = COURSE_URL + '/collectCourse';
+    return request('POST', url, data, header);
+  }
+  static cancelCollect(data, header) {
+    const url = COURSE_URL + '/cancelCollect';
+    return request('POST', url, data, header);
+  }
+  static joinCourse(data, header) {
+    const url = COURSE_URL + '/joinCourse';
+    return request('POST', url, data, header);
+  }
+  static withdrawCourse(data, header) {
+    const url = COURSE_URL + '/withdrawCourse';
+    return request('POST', url, data, header);
+  }
+  static userCollectCourse(data, header) {
+    const url = COURSE_URL + '/userCollectCourse';
+    return request('POST', url, data, header);
+  }
   static userCourseList(data, header) {
     const url = COURSE_URL + '/userCourseList';
     return request('POST', url, data, header);

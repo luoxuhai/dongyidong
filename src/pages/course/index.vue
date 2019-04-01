@@ -118,8 +118,8 @@
         swiper {
             width: 100%;
             height: 194px;
-            border-radius: 2px;
-
+            border-radius: 6px;
+            overflow: hidden;
             img.slide-image {
                 width: 100%;
                 height: 100%;

@@ -4,7 +4,7 @@
          mode="aspectFill"
          :src="detailContent.messageUrl">
     <h1 class="title">{{ detailContent.messageTitle }}</h1>
-    <p class="browse-count">{{ detailContent.messageNum + '人浏览' }}</p>
+    <p class="browse-count">{{ detailContent.messageNum}}人浏览</p>
     <text class="article"
           selectable
           decode
@@ -44,8 +44,6 @@ export default {
             icon: 'success',
             duration: 2000
           })
-        }).catch(err => {
-          console.log(err);
         })
       } else
         //取消收藏
@@ -59,25 +57,24 @@ export default {
             icon: 'success',
             duration: 2000
           })
-        }).catch(err => {
-          console.log(err);
         })
     },
     handleShowButton() {
       this.buttonShow = !this.buttonShow;
     }
   },
-  onLoad(option) {
-    this.messageId = option.id
+  onLoad(options) {
+    wx.showNavigationBarLoading()
+    this.messageId = options.id
     MessageNews.selectMessageDetail({
       userId: this.$store.state.userId,
       newsId: this.messageId
     }).then(res => {
-      console.log(res.data);
       this.detailContent = res.data
       this.isCollect = Boolean(res.data.isCollect)
+      wx.hideNavigationBarLoading()
     }).catch(err => {
-      console.log(err);
+
     })
   },
   onUnload() {
@@ -91,6 +88,7 @@ export default {
 .cover {
   width: 100vw;
   height: 125px;
+  background-color: #f7f7f7;
 }
 .title {
   margin: 15px 15px 10px 15px;

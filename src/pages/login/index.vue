@@ -31,7 +31,6 @@ export default {
   methods: {
     ...mapMutations(['setUserInfo']),
     handleLogin() {
-      this.login();
       wx.getSetting({
         success: res => {
           if (res.authSetting["scope.userInfo"]) {
@@ -66,10 +65,9 @@ export default {
                     userCity: city,
                     userNickname: encodeURI(nickName)
                   }).then(res => {
-                    this.setUserInfo({
+                    this.setUserInfo({  
                       userID: res.data.userId
                     })
-                    console.log(res);
                   })
               })
             }
@@ -108,14 +106,14 @@ export default {
   .hint {
     margin-bottom: 10px;
     font-size: 14px;
-    color: #ffc83a;
+    color: #888;
   }
   .button-login {
     position: relative;
     width: 200px;
     height: 40px;
     border-radius: 20px;
-    background-color: #19be6b;
+    background-color: #ffc83a;
     text-align: center;
     line-height: 40px;
     color: whitesmoke;

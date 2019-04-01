@@ -16,3 +16,19 @@ export const selectItemMixin = {
         }
     }
 }
+
+export const pagingLoadingMixin = {
+    onPullDownRefresh() {
+        this.currentPage = 1
+        this.loadMore()
+    },
+    onReachBottom() {
+        this.loadMore(true)
+    },
+    onLoad() {
+        this.loadMore()
+    },
+    onUnload() {
+        Object.assign(this.$data, this.$options.data())
+    }
+}

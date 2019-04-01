@@ -1,7 +1,8 @@
 <template>
   <div class="container-train">
     <train-list :title="title"
-                :data="trainList" />
+                :data="trainList"
+                 @select="selectTrain" />
     <loading-more :loading="loading"
                   size="22" />
   </div>
@@ -10,7 +11,9 @@
 import TrainList from "@/components/train-list"
 import LoadingMore from "@/components/loading-more"
 import { Course } from '@/api'
+import { pagingLoadingMixin } from '@/common/js/mixin'
 export default {
+  mixins: [pagingLoadingMixin],
   components: {
     TrainList,
     LoadingMore
@@ -26,6 +29,11 @@ export default {
     }
   },
   methods: {
+    selectTrain(courseId) {
+      wx.navigateTo({
+        url: `/pages/course-detail/main?courseId=${courseId}`
+      })
+    },
     loadMore(reachBottom = false) {
       if (this.currentPage > this.totalPage) {
         this.loading = false
@@ -37,26 +45,16 @@ export default {
         userId: this.$store.state.userId
       }
       Course.userCourseList(data).then(res => {
-        const { pages, size, records } = res.data
+        const { pages, size, records, total } = res.data
         if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.trainList = [...this.trainList, ...records]
         else this.trainList = [...records]
-        this.totalPage = pages
+        this.totalPage = pages || 1
         this.pageSize = size
         this.currentPage += 1
         wx.stopPullDownRefresh()
       })
     }
-  },
-  onPullDownRefresh() {
-    this.currentPage = 1
-    this.loadMore()
-  },
-  onReachBottom() {
-    this.loadMore(true)
-  },
-  onLoad() {
-    this.loadMore()
   }
 }
 </script>
