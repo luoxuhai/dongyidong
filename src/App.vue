@@ -2,10 +2,9 @@
 import { mapMutations } from 'vuex';
 export default {
   onLaunch() {
-       wx.switchTab({ url: `/pages/home/main` });
     const token = wx.getStorageSync('token')
-    if (token) {
-      wx.switchTab({ url: `/pages/home/main` });
+    if (!token) {
+      wx.redirectTo({ url: `/pages/login/main` });
     }
     let state = this.$store.state
     Object.keys(state).forEach(key => {

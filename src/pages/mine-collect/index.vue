@@ -9,9 +9,11 @@
       </li>
     </ul>
     <course-list v-if="selectIndex === 0"
-                 :data="courseList" />
+                 :data="infoList"
+                 @select="selectTrain" />
     <info-list v-if="selectIndex === 1"
-               :data="infoList" />
+               :data="infoList"
+               @select="selectInfo" />
     <loading-more :loading="loading"
                   size="22" />
   </div>
@@ -43,6 +45,16 @@ export default {
   },
 
   methods: {
+    selectTrain(courseId) {
+      wx.navigateTo({
+        url: `/pages/course-detail/main?courseId=${courseId}`
+      })
+    },
+    selectInfo(messageId) {
+      wx.navigateTo({
+        url: `/pages/trends-detail/main?messageId=${messageId}`
+      })
+    },
     getSucc(reachBottom, res) {
       const { size, pages, records } = res.data
       if (reachBottom) this.infoList = [...this.infoList, ...records]
@@ -63,11 +75,11 @@ export default {
       }
       if (this.selectIndex === 1)
         MessageNews.userCollectMessage(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
-          
+
         })
       else
-        Course.userCourseList(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
-          
+        Course.userCollectCourse(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
+
         })
     },
     handleItem(index) {
@@ -85,9 +97,6 @@ export default {
         this.loading = false
     }
   },
-  onLoad() {
-    this.loadMore()
-  },
   onPullDownRefresh() {
     this.currentPage = 1
     this.loadMore()
@@ -95,7 +104,10 @@ export default {
   onReachBottom() {
     this.loadMore(true)
   },
-
+  onShow() {
+    this.currentPage = 1
+    this.loadMore()
+  },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
   }

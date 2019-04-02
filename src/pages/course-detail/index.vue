@@ -2,6 +2,7 @@
   <div class="course-detail">
     <div class="video-wrap">
       <img v-if="!videoPlay"
+           mode="aspectFill"
            :src="courseDetail.courseImage">
       <video v-if="videoPlay"
              enable-play-gesture
@@ -56,7 +57,8 @@
            :key="index">
         <div>{{index + 1}}</div>
         <div>
-          <img :src="item.actionUrl">
+          <img mode="aspectFill"
+               :src="item.actionUrl">
         </div>
         <div>
           <h4>{{ item.actionTitle }}</h4>
@@ -220,6 +222,7 @@ export default {
       margin: auto;
       width: 60px;
       height: 60px;
+      color: #fff;
       text-align: center;
       line-height: 60px;
       font-size: 60px;

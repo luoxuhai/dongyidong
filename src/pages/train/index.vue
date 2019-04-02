@@ -2,7 +2,7 @@
   <div class="container-train">
     <train-list :title="title"
                 :data="trainList"
-                 @select="selectTrain" />
+                @select="selectTrain" />
     <loading-more :loading="loading"
                   size="22" />
   </div>
@@ -55,6 +55,10 @@ export default {
         wx.stopPullDownRefresh()
       })
     }
+  },
+  onShow() {
+    this.currentPage = 1
+    this.loadMore()
   }
 }
 </script>

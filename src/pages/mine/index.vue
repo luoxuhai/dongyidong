@@ -3,12 +3,13 @@
     <div class="header">
       <div class="header-user">
         <img class="header-user-img"
+             style="background: url('/static/images/course/teacher.png') 100% / cover;"
              mode="aspectFill"
              :src="userInfo.userImage">
         <div class="header-text">
           <text class="text-user-name">{{ userInfo.userNickname }}</text>
           <text class="text-address">{{ userInfo.userCity }}</text>
-          <text class="text-school">第一小学</text>
+          <text class="text-school">{{userInfo.schoolName || '未知'}}</text>
         </div>
       </div>
       <div class="function">
@@ -37,21 +38,29 @@ export default {
       userInfo: {},
       List: [
         {
-          img: "/static/images/我的/收藏.png",
+          img: "/static/images/my/collect.png",
           text: "收藏"
         },
         {
-          img: "/static/images/我的/帮助.png",
+          img: "/static/images/my/help.png",
           text: "帮助反馈"
         },
         {
-          img: "/static/images/我的/设置.png",
+          img: "/static/images/my/setting.png",
           text: "设置"
         }
       ]
     }
   },
   methods: {
+    getUserInfo() {
+      UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(res => {
+        const { schoolName, userCity, userImage, userNickname } = res.data
+        this.userInfo = {
+          schoolName, userCity, userImage, userNickname: decodeURI(userNickname)
+        }
+      })
+    },
     handleEnterDetail(index) {
       switch (index) {
         case 0:
@@ -61,14 +70,8 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState(['userID'])
-  },
-  onLoad() {
-    UserInfo.selectUserInfo({ userId: this.userID }).then(res => {
-      res.data.userNickname = decodeURI(res.data.userNickname)
-      this.userInfo = res.data
-    })
+  onShow() {
+    this.getUserInfo()
   }
 }
 </script>
@@ -97,7 +100,7 @@ export default {
     .header-text {
       display: flex;
       flex-direction: column;
-      margin-top: 19px;
+      margin-top: 25rpx;
       .text-address,
       .text-school,
       .text-user-name {

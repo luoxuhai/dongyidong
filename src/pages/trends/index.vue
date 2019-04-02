@@ -61,10 +61,9 @@ export default {
         wx.stopPullDownRefresh()
       })
     },
-    handleEnterDetail(index) {
-      console.log(index);
+    handleEnterDetail(messageId) {
       wx.navigateTo({
-        url: `/pages/trends-detail/main?id=${index}`
+        url: `/pages/trends-detail/main?messageId=${messageId}`
       })
     },
     handleItem(index) {

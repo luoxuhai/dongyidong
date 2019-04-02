@@ -1,10 +1,22 @@
 import { request } from '@/libs/utils';
 import { BASE_URL } from '@/libs/config';
 
+const HOME_URL = BASE_URL + '/client/home';
 const USER_INFO_URL = BASE_URL + '/userInfo';
 const TRAINING_TEACHER_URL = BASE_URL + '/trainingTeacher';
 const MESSAGE_NEWS_URL = BASE_URL + '/client/messageNews';
 const COURSE_URL = BASE_URL + '/client/course';
+
+export class Home {
+  static selectMessage(data) {
+    const url = HOME_URL + '/selectMessage';
+    return request('POST', url, data);
+  }
+  static getWeather(data) {
+      const url = 'http://t.weather.sojson.com/api/weather/city/101030100';
+    return request('GET', url, data);
+  }
+}
 
 //用户
 export class UserInfo {

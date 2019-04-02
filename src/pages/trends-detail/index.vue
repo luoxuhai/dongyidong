@@ -65,10 +65,11 @@ export default {
   },
   onLoad(options) {
     wx.showNavigationBarLoading()
-    this.messageId = options.id
+    let { messageId } = options
+    this.messageId = messageId
     MessageNews.selectMessageDetail({
       userId: this.$store.state.userId,
-      newsId: this.messageId
+      newsId: messageId
     }).then(res => {
       this.detailContent = res.data
       this.isCollect = Boolean(res.data.isCollect)
@@ -121,8 +122,7 @@ export default {
   height: 120px;
   transform: translateY(120px);
   transition: all 0.2s ease-out;
-  border-radius: 4px 4px 0 0;
-  box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   .button-collect {
     width: 263px;

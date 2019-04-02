@@ -51,9 +51,9 @@ export default {
               UserInfo.login({
                 code: res.code,
               }).then(res => {
-                const { openId, token, status } = res.data
+                const { openId, token, status, userId } = res.data
                 this.setUserInfo({
-                  userId: openId,
+                  userId,
                   openId,
                   token
                 })
@@ -64,11 +64,7 @@ export default {
                     userImage: avatarUrl,
                     userCity: city,
                     userNickname: encodeURI(nickName)
-                  }).then(res => {
-                    this.setUserInfo({  
-                      userID: res.data.userId
-                    })
-                  })
+                  }).then(res => {})
               })
             }
           });

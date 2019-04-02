@@ -48,7 +48,6 @@ export default {
       })
     },
     selectTrain(courseId) {
-        
       wx.navigateTo({
         url: `/pages/course-detail/main?courseId=${courseId}`
       })
