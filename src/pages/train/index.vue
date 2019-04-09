@@ -35,23 +35,27 @@ export default {
       })
     },
     loadMore(reachBottom = false) {
-      if (this.currentPage > this.totalPage) {
-        this.loading = false
-        return false
-      } else this.loading = true
+    //   if (this.currentPage > this.totalPage) {
+    //     this.loading = false
+    //     return false
+    //   } else this.loading = true
 
-      let data = {
+      Course.userCourseList({
         pageNum: this.currentPage,
         userId: this.$store.state.userId
-      }
-      Course.userCourseList(data).then(res => {
+      }).then(res => {
         const { pages, size, records, total } = res.data
-        if (this.currentPage >= pages) this.loading = false
+        // if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.trainList = [...this.trainList, ...records]
         else this.trainList = [...records]
         this.totalPage = pages || 1
         this.pageSize = size
         this.currentPage += 1
+        if (this.currentPage > this.totalPage) {
+          this.loading = false
+          return false
+        } else this.loading = true
+      }).finally(() => {
         wx.stopPullDownRefresh()
       })
     }

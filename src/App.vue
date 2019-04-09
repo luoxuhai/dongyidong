@@ -1,12 +1,32 @@
 <script>
 import { mapMutations } from 'vuex';
+import { UserInfo } from '@/api'
+import { wx_login } from '@/libs/utils'
 export default {
   onLaunch() {
-    const token = wx.getStorageSync('token')
+    const token = wx.getStorageSync('token');
     if (!token) {
       wx.redirectTo({ url: `/pages/login/main` });
+    } else
+      wx_login().then(res => {
+        return res
+      }).then(res => {
+        UserInfo.login({ code: res.code })
+          .then(res => {
+            const { openId, token, status, userId } = res.data
+            this.setUserInfo({
+              userId,
+              openId,
+              token
+            })
+          })
+      })
+
+    let state = {
+      userId: '',
+      token: '',
+      openId: ''
     }
-    let state = this.$store.state
     Object.keys(state).forEach(key => {
       const value = wx.getStorageSync(key);
       if (value) state[key] = value;
@@ -14,7 +34,7 @@ export default {
     this.setUserInfo(state)
   },
   methods: {
-    ...mapMutations(['setUserInfo'])
+    ...mapMutations(['setUserInfo', 'setLoadState'])
   }
 }
 </script>

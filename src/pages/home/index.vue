@@ -1,10 +1,11 @@
 <template>
-  <div class="home">
+  <div class="home"
+       :style="{opacity: opacity}">
     <div class="weather">
       <div class="weather-left">
         <p class="local">{{addressInfo.city}} <span>{{addressInfo.district}}</span></p>
         <p>PM2.5 <span>μg/m3</span></p>
-        <p>{{weather.quality}}</p>
+        <p class="quality">{{weather.quality}}</p>
       </div>
       <div class="weather-right">
         <p><i class="iconfont">&#xe631;</i>{{weather.wendu}}℃</p>
@@ -75,6 +76,7 @@ export default {
   },
   data() {
     return {
+      opacity: 0,
       borderColor: ['#19be6b', '#ff9900', '#CF1322'],
       weather: {
         quality: '中度污染',
@@ -166,6 +168,7 @@ export default {
                 district: ad_info.district
               }
               this.getWeather()
+              wx.hideNavigationBarLoading()
             }
           })
         }
@@ -183,10 +186,14 @@ export default {
     this.getHomeData()
   },
   onLoad() {
+    wx.showNavigationBarLoading()
+    const token = wx.getStorageSync('token');
+    if (token) this.getLocation()
     this.getHomeData()
-    this.getLocation()
+    setTimeout(() => {
+      this.opacity = 1
+    }, 400)
   }
-
 }
 </script>
 
@@ -199,17 +206,28 @@ export default {
 
     .weather-left {
       p.local {
-        font-size: 17px;
+        font: {
+          size: 17px;
+          weight: 600;
+        }
         color: #1c2438;
         margin-bottom: 12px;
-
         span {
-          font-size: 14px;
+          font: {
+            size: 14px;
+            weight: 400;
+          }
+          color: #1c2438;
           display: inline-block;
           margin-left: 8px;
         }
+        &.quality {
+          font: {
+            size: 35px;
+            weight: 300;
+          }
+        }
       }
-
       p {
         font-size: 12px;
         color: #4a4a4a;

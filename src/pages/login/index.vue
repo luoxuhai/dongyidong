@@ -8,9 +8,7 @@
       <p class="hint">请授权小程序以继续使用动亿动体育服务</p>
       <div class="button-login">
         <button open-type="getUserInfo"
-                lang="zh-CN"
                 @getuserinfo="handleLogin"></button>
-        <span></span>
         微信授权登录</div>
     </section>
   </div>
@@ -29,7 +27,7 @@ export default {
 
   },
   methods: {
-    ...mapMutations(['setUserInfo']),
+    ...mapMutations(['setUserInfo', 'setLoadState']),
     handleLogin() {
       wx.getSetting({
         success: res => {
@@ -44,12 +42,15 @@ export default {
         withCredentials: true,
         lang: 'zh_CN',
         success: res => {
+          wx.showLoading({
+            title: '登录中',
+          })
           let data = res.userInfo;
           wx.login({
             success: res => {
               let { avatarUrl, city, nickName } = data
               UserInfo.login({
-                code: res.code,
+                code: res.code
               }).then(res => {
                 const { openId, token, status, userId } = res.data
                 this.setUserInfo({
@@ -57,14 +58,15 @@ export default {
                   openId,
                   token
                 })
-                wx.switchTab({ url: `/pages/home/main` });
-                if (status !== 1)
+                if (status === 0)
                   UserInfo.insertBasicUserInfo({
                     openId: res.data.openId,
                     userImage: avatarUrl,
                     userCity: city,
                     userNickname: encodeURI(nickName)
-                  }).then(res => {})
+                  }).then(res => { })
+                wx.hideLoading()
+                wx.switchTab({ url: `/pages/home/main` });
               })
             }
           });
@@ -121,6 +123,9 @@ export default {
       right: 0;
       bottom: 0;
       opacity: 0;
+    }
+    &:active {
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 }

@@ -6,7 +6,8 @@ const store = new Vuex.Store({
   state: {
     userId: '',
     token: '',
-    openId: ''
+    openId: '',
+    load: false,
   },
   mutations: {
     setUserInfo(state, userInfo) {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
           data: userInfo[key],
         });
       });
+    },
+    setLoadState(state, status) {
+      state.load = status;
     },
   },
 });
