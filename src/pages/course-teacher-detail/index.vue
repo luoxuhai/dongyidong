@@ -28,7 +28,9 @@ export default {
   onLoad(options) {
     TrainingTeacher.teacherDetail({ teacherId: options.teacherId })
       .then(res => {
+        let teacherLabel = res.data.teacherLabel
         this.teacherDetail = res.data
+        this.teacherDetail.teacherLabel = teacherLabel.split('，')
       })
   },
   onUnload() {

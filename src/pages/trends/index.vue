@@ -47,8 +47,9 @@ export default {
       } else this.loading = true
       let data = {
         pageNum: this.currentPage,
-        type: this.currentInedx
+        type: this.currentInedx - 1
       }
+      if (this.currentInedx === 0) delete data.type
       MessageNews.selectMessageByType(data).then(res => {
 
         const { pages, size, records } = res.data
@@ -96,7 +97,7 @@ export default {
     left: 0;
     right: 0;
     height: 42px;
-    margin-bottom: 10px;
+    z-index: 99;
     background-color: #fff;
     .navbar-item {
       box-sizing: border-box;

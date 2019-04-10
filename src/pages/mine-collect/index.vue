@@ -24,6 +24,7 @@ import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
 import LoadingMore from "@/components/loading-more"
 import { MessageNews, Course } from "@/api"
+import { transitionTime } from "@/libs/tools"
 import { mapState } from 'vuex'
 export default {
   components: {
@@ -57,6 +58,11 @@ export default {
     },
     getSucc(reachBottom, res) {
       const { size, pages, records } = res.data
+      if (this.selectIndex === 0)
+        records.forEach((item, index) => {
+          const courseTolTime = records[index].courseTolTime
+          records[index].courseTolTime = transitionTime(courseTolTime)
+        });
       if (reachBottom) this.infoList = [...this.infoList, ...records]
       else this.infoList = [...records]
       this.totalPage = pages || 1
@@ -116,7 +122,7 @@ export default {
 
 <style lang="scss" scoped>
 .collect-container {
-  padding: 40px 15px;
+  padding: 50px 15px;
 }
 
 .header {
@@ -125,16 +131,17 @@ export default {
   align-items: center;
   position: fixed;
   top: 0;
+  z-index: 99;
   width: 100%;
-  height: 40px;
+  height: 45px;
   margin-bottom: 10px;
   background-color: #fff;
 
   .navbar-item {
-    width: 30px;
+    width: 34px;
     height: 42px;
     line-height: 42px;
-    font-size: 15px;
+    font-size: 16px;
     text-align: center;
     color: #303030;
 

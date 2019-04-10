@@ -68,6 +68,7 @@ import QQMapWX from '@/libs/qqmap-wx-jssdk.min'
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
 import { Home } from '@/api'
+import { transitionTime } from "@/libs/tools"
 export default {
   name: "home",
   components: {
@@ -133,6 +134,10 @@ export default {
     getHomeData() {
       Home.selectMessage({}).then(res => {
         let { courseDtoList, newsDtos } = res.data
+        courseDtoList.forEach((item, index) => {
+          const courseTolTime = courseDtoList[index].courseTolTime
+          courseDtoList[index].courseTolTime = transitionTime(courseTolTime)
+        });
         this.courseData = [...courseDtoList]
         this.infoData = [...newsDtos]
         wx.stopPullDownRefresh()

@@ -18,7 +18,9 @@
     "pages/trends-detail/main",
     "pages/mine/main",
     "pages/mine-collect/main",
-    "pages/my-train/main"
+    "pages/my-train/main",
+    "pages/setting/main",
+    "pages/setting-detail/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

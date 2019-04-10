@@ -11,6 +11,7 @@
 import TrainList from "@/components/train-list"
 import LoadingMore from "@/components/loading-more"
 import { Course } from '@/api'
+import { transitionTime } from "@/libs/tools"
 import { pagingLoadingMixin } from '@/common/js/mixin'
 export default {
   mixins: [pagingLoadingMixin],
@@ -35,10 +36,10 @@ export default {
       })
     },
     loadMore(reachBottom = false) {
-    //   if (this.currentPage > this.totalPage) {
-    //     this.loading = false
-    //     return false
-    //   } else this.loading = true
+      //   if (this.currentPage > this.totalPage) {
+      //     this.loading = false
+      //     return false
+      //   } else this.loading = true
 
       Course.userCourseList({
         pageNum: this.currentPage,
@@ -46,6 +47,10 @@ export default {
       }).then(res => {
         const { pages, size, records, total } = res.data
         // if (this.currentPage >= pages) this.loading = false
+        records.forEach((item, index) => {
+          const courseTolTime = records[index].courseTolTime
+          records[index].courseTolTime = transitionTime(courseTolTime)
+        });
         if (reachBottom) this.trainList = [...this.trainList, ...records]
         else this.trainList = [...records]
         this.totalPage = pages || 1

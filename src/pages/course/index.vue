@@ -1,40 +1,41 @@
 <template>
   <div class="course">
-      <swiper indicator-dots
-              autoplay
-              :interval="interval"
-              :duration="duration"
-              circular>
-        <block v-for="(item, index) in imgUrls"
-               :key="index">
-          <swiper-item>
-            <img :src="item"
-                 class="slide-image"
-                 alt="">
-          </swiper-item>
-        </block>
-      </swiper>
-      <div class="nav">
-        <div class="nav-item"
-             v-for="(item, index) of navbarList"
-             :key="index"
-             @click="handleEnterClick(index)">
-          <img :src="item.imgUrl"
-               width="90"
-               height="90">
-          <p>{{ item.name }}</p>
-        </div>
+    <swiper indicator-dots
+            autoplay
+            :interval="interval"
+            :duration="duration"
+            circular>
+      <block v-for="(item, index) in imgUrls"
+             :key="index">
+        <swiper-item>
+          <img :src="item"
+               class="slide-image"
+               alt="">
+        </swiper-item>
+      </block>
+    </swiper>
+    <div class="nav">
+      <div class="nav-item"
+           v-for="(item, index) of navbarList"
+           :key="index"
+           @click="handleEnterClick(index)">
+        <img :src="item.imgUrl"
+             width="90"
+             height="90">
+        <p>{{ item.name }}</p>
       </div>
-      <div class="course-wrap">
-        <course-list :title="courseTitle"
-                     :data="courseData"
-                     @select="selectCourse"></course-list>
-      </div>
+    </div>
+    <div class="course-wrap">
+      <course-list :title="courseTitle"
+                   :data="courseData"
+                   @select="selectCourse"></course-list>
+    </div>
   </div>
 </template>
 
 <script>
 import CourseList from "@/components/course-list"
+import { transitionTime } from "@/libs/tools"
 import { Home } from '@/api'
 
 export default {
@@ -108,6 +109,10 @@ export default {
     getHomeData() {
       Home.selectMessage({}).then(res => {
         let { courseDtoList } = res.data
+        courseDtoList.forEach((item, index) => {
+          const courseTolTime = courseDtoList[index].courseTolTime
+          courseDtoList[index].courseTolTime = transitionTime(courseTolTime)
+        });
         this.courseData = [...courseDtoList]
         wx.stopPullDownRefresh()
       })

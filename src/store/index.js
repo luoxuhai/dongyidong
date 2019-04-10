@@ -7,6 +7,9 @@ const store = new Vuex.Store({
     userId: '',
     token: '',
     openId: '',
+    avatarUrl: '',
+    city: '',
+    nickName: '',
     load: false,
   },
   mutations: {

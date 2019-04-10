@@ -73,6 +73,7 @@
 
 <script>
 import { Course } from '@/api'
+import { transitionTime } from "@/libs/tools"
 export default {
   name: "course-detail",
   data() {
@@ -175,6 +176,7 @@ export default {
       let { data } = res
       this.isCollected = data.isCollected
       this.isJoin = data.isJoin
+      data.courseTolTime = transitionTime(data.courseTolTime)
       this.courseDetail = data
       wx.hideNavigationBarLoading()
     })

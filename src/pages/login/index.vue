@@ -29,26 +29,20 @@ export default {
   methods: {
     ...mapMutations(['setUserInfo', 'setLoadState']),
     handleLogin() {
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting["scope.userInfo"]) {
-            this.login();
-          }
-        }
-      });
+      wx.showLoading({
+        title: '登录中',
+      })
+      this.login();
     },
     login() {
       wx.getUserInfo({
         withCredentials: true,
         lang: 'zh_CN',
         success: res => {
-          wx.showLoading({
-            title: '登录中',
-          })
           let data = res.userInfo;
           wx.login({
             success: res => {
-              let { avatarUrl, city, nickName } = data
+              let { avatarUrl, city, nickName, gender } = data
               UserInfo.login({
                 code: res.code
               }).then(res => {
@@ -58,13 +52,22 @@ export default {
                   openId,
                   token
                 })
-                if (status === 0)
+                if (status === 0) {
                   UserInfo.insertBasicUserInfo({
                     openId: res.data.openId,
                     userImage: avatarUrl,
-                    userCity: city,
-                    userNickname: encodeURI(nickName)
-                  }).then(res => { })
+                    userCity: city || '未知',
+                    userNickname: encodeURI(nickName),
+                  }).then(res => {
+                    const { userId } = res.data
+                    this.setUserInfo({
+                      userId,
+                      avatarUrl,
+                      nickName,
+                      city
+                    })
+                  })
+                }
                 wx.hideLoading()
                 wx.switchTab({ url: `/pages/home/main` });
               })
@@ -73,9 +76,6 @@ export default {
         }
       })
     }
-  },
-  computed: {
-    ...mapState(['userId'])
   }
 }
 </script>
@@ -125,7 +125,7 @@ export default {
       opacity: 0;
     }
     &:active {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
     }
   }
 }

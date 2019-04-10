@@ -11,6 +11,7 @@
 import CourseList from "@/components/course-list"
 import LoadingMore from '@/components/loading-more'
 import { Course } from '@/api'
+import { transitionTime } from "@/libs/tools"
 import { pagingLoadingMixin } from '@/common/js/mixin'
 export default {
   name: "course-sec",
@@ -41,6 +42,10 @@ export default {
       Course.courseList(data).then(res => {
         const { pages, size, records, total } = res.data
         if (this.currentPage >= pages) this.loading = false
+        records.forEach((item, index) => {
+          const courseTolTime = records[index].courseTolTime
+          records[index].courseTolTime = transitionTime(courseTolTime)
+        });
         if (reachBottom) this.courseData = [...this.courseData, ...records]
         else this.courseData = [...records]
         this.totalPage = pages || 1

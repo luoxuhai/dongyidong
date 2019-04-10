@@ -14,14 +14,18 @@ export default {
         UserInfo.login({ code: res.code })
           .then(res => {
             const { openId, token, status, userId } = res.data
+            console.log(status);
+            if (status === 0) wx.redirectTo({ url: `/pages/login/main` });
             this.setUserInfo({
               userId,
               openId,
-              token
+              token,
+              avatarUrl,
+              nickName,
+              city
             })
           })
       })
-
     let state = {
       userId: '',
       token: '',
@@ -32,6 +36,10 @@ export default {
       if (value) state[key] = value;
     });
     this.setUserInfo(state)
+  },
+  onShow() {
+    const token = wx.getStorageSync('token');
+    if (!token) wx.redirectTo({ url: `/pages/login/main` });
   },
   methods: {
     ...mapMutations(['setUserInfo', 'setLoadState'])

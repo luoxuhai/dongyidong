@@ -2,18 +2,18 @@
 	"description": "项目配置文件。",
 	"setting": {
 		"urlCheck": false,
-		"es6": false,
+		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": true,
+		"nodeModules": false,
 		"autoAudits": false
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
 	"appid": "wx037562790c5d5253",
 	"projectname": "dongyidong",
-	"libVersion": "2.6.4",
+	"libVersion": "2.6.5",
 	"condition": {
 		"search": {
 			"current": -1,

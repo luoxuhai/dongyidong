@@ -9,7 +9,7 @@
         <div class="header-text">
           <text class="text-user-name">{{ userInfo.userNickname }}</text>
           <text class="text-address">{{ userInfo.userCity }}</text>
-          <text class="text-school">{{userInfo.schoolName || '未知'}}</text>
+          <text class="text-school">{{userInfo.userSchool || '未知'}}</text>
         </div>
       </div>
       <div class="function">
@@ -55,9 +55,9 @@ export default {
   methods: {
     getUserInfo() {
       UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(res => {
-        const { schoolName, userCity, userImage, userNickname } = res.data
+        const { userSchool, userCity, userImage, userNickname } = res.data
         this.userInfo = {
-          schoolName, userCity, userImage, userNickname: decodeURI(userNickname)
+          userSchool, userCity, userImage, userNickname: decodeURI(userNickname)
         }
       })
     },
@@ -67,6 +67,9 @@ export default {
           wx.navigateTo({
             url: `/pages/mine-collect/main`
           })
+          break
+        case 2:
+          wx.navigateTo({ url: '/pages/setting/main' });
       }
     }
   },
