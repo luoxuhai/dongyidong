@@ -5,24 +5,24 @@
         <img src="../../../static/images/body-report/book.png"
              alt="">
         <div class="head-con">
-          <h3>姓名：<span>朱大大</span></h3>
-          <p>评价：良好</p>
-          <p>性别：女 <i>|</i> 年龄：14</p>
-          <p>测试时间：2018年12月2日</p>
+          <h3>姓名：<span>{{ nickName }}</span></h3>
+          <p>评价：{{ info.testAssess || '未知' }}</p>
+          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年龄：{{ info.testAge || '未知' }}</p>
+          <p>测试时间：{{ info.testTime }}</p>
         </div>
       </div>
       <div class="rating">
         <ul>
           <li>
-            <h3>64</h3>
+            <h3>{{ info.testScore || '未知' }}</h3>
             <p>综合评分</p>
           </li>
           <li>
-            <h3>16</h3>
+            <h3>{{ info.testRanking || '未知'}}</h3>
             <p>班级排名</p>
           </li>
           <li>
-            <h3>230</h3>
+            <h3>{{ info.testGradeRanking || '未知'}}</h3>
             <p>年级排名</p>
           </li>
         </ul>
@@ -31,21 +31,17 @@
         <div class="body-base">
           <div class="base-wrap">
             <ul>
-              <li>评价：微瘦</li>
-              <li>身高：175cm</li>
-              <li>体重：55kg</li>
+              <li>评价：{{ info.testEvaluate || '未知'}}</li>
+              <li>身高：{{ info.testHeight || '未知'}}cm</li>
+              <li>体重：{{ info.testWeight || '未知'}}kg</li>
             </ul>
             <div class="body-line">
-              <img src="../../../static/images/body-report/line.png"
-                   alt="">
-              <img src="../../../static/images/body-report/line.png"
-                   alt="">
-              <img src="../../../static/images/body-report/line.png"
-                   alt="">
+              <img src="/static/images/body-report/line.png">
+              <img src="/static/images/body-report/line.png">
+              <img src="/static/images/body-report/line.png">
             </div>
             <div class="body-pic">
-              <img src="../../../static/images/body-report/person.png"
-                   alt="">
+              <img src="/static/images/body-report/person.png">
             </div>
           </div>
         </div>
@@ -61,74 +57,72 @@
                :key="index">
             <span>{{ item.name }}</span>
             <span>
-              <i v-for="(item, _index) of item.level"
-                 :key="_index">{{ item }}</i>
+              <i>{{ item.baseScore }}</i>
+              <i>{{ item.midScore }}</i>
+              <i>{{ item.valueScore }}</i>
+              <i>{{ item.maxScore }}</i>
             </span>
-            <span>{{ item.range }}</span>
-            <span>{{ item.grade }}</span>
+            <span>{{ item.baseScore + '-' + item.maxScore }}</span>
+            <span>{{ item.score }}</span>
           </div>
         </div>
       </div>
       <div class="empty"></div>
       <div class="text">
         <h3>成绩评估</h3>
-        <p> 后台产品线迅速推广，对接多条业务线，覆盖系统 800
-          个以上。兼顾专业和非专业的设计人员，具有学习成本低、上手速度快、实现效果好等特点，并且提供从界面设计到前端开发的全链路生态，可以大大提升设计和开发的效率。</p>
+        <p> {{ info.expectSuggess || '未知' }}</p>
       </div>
       <div class="empty"></div>
       <div class="text">
         <h3>专家建议</h3>
-        <p> 后台产品线迅速推广，对接多条业务线，覆盖系统 800
-          个以上。兼顾专业和非专业的设计人员，具有学习成本低、上手速度快、实现效果好等特点，并且提供从界面设计到前端开发的全链路生态，可以大大提升设计和开发的效率。</p>
+        <p>{{ info.testGradeAssess || '未知' }}</p>
       </div>
     </scroll-view>
   </div>
 </template>
 
 <script>
+import { UserInfo } from '@/api'
+import { mapState } from 'vuex'
 export default {
   name: "body-report",
   data() {
     return {
-      projectList: [
-        {
-          name: '50米跑',
-          level: [42, 25, 14, 25],
-          range: '30 - 60',
-          grade: 90
-        },
-        {
-          name: '50米跑',
-          level: [42, 25, 14, 25],
-          range: '30 - 60',
-          grade: 90
-        },
-        {
-          name: '50米跑',
-          level: [42, 25, 14, 25],
-          range: '30 - 60',
-          grade: 90
-        },
-        {
-          name: '50米跑',
-          level: [42, 25, 14, 25],
-          range: '30 - 60',
-          grade: 90
-        },
-        {
-          name: '50米跑',
-          level: [42, 25, 14, 25],
-          range: '30 - 60',
-          grade: 90
-        },
-        {
-          name: '50米跑',
-          level: [42, 25, 14, 25],
-          range: '30 - 60',
-          grade: 90
-        }
-      ]
+      info: {},
+      testInfo: {},
+      projectList: []
     }
+  },
+  computed: {
+    ...mapState(['nickName'])
+  },
+  onLoad() {
+    wx.showNavigationBarLoading()
+    UserInfo.selectTest({
+      userId: this.$store.state.userId
+    }).then((res => {
+      let info = res.data
+      this.info = info
+      let { list } = res.data
+      let temp = list.filter((item) => (item.name !== null))
+      const BASE_VALUE = 10
+      let index = 0
+      for (let value of temp) {
+        if (value.name === '50米跑' || value.name === '坐位体前屈' || value.name === '50*8') {
+          temp[index].baseScore = (value.baseScore / BASE_VALUE).toFixed(1) == 0.0 ? 0 : (value.baseScore / BASE_VALUE).toFixed(1)
+          temp[index].valueScore = (value.valueScore / BASE_VALUE).toFixed(1)
+          temp[index].maxScore = (value.maxScore / BASE_VALUE).toFixed(1)
+          temp[index].midScore = (value.midScore / BASE_VALUE).toFixed(1)
+          temp[index].score = (value.score / BASE_VALUE).toFixed(1)
+        }
+        index += 1
+      }
+      this.projectList = temp
+      wx.hideNavigationBarLoading()
+    }))
+  },
+  onUnload() {
+    Object.assign(this.$data, this.$options.data());
   }
 }
 </script>
@@ -224,36 +218,37 @@ export default {
         bottom: 0;
         margin: auto;
         width: 270px;
-        height: 133px;
+        height: 110px;
         display: flex;
         justify-content: space-between;
-        align-content: center;
+        align-items: center;
 
         ul {
           width: 95px;
-          padding-top: 20px;
+          height: 100%;
           color: #4a5060;
           font-size: 14px;
           display: flex;
-          flex-flow: column wrap;
-          align-content: space-between;
-
+          flex-direction: column;
+          justify-content: space-around;
           li + li {
-            margin-top: 15px;
+            height: 14px;
+            line-height: 14px;
+            // margin-top: 15px;
           }
         }
-
         .body-line {
+          display: flex;
+          justify-content: space-around;
+          flex-direction: column;
           width: 85px;
-          padding-top: 26px;
-
+          height: 100%;
           img {
             display: block;
             width: 100%;
             height: 6px;
-
             & + img {
-              margin-top: 31px;
+              //   margin-top: 26px;
             }
           }
         }

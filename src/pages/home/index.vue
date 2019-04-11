@@ -15,17 +15,20 @@
     <div class="slider">
       <swiper indicator-dots
               autoplay
+              indicator-active-color="#CAC4C3"
               :interval="interval"
               :duration="duration"
               circular>
-        <block v-for="(item, index) in imgUrls"
+        <block v-for="(item, index) in banners"
                :key="index">
           <swiper-item>
             <img mode="aspectFill"
-                 :src="item"
+                 lazy-load
+                 :src="item.cover"
                  class="slide-image"
                  width="100%"
                  height="100%" />
+            <p class="title">{{ item.title }}</p>
           </swiper-item>
         </block>
       </swiper>
@@ -91,10 +94,19 @@ export default {
       // 滚动视图组件配置
       scrollY: true,
       // 轮播组件数据
-      imgUrls: [
-        "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
-        "https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640",
-        "https://images.unsplash.com/photo-1551446591-142875a901a1?w=640"
+      banners: [
+        {
+          title: '以运动的方式度过假期，一起燃烧卡路里',
+          cover: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640'
+        },
+        {
+          title: '以运动的方式度过假期',
+          cover: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640'
+        },
+        {
+          title: '一起燃烧卡路里',
+          cover: 'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+        }
       ],
       interval: 5000,
       duration: 450,
@@ -282,10 +294,27 @@ export default {
     swiper {
       width: 100%;
       height: 100%;
-
       .slide-image {
         width: 100%;
         height: 100%;
+      }
+      .title {
+        position: absolute;
+        bottom: 20px;
+        z-index: 99;
+        max-width: 90%;
+        height: 27px;
+        margin-left: 15px;
+        padding: 0 5px;
+        background-color: rgba(78, 78, 78, 0.3);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 27px;
+        color: #fff;
+        font: {
+          size: 15px;
+        }
       }
     }
   }

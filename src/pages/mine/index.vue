@@ -31,7 +31,7 @@
 
 <script>
 import { UserInfo } from '@/api'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -53,12 +53,17 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setUserInfo']),
     getUserInfo() {
       UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(res => {
         const { userSchool, userCity, userImage, userNickname } = res.data
         this.userInfo = {
           userSchool, userCity, userImage, userNickname: decodeURI(userNickname)
         }
+        this.setUserInfo({
+          school: userSchool,
+          nickName: decodeURI(userNickname)
+        })
       })
     },
     handleEnterDetail(index) {
@@ -110,8 +115,10 @@ export default {
         color: #fff;
       }
       .text-user-name {
-        font-size: 16px;
-        font-weight: 500;
+        font: {
+          size: 16px;
+          weight: 600;
+        }
       }
       .text-address {
         margin-top: 12px;
@@ -126,6 +133,7 @@ export default {
   .function {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     position: absolute;
     width: 345px;
     height: 103px;
@@ -133,7 +141,7 @@ export default {
     border-radius: 6px;
     background-color: #fff;
     .function-text {
-      margin: 13px;
+      margin: 0 13px 13px 13px;
       font-size: 17px;
       font-weight: 500;
       color: #4a4a4a;

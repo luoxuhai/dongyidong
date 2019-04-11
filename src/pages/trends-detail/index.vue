@@ -61,22 +61,24 @@ export default {
     },
     handleShowButton() {
       this.buttonShow = !this.buttonShow;
+    },
+    getTrendsDetail() {
+      MessageNews.selectMessageDetail({
+        userId: this.$store.state.userId,
+        newsId: this.messageId
+      }).then(res => {
+        this.detailContent = res.data
+        this.isCollect = Boolean(res.data.isCollect)
+        wx.hideNavigationBarLoading()
+      }).catch(err => {
+
+      })
     }
   },
   onLoad(options) {
     wx.showNavigationBarLoading()
-    let { messageId } = options
-    this.messageId = messageId
-    MessageNews.selectMessageDetail({
-      userId: this.$store.state.userId,
-      newsId: messageId
-    }).then(res => {
-      this.detailContent = res.data
-      this.isCollect = Boolean(res.data.isCollect)
-      wx.hideNavigationBarLoading()
-    }).catch(err => {
-
-    })
+    this.messageId = options.messageId
+    this.getTrendsDetail()
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
@@ -107,7 +109,7 @@ export default {
   width: 333px;
   min-height: 50vh;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding-bottom: 100px;
   font-size: 14px;
   color: #4a5060;
 }
@@ -120,10 +122,10 @@ export default {
   left: 0;
   right: 0;
   height: 120px;
-  transform: translateY(120px);
+  transform: translateY(0);
   transition: all 0.2s ease-out;
-  box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  //   box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: transparent;
   .button-collect {
     width: 263px;
     height: 38px;

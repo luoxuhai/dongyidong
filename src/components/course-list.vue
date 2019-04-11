@@ -27,20 +27,7 @@ import { transitionTime } from "@/libs/tools"
 
 export default {
   name: "course-list",
-  mixins: [selectItemMixin],
-  data() {
-    return {
-      courseList: this.data
-    }
-  },
-  watch: {
-    // courseList(value) {
-    //   value.forEach((item, index) => {
-    //     this.courseList[index].courseTolTime = transitionTime(this.courseList[index].courseTolTime)
-    //     console.log(this.courseList[index].courseTolTime);
-    //   });
-    // }
-  }
+  mixins: [selectItemMixin]
 }
 
 </script>

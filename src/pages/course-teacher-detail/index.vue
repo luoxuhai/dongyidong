@@ -26,11 +26,13 @@ export default {
     }
   },
   onLoad(options) {
+    wx.showNavigationBarLoading()
     TrainingTeacher.teacherDetail({ teacherId: options.teacherId })
       .then(res => {
         let teacherLabel = res.data.teacherLabel
         this.teacherDetail = res.data
         this.teacherDetail.teacherLabel = teacherLabel.split('，')
+        wx.hideNavigationBarLoading()
       })
   },
   onUnload() {

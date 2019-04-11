@@ -52,6 +52,7 @@ export default {
         this.pageSize = size
         this.currentPage += 1
         wx.stopPullDownRefresh()
+        wx.hideNavigationBarLoading()
       })
 
     },

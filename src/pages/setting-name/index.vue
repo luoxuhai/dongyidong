@@ -1,34 +1,52 @@
 <template>
   <div class="container">
     <textarea confirm-type="done"
-              placeholder="搜索"
+              auto-focus
+              placeholder="输入要修改的姓名"
               :maxlength="20"
+              show-confirm-bar="false"
               v-model="inputValue"
               class="input"
               type="text" />
-    <div class="button-submit">保存</div>
+    <div class="button-submit" @click="handleSubmitClick">保存</div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { UserInfo } from '@/api'
 export default {
   data() {
     return {
-      inputValue: '',
-      userInfo: {},
-      settingList: ['头像', '姓名', '地区', '学校']
+      inputValue: ''
     }
   },
   methods: {
+    ...mapMutations(['setUserInfo']),
+    handleSubmitClick() {
+      wx.showLoading({
+        title: '保存中',
+      })
+      console.log(this.inputValue);
+      UserInfo.upDateUserBasicInfo({
+        userId: this.$store.state.userId,
+        userNickname: encodeURI(this.inputValue)
+      }).then((res) => {
+        this.setUserInfo({
+          nickName: this.inputValue
+        })
+        wx.hideLoading()
+        wx.navigateBack({
+          delta: 1
+        });
+      })
+    }
   },
   computed: {
     ...mapState(['avatarUrl', 'city', 'nickName'])
   },
-  onLoad(options) {
-    // let { userNickname } = option s
-    this.inputValue = options.value
+  onLoad() {
+    this.inputValue = this.nickName
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
@@ -39,11 +57,12 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: 100vh;
+  padding-top: 10px;
   background-color: #f8f8f8;
   .input {
     width: auto;
     height: 100px;
-    margin: 10px 10px 20px 10px;
+    margin: 0 10px 40px 10px;
     padding: 10px;
     background-color: #fff;
   }

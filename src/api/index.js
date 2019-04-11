@@ -2,8 +2,8 @@ import { request } from '@/libs/utils';
 import { BASE_URL } from '@/libs/config';
 
 const HOME_URL = BASE_URL + '/client/home';
-const USER_INFO_URL = BASE_URL + '/userInfo';
-const TRAINING_TEACHER_URL = BASE_URL + '/trainingTeacher';
+const USER_INFO_URL = BASE_URL + '/client/userInfo';
+const TRAINING_TEACHER_URL = BASE_URL + '/client/trainingTeacher';
 const MESSAGE_NEWS_URL = BASE_URL + '/client/messageNews';
 const COURSE_URL = BASE_URL + '/client/course';
 
@@ -13,7 +13,7 @@ export class Home {
     return request('POST', url, data);
   }
   static getWeather(data) {
-      const url = 'http://t.weather.sojson.com/api/weather/city/101030100';
+    const url = 'http://t.weather.sojson.com/api/weather/city/101030100';
     return request('GET', url, data);
   }
 }
@@ -29,8 +29,24 @@ export class UserInfo {
     const url = USER_INFO_URL + '/insertBasicUserInfo';
     return request('POST', url, data, header);
   }
+
   static selectUserInfo(data, header) {
     const url = USER_INFO_URL + '/selectUserInfo';
+    return request('POST', url, data, header);
+  }
+
+  static upDateUserBasicInfo(data, header) {
+    const url = USER_INFO_URL + '/upDateUserBasicInfo';
+    return request('POST', url, data, header);
+  }
+
+  static selectTest(data, header) {
+    const url = USER_INFO_URL + '/selectTest';
+    return request('POST', url, data, header);
+  }
+
+  static selectClassAndSchool(data, header) {
+    const url = USER_INFO_URL + '/selectClassAndSchool';
     return request('POST', url, data, header);
   }
 }

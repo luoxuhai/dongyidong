@@ -9,7 +9,9 @@ const store = new Vuex.Store({
     openId: '',
     avatarUrl: '',
     city: '',
+    school: '',
     nickName: '',
+    province: '',
     load: false,
   },
   mutations: {

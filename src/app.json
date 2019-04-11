@@ -20,7 +20,9 @@
     "pages/mine-collect/main",
     "pages/my-train/main",
     "pages/setting/main",
-    "pages/setting-detail/main"
+    "pages/setting-name/main",
+    "pages/setting-city/main",
+    "pages/setting-cropper/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

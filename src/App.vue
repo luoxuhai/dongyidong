@@ -14,22 +14,21 @@ export default {
         UserInfo.login({ code: res.code })
           .then(res => {
             const { openId, token, status, userId } = res.data
-            console.log(status);
             if (status === 0) wx.redirectTo({ url: `/pages/login/main` });
             this.setUserInfo({
               userId,
               openId,
-              token,
-              avatarUrl,
-              nickName,
-              city
+              token
             })
           })
       })
     let state = {
       userId: '',
       token: '',
-      openId: ''
+      openId: '',
+      avatarUrl: '',
+      nickName: '',
+      city: ''
     }
     Object.keys(state).forEach(key => {
       const value = wx.getStorageSync(key);
@@ -50,13 +49,13 @@ export default {
 <style>
 @font-face {
   font-family: "iconfont"; /* project id 1097190 */
-  src: url("//at.alicdn.com/t/font_1097190_6ohnbxljslg.eot");
-  src: url("//at.alicdn.com/t/font_1097190_6ohnbxljslg.eot?#iefix")
+  src: url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.eot");
+  src: url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.eot?#iefix")
       format("embedded-opentype"),
-    url("//at.alicdn.com/t/font_1097190_6ohnbxljslg.woff2") format("woff2"),
-    url("//at.alicdn.com/t/font_1097190_6ohnbxljslg.woff") format("woff"),
-    url("//at.alicdn.com/t/font_1097190_6ohnbxljslg.ttf") format("truetype"),
-    url("//at.alicdn.com/t/font_1097190_6ohnbxljslg.svg#iconfont") format("svg");
+    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.woff2") format("woff2"),
+    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.woff") format("woff"),
+    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.svg#iconfont") format("svg");
 }
 
 .iconfont {

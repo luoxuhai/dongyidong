@@ -1,42 +1,48 @@
 <template>
   <div class="container">
     <ul class="setting-list">
-      <li class="setting-item avatar">
+      <li class="setting-item avatar"
+          @click="handleEnterClick(index = 0)">
         <h1>头像</h1>
         <div>
           <img mode="aspectFill"
-               :src="userInfo.userImage">
-          <span class="iconfont"></span>
+               :src="avatarUrl">
+          <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
       <li class="setting-item"
           @click="handleEnterClick(index = 1)">
         <h1>姓名</h1>
         <div>
-          <p>{{ userInfo.userNickname }}</p>
-          <span class="iconfont"></span>
+          <p>{{ nickName }}</p>
+          <span class="iconfont">&#xe71a;</span>
+        </div>
+      </li>
+      <li class="setting-item"
+          @click="handleEnterClick(index = 2)">
+        <h1>地区</h1>
+        <div>
+          <!-- <picker mode="selector"
+                  @change="changePickerCity"
+                  :value="cityIndex"
+                  :range="cityArr"> -->
+          <p>{{ city }}</p>
+          <!-- </picker> -->
+          <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
       <li class="setting-item">
-        <h1>地区</h1>
-        <div>
-          <picker mode="selector"
-                  @change="bindPickerChange"
-                  :value="index"
-                  :range="array">
-            <p>{{ array[index] }}</p>
-          </picker>
-          <span class="iconfont"></span>
-        </div>
-
-      </li>
-      <li class="setting-item"
-          @click="handleEnterClick(index = 1)">
         <h1>学校</h1>
         <div>
-          <p>{{userInfo.userSchool || '未知'}}</p>
-          <span class="
-          iconfont"></span>
+          <picker mode="selector"
+                  @change="changePickerSchool"
+                  :value="schoolIndex"
+                  :range="schoolArr"
+                  range-key="schoolName">
+            <p>{{ school }}</p>
+          </picker>
+          <!-- <p>{{userInfo.userSchool || '未知'}}</p> -->
+          <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
     </ul>
@@ -46,47 +52,94 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { UserInfo } from '@/api'
 export default {
   data() {
     return {
-      index: 0,
-      customItem: '全部',
-      array: ['北京', '天津', '上海', '深圳', '重庆', '广州'],
+      imgUrl: '',
+      schoolIndex: 0,
+      schoolArr: [],
+      school: '',
       userInfo: {},
       settingList: ['头像', '姓名', '地区', '学校']
     }
   },
   methods: {
+    changePickerCity(e) {
+      const index = Number(e.mp.detail.value)
+      this.cityIndex = index
+    },
+    changePickerSchool(e) {
+      wx.showLoading({
+        title: '保存中',
+      })
+      const schoolId = this.schoolArr[e.mp.detail.value].schoolId
+      UserInfo.upDateUserBasicInfo({
+        userId: this.$store.state.userId,
+        schoolId
+      }).then((res) => {
+        const school = this.schoolArr[e.mp.detail.value].schoolName
+        this.school = school
+        this.setUserInfo({ school })
+        wx.hideLoading()
+      })
+    },
+    selectImage() {
+      wx.showLoading({
+        title: '加载中',
+      })
+
+      wx.chooseImage({
+        count: 1,
+        sizeType: ["original"],
+        success: res => {
+          wx.navigateTo({
+            url: `/pages/setting-cropper/main?imageSrc=${res.tempFilePaths[0]}`
+          });
+        },
+        complete: () => {
+          wx.hideLoading()
+        }
+      })
+    },
+    ...mapMutations(['setUserInfo']),
     handleLogoutClick() {
       wx.showModal({
         title: '提示',
         content: '确认退出登录',
-        success(res) {
+        success: (res) => {
           if (res.confirm) {
+            this.setUserInfo({
+              userId: '',
+              token: '',
+              openId: '',
+            })
             wx.clearStorageSync()
-            wx.navigateTo({ url: `/pages/login/main` });
+            wx.reLaunch({
+              url: `/pages/login/main`
+            })
           }
         }
       })
     },
-    bindPickerChange(e) {
-      const index = Number(e.mp.detail.value)
-      this.index = index
-    },
     handleEnterClick(index) {
       switch (index) {
+        case 0:
+          this.selectImage()
+          break
         case 1:
           wx.navigateTo({
-            url: `/pages/setting-detail/main?value=${this.userInfo.userNickname}`
+            url: `/pages/setting-name/main?value=${this.userInfo.userNickname}&userKey=0`
           })
-          break;
+          break
+        case 2:
+          wx.navigateTo({ url: '/pages/setting-city/main' })
+          break
         case 3:
           wx.navigateTo({
-            url: `/pages/setting-detail/main?value=${this.userInfo.userSchool}`
+            url: `/pages/setting-detail/main?value=${this.userInfo.userSchool}&userKey=0`
           })
-
       }
     },
     getUserInfo() {
@@ -101,7 +154,14 @@ export default {
   computed: {
     ...mapState(['avatarUrl', 'city', 'nickName'])
   },
-  onLoad() {
+  onLoad(options) {
+    this.school = this.$store.state.school
+    UserInfo.selectClassAndSchool().then(res => {
+      this.schoolArr = res.data
+    })
+    // const { imgUrl } = options
+    // this.imgUrl = imgUrl || this.avatarUrl
+    // 
     this.getUserInfo()
   }
 }
@@ -120,38 +180,44 @@ export default {
       padding: 0 15px;
       border-bottom: 0.5rpx solid #ececec;
       background-color: #fff;
+      &:first-child {
+        height: 63px;
+        border-top: 0.5rpx solid #ececec;
+      }
       div {
         display: flex;
+        align-items: center;
+        height: 100%;
+        p {
+          font: {
+            size: 15px;
+          }
+          color: #4a4a4a;
+        }
+        picker {
+          width: 50vw;
+          height: 100%;
+          p {
+            line-height: 45px;
+            text-align: right;
+          }
+        }
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .iconfont {
+          margin-left: 15px;
+        }
       }
       h1 {
         font: {
           size: 16px;
         }
       }
-      p {
-        font: {
-          size: 15px;
-        }
-        color: #4a4a4a;
-      }
-      picker {
-        width: 50vw;
-        p {
-          text-align: right;
-        }
-      }
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-      }
-      .iconfont {
-        margin-left: 15px;
-      }
     }
     .avatar {
-      height: 63px;
-      border-top: 0.5rpx solid #ececec;
     }
   }
   .button-logout {

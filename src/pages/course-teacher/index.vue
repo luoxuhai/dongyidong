@@ -62,16 +62,6 @@ export default {
       })
     }
   },
-  //   onPullDownRefresh() {
-  //     this.currentPage = 1
-  //     this.loadMore()
-  //   },
-  //   onReachBottom() {
-  //     this.loadMore(true)
-  //   },
-  //   onLoad() {
-  //     this.loadMore()
-  //   },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
   }
@@ -110,6 +100,7 @@ export default {
       margin: 10px 0 4px 0;
       font-size: 15px;
       color: #1c2438;
+      @include ellipsis(1);
     }
 
     .intro {

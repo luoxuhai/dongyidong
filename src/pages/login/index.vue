@@ -50,7 +50,10 @@ export default {
                 this.setUserInfo({
                   userId,
                   openId,
-                  token
+                  token,
+                  avatarUrl,
+                  nickName,
+                  city
                 })
                 if (status === 0) {
                   UserInfo.insertBasicUserInfo({

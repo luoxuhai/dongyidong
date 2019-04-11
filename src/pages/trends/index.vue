@@ -59,6 +59,8 @@ export default {
         this.totalPage = pages || 1
         this.pageSize = size
         this.currentPage += 1
+        wx.hideNavigationBarLoading()
+      }).finally(() => {
         wx.stopPullDownRefresh()
       })
     },
@@ -68,6 +70,8 @@ export default {
       })
     },
     handleItem(index) {
+      wx.showNavigationBarLoading()
+      this.trendsList = []
       this.currentPage = 1
       this.currentInedx = index
       this.loadMore()
