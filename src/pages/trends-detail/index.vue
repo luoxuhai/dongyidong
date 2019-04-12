@@ -135,6 +135,9 @@ export default {
     text-align: center;
     line-height: 38px;
     color: #fff;
+    &:active {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+    }
   }
   &.show {
     transform: translateY(0);

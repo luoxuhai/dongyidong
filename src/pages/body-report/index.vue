@@ -2,8 +2,7 @@
   <div class="body-report">
     <scroll-view>
       <div class="report-head">
-        <img src="../../../static/images/body-report/book.png"
-             alt="">
+        <img src="/static/images/body-report/book.png">
         <div class="head-con">
           <h3>姓名：<span>{{ nickName }}</span></h3>
           <p>评价：{{ info.testAssess || '未知' }}</p>
@@ -134,7 +133,7 @@ export default {
     position: relative;
     padding-top: 40px;
     box-sizing: border-box;
-    border-bottom: 1px solid #dddee1;
+    border-bottom: 1px solid #ececec;
 
     img {
       position: absolute;
@@ -176,7 +175,7 @@ export default {
   .rating {
     width: 100%;
     height: 80px;
-    border-bottom: 1px solid #dddee1;
+    border-bottom: 1px solid #ececec;
 
     ul {
       width: 100%;
@@ -284,7 +283,7 @@ export default {
         line-height: 45px;
         display: flex;
         text-align: center;
-        border-bottom: 1rpx solid #cccccc;
+        border-bottom: 1rpx solid #ececec;
 
         span {
           display: inline-block;

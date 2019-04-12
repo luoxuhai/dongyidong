@@ -1,10 +1,9 @@
 <template>
   <div class="container">
-    <textarea confirm-type="done"
-              auto-focus
+    <textarea auto-focus
               placeholder="输入要修改的姓名"
               :maxlength="20"
-              show-confirm-bar="false"
+              :show-confirm-bar="false"
               v-model="inputValue"
               class="input"
               type="text" />
@@ -80,6 +79,9 @@ export default {
       size: 16px;
     }
     color: #fff;
+    &:active {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+    }
   }
 }
 </style>

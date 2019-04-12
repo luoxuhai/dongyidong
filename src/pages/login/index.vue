@@ -50,10 +50,7 @@ export default {
                 this.setUserInfo({
                   userId,
                   openId,
-                  token,
-                  avatarUrl,
-                  nickName,
-                  city
+                  token
                 })
                 if (status === 0) {
                   UserInfo.insertBasicUserInfo({
@@ -63,12 +60,7 @@ export default {
                     userNickname: encodeURI(nickName),
                   }).then(res => {
                     const { userId } = res.data
-                    this.setUserInfo({
-                      userId,
-                      avatarUrl,
-                      nickName,
-                      city
-                    })
+                    this.setUserInfo({ userId })
                   })
                 }
                 wx.hideLoading()
@@ -111,13 +103,16 @@ export default {
   }
   .button-login {
     position: relative;
-    width: 200px;
+    width: 240px;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 24px;
     background-color: #ffc83a;
     text-align: center;
     line-height: 40px;
-    color: whitesmoke;
+    font: {
+      size: 16px;
+    }
+    color: #fff;
     button {
       position: absolute;
       z-index: 999;

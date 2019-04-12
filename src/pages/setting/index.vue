@@ -108,6 +108,7 @@ export default {
       wx.showModal({
         title: '提示',
         content: '确认退出登录',
+        confirmColor: '#ed3f14',
         success: (res) => {
           if (res.confirm) {
             this.setUserInfo({
@@ -194,8 +195,9 @@ export default {
           }
           color: #4a4a4a;
         }
+
         picker {
-          width: 50vw;
+          width: 70vw;
           height: 100%;
           p {
             line-height: 45px;
@@ -209,6 +211,7 @@ export default {
         }
         .iconfont {
           margin-left: 15px;
+          color: #c7c7cc;
         }
       }
       h1 {
@@ -216,8 +219,12 @@ export default {
           size: 16px;
         }
       }
-    }
-    .avatar {
+      &:active {
+        background-image: linear-gradient(
+          rgba(0, 0, 0, 0.05),
+          rgba(0, 0, 0, 0.05)
+        );
+      }
     }
   }
   .button-logout {

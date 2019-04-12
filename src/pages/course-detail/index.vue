@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom-tips"
+    <div class="botton-tips"
          @click="handelJoinClick"> {{ isJoin ? '退出训练计划' : '加入训练计划' }}</div>
   </div>
 </template>
@@ -370,7 +370,7 @@ export default {
   }
 }
 
-.bottom-tips {
+.botton-tips {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -381,5 +381,8 @@ export default {
   font-size: 18px;
   color: #fff;
   background-color: rgba(255, 200, 58, 1);
+  &:active {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+  }
 }
 </style>

@@ -62,7 +62,9 @@ export default {
         }
         this.setUserInfo({
           school: userSchool,
-          nickName: decodeURI(userNickname)
+          nickName: decodeURI(userNickname),
+          avatarUrl: userImage,
+          city: userCity
         })
       })
     },
