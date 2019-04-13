@@ -13,18 +13,23 @@
         <p class="intro">{{ item.teacherSlogan }}</p>
       </div>
     </div>
-    <loading-more :loading="loading" />
+    <placeholder-img v-if="nothing" />
+    <loading-more v-if="!nothing"
+                  :loading="loading"
+                  size="22" />
   </div>
 </template>
 
 <script>
+import PlaceholderImg from "@/components/placeholder-img"
 import { TrainingTeacher } from '@/api'
 import { pagingLoadingMixin } from '@/common/js/mixin'
 import LoadingMore from '@/components/loading-more'
 export default {
   mixins: [pagingLoadingMixin],
   components: {
-    LoadingMore
+    LoadingMore,
+    PlaceholderImg
   },
   name: "",
   data() {
@@ -47,6 +52,8 @@ export default {
       }
       TrainingTeacher.teacherList(data).then(res => {
         const { pages, size, records, total } = res.data
+        if (records.length === 0) this.nothing = true
+        else this.nothing = false
         if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.teacherList = [...this.teacherList, ...records]
         else this.teacherList = [...records]
@@ -74,13 +81,11 @@ export default {
 .teacher-container {
   @include flex(space-between, start, row, wrap);
   padding: 20px 50px 0 50px;
-
   .teacher-item {
     @include flex(start, center, column);
     width: 120px;
     height: 150px;
     margin-bottom: 20px;
-
     .avatar {
       @include flex(center, center);
       width: 82px;
@@ -88,28 +93,25 @@ export default {
       border: 1px solid #ffc83a;
       border-radius: 50%;
       overflow: hidden;
-
       img {
         width: 90%;
         height: 90%;
         border-radius: 50%;
+        background-color: #f7f7f7;
       }
     }
-
     .name {
       margin: 10px 0 4px 0;
       font-size: 15px;
       color: #1c2438;
       @include ellipsis(1);
     }
-
     .intro {
       font-size: 12px;
       @include ellipsis(2);
       color: #80848f;
     }
   }
-
   &::after {
     content: "";
     width: 120px;

@@ -10,12 +10,15 @@
     </ul>
     <info-list :data="trendsList"
                @select="handleEnterDetail" />
-    <loading-more :loading="loading"
+    <placeholder-img v-if="nothing" />
+    <loading-more v-if="!nothing"
+                  :loading="loading"
                   size="22" />
   </div>
 </template>
 
 <script>
+import PlaceholderImg from "@/components/placeholder-img"
 import InfoList from "@/components/info-list"
 import LoadingMore from "@/components/loading-more"
 import { MessageNews } from "@/api"
@@ -25,11 +28,13 @@ export default {
   mixins: [pagingLoadingMixin],
   components: {
     InfoList,
-    LoadingMore
+    LoadingMore,
+    PlaceholderImg
   },
   name: "trends",
   data() {
     return {
+      nothing: false,
       currentInedx: 0,
       currentPage: 1,
       totalPage: 1,
@@ -51,8 +56,9 @@ export default {
       }
       if (this.currentInedx === 0) delete data.type
       MessageNews.selectMessageByType(data).then(res => {
-
         const { pages, size, records } = res.data
+        if (records.length === 0) this.nothing = true
+        else this.nothing = false
         if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.trendsList = [...this.trendsList, ...records]
         else this.trendsList = [...records]
@@ -101,7 +107,7 @@ export default {
     left: 0;
     right: 0;
     height: 42px;
-    z-index: 99;
+    z-index: 999;
     background-color: #fff;
     .navbar-item {
       box-sizing: border-box;

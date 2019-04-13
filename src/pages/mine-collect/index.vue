@@ -14,14 +14,18 @@
     <info-list v-if="selectIndex === 1"
                :data="infoList"
                @select="selectInfo" />
-    <loading-more :loading="loading"
+    <placeholder-img v-if="nothing" />
+    <loading-more v-if="!nothing"
+                  :loading="loading"
                   size="22" />
+
   </div>
 </template>
 
 <script>
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
+import PlaceholderImg from "@/components/placeholder-img"
 import LoadingMore from "@/components/loading-more"
 import { MessageNews, Course } from "@/api"
 import { transitionTime } from "@/libs/tools"
@@ -30,10 +34,12 @@ export default {
   components: {
     CourseList,
     InfoList,
-    LoadingMore
+    LoadingMore,
+    PlaceholderImg
   },
   data() {
     return {
+      nothing: false,
       totalPage: 1,
       currentPage: 1,
       pageSize: 10,
@@ -58,6 +64,8 @@ export default {
     },
     getSucc(reachBottom, res) {
       const { size, pages, records } = res.data
+      if (records.length === 0) this.nothing = true
+      else this.nothing = false
       if (this.selectIndex === 0)
         records.forEach((item, index) => {
           const courseTolTime = records[index].courseTolTime
@@ -80,13 +88,15 @@ export default {
         pageNum: this.currentPage
       }
       if (this.selectIndex === 1)
-        MessageNews.userCollectMessage(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
-
-        })
+        MessageNews.userCollectMessage(data)
+          .then(this.getSucc.bind(this, reachBottom))
+          .catch(err => {
+          })
       else
-        Course.userCollectCourse(data).then(this.getSucc.bind(this, reachBottom)).catch(err => {
-
-        })
+        Course.userCollectCourse(data).
+          then(this.getSucc.bind(this, reachBottom))
+          .catch(err => {
+          })
     },
     handleItem(index) {
       this.currentPage = 1
@@ -100,7 +110,8 @@ export default {
   watch: {
     currentPage() {
       if (this.infoList.length < this.pageSize)
-        this.loading = false
+        this.loading = false;
+
     }
   },
   onPullDownRefresh() {
@@ -133,7 +144,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 999;
   height: 45px;
   margin-bottom: 10px;
   background-color: #fff;

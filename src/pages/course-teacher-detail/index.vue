@@ -64,27 +64,22 @@ export default {
   .desc {
     flex: 1;
     margin-left: 15px;
-
     .name {
       font-size: 16px;
       color: #1c2438;
     }
-
     .intro {
       margin: 15px 0 10px 0;
       font-size: 12px;
       color: #4a5060;
     }
-
     .syn {
       font-size: 12px;
       color: #80848f;
     }
-
     .tag {
       // @include flex(start, start, row, wrap);
       margin-top: 15px;
-
       .tag-item {
         display: inline-block;
         height: 20px;

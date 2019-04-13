@@ -1,7 +1,8 @@
 <template>
   <div class="login-container">
     <section>
-      <img src="/static/images/body-report/book.png">
+      <img mode="aspectFill"
+           src="/static/images/logo.png">
       <text class="name">动亿动体育</text>
     </section>
     <section>
@@ -88,13 +89,16 @@ export default {
     align-items: center;
   }
   img {
-    width: 84px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
   }
   .name {
     margin-top: 20px;
-    font-size: 18px;
-    letter-spacing: 0.3em;
+    font: {
+      size: 18px;
+      weight: 600;
+    }
+    letter-spacing: 0.2em;
   }
   .hint {
     margin-bottom: 10px;

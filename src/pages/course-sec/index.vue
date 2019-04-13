@@ -2,12 +2,15 @@
   <div class="course-sec">
     <course-list :data="courseData"
                  @select="selectItem"></course-list>
-    <loading-more :loading="loading"
-                  :tip="tip" />
+    <placeholder-img v-if="nothing" />
+    <loading-more v-if="!nothing"
+                  :loading="loading"
+                  size="22" />
   </div>
 </template>
 
 <script>
+import PlaceholderImg from "@/components/placeholder-img"
 import CourseList from "@/components/course-list"
 import LoadingMore from '@/components/loading-more'
 import { Course } from '@/api'
@@ -18,10 +21,12 @@ export default {
   mixins: [pagingLoadingMixin],
   components: {
     CourseList,
-    LoadingMore
+    LoadingMore,
+    PlaceholderImg
   },
   data() {
     return {
+      nothing: false,
       currentPage: 1,
       totalPage: 1,
       pageSize: 10,
@@ -41,6 +46,8 @@ export default {
       }
       Course.courseList(data).then(res => {
         const { pages, size, records, total } = res.data
+        if (records.length === 0) this.nothing = true
+        else this.nothing = false
         if (this.currentPage >= pages) this.loading = false
         records.forEach((item, index) => {
           const courseTolTime = records[index].courseTolTime
