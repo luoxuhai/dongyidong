@@ -7,7 +7,9 @@
     <div class="desc">
       <p class="name">{{ teacherDetail.teacherName }}</p>
       <p class="intro">{{ teacherDetail.teacherSlogan }}</p>
-      <p class="syn">{{ teacherDetail.teacherDescription }}</p>
+      <rich-text class="syn"
+                 :nodes="teacherDetail.teacherDescription"
+                 space="nbsp" />
       <div class="tag">
         <div class="tag-item"
              v-for="(item, index) of teacherDetail.teacherLabel"
@@ -32,7 +34,9 @@ export default {
         let teacherLabel = res.data.teacherLabel
         this.teacherDetail = res.data
         this.teacherDetail.teacherLabel = teacherLabel.split('，')
-        wx.hideNavigationBarLoading()
+        setTimeout(() => {
+          wx.hideNavigationBarLoading()
+        }, 500)
       })
   },
   onUnload() {

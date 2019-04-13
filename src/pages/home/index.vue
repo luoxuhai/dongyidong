@@ -24,11 +24,11 @@
           <swiper-item>
             <img mode="aspectFill"
                  lazy-load
-                 :src="item.cover"
+                 :src="item.carouselUrl"
                  class="slide-image"
                  width="100%"
                  height="100%" />
-            <p class="title">{{ item.title }}</p>
+            <p class="title">{{ item.carouselShowType }}</p>
           </swiper-item>
         </block>
       </swiper>
@@ -70,7 +70,7 @@
 import QQMapWX from '@/libs/qqmap-wx-jssdk.min'
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
-import { Home } from '@/api'
+import { Home, Carousel } from '@/api'
 import { transitionTime } from "@/libs/tools"
 export default {
   name: "home",
@@ -94,20 +94,7 @@ export default {
       // 滚动视图组件配置
       scrollY: true,
       // 轮播组件数据
-      banners: [
-        {
-          title: '以运动的方式度过假期，一起燃烧卡路里',
-          cover: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640'
-        },
-        {
-          title: '以运动的方式度过假期',
-          cover: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640'
-        },
-        {
-          title: '一起燃烧卡路里',
-          cover: 'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-        }
-      ],
+      banners: [],
       interval: 5000,
       duration: 450,
       // 课程组件数据
@@ -153,6 +140,11 @@ export default {
         this.courseData = [...courseDtoList]
         this.infoData = [...newsDtos]
         wx.stopPullDownRefresh()
+      })
+      Carousel.selectCarouselByType({
+        type: 0
+      }).then(res => {
+        this.banners = res.data
       })
     },
     getWeather() {
@@ -294,6 +286,7 @@ export default {
     swiper {
       width: 100%;
       height: 100%;
+      background-color: #f7f7f7;
       .slide-image {
         width: 100%;
         height: 100%;

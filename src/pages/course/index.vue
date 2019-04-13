@@ -8,9 +8,9 @@
       <block v-for="(item, index) in imgUrls"
              :key="index">
         <swiper-item>
-          <img :src="item"
-               class="slide-image"
-               alt="">
+          <img mode="aspectFill"
+               :src="item.carouselUrl"
+               class="slide-image">
         </swiper-item>
       </block>
     </swiper>
@@ -36,7 +36,7 @@
 <script>
 import CourseList from "@/components/course-list"
 import { transitionTime } from "@/libs/tools"
-import { Home } from '@/api'
+import { Home, Carousel } from '@/api'
 
 export default {
   name: "course",
@@ -64,11 +64,7 @@ export default {
         },
       ],
       // 轮播组件数据
-      imgUrls: [
-        "https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640",
-        "https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640",
-        "https://images.unsplash.com/photo-1551446591-142875a901a1?w=640"
-      ],
+      banners: [],
       interval: 5000,
       duration: 450,
       // 课程数据
@@ -106,7 +102,7 @@ export default {
         url: `/pages/course-detail/main?courseId=${courseId}`
       })
     },
-    getHomeData() {
+    getCourseData() {
       Home.selectMessage({}).then(res => {
         let { courseDtoList } = res.data
         courseDtoList.forEach((item, index) => {
@@ -116,13 +112,18 @@ export default {
         this.courseData = [...courseDtoList]
         wx.stopPullDownRefresh()
       })
+      Carousel.selectCarouselByType({
+        type: 1
+      }).then(res => {
+        this.banners = res.data
+      })
     }
   },
   onPullDownRefresh() {
-    this.getHomeData()
+    this.getCourseData()
   },
   onLoad() {
-    this.getHomeData()
+    this.getCourseData()
   }
 
 }
@@ -137,6 +138,7 @@ export default {
     height: 194px;
     border-radius: 6px;
     overflow: hidden;
+    background-color: #f7f7f7;
     img.slide-image {
       width: 100%;
       height: 100%;

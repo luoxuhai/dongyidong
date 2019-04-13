@@ -65,7 +65,9 @@ export default {
         this.totalPage = pages || 1
         this.pageSize = size
         this.currentPage += 1
-        wx.hideNavigationBarLoading()
+        setTimeout(() => {
+          wx.hideNavigationBarLoading()
+        }, 200)
       }).finally(() => {
         wx.stopPullDownRefresh()
       })

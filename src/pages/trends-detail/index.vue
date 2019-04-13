@@ -5,11 +5,9 @@
          :src="detailContent.messageUrl">
     <h1 class="title">{{ detailContent.messageTitle }}</h1>
     <p class="browse-count">{{ detailContent.messageNum}}人浏览</p>
-    <text class="article"
-          selectable
-          decode
-          space="nbsp"
-          @click="handleShowButton">{{ detailContent.messageContent }}</text>
+    <rich-text class="article"
+               :nodes="detailContent.messageContent"
+               space="nbsp" />
     <div class="collect-panel"
          :class="{show: buttonShow}">
       <div class="button-collect"

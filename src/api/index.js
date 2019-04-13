@@ -6,6 +6,8 @@ const USER_INFO_URL = BASE_URL + '/client/userInfo';
 const TRAINING_TEACHER_URL = BASE_URL + '/client/trainingTeacher';
 const MESSAGE_NEWS_URL = BASE_URL + '/client/messageNews';
 const COURSE_URL = BASE_URL + '/client/course';
+const CAROUSEL_URL = BASE_URL + '/client/carousel';
+const WEATHER_URL = 'http://t.weather.sojson.com/api/weather/city/101030100';
 
 export class Home {
   static selectMessage(data) {
@@ -13,11 +15,17 @@ export class Home {
     return request('POST', url, data);
   }
   static getWeather(data) {
-    const url = 'http://t.weather.sojson.com/api/weather/city/101030100';
+    const url = WEATHER_URL;
     return request('GET', url, data);
   }
 }
 
+export class Carousel {
+  static selectCarouselByType(data) {
+    const url = CAROUSEL_URL + '/selectCarouselByType';
+    return request('POST', url, data);
+  }
+}
 //用户
 export class UserInfo {
   static login(data, header) {

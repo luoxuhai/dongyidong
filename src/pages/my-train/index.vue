@@ -3,11 +3,15 @@
     <train-list :title="trainTitle"
                 :data="trainData"
                 @select="selectTrain" />
-    <loading-more :loading="loading" />
+    <placeholder-img v-if="nothing" />
+    <loading-more v-if="!nothing"
+                  :loading="loading"
+                  size="22" />
   </div>
 </template>
 
 <script>
+import PlaceholderImg from "@/components/placeholder-img"
 import TrainList from "@/components/train-list"
 import LoadingMore from "@/components/loading-more"
 import { pagingLoadingMixin } from '@/common/js/mixin'
@@ -17,6 +21,7 @@ export default {
   mixins: [pagingLoadingMixin],
   data() {
     return {
+      nothing: false,
       currentInedx: 0,
       currentPage: 1,
       totalPage: 1,
@@ -37,7 +42,8 @@ export default {
         userId: this.$store.state.userId
       }).then(res => {
         const { pages, size, records } = res.data
-        
+        if (records.length === 0) this.nothing = true
+        else this.nothing = false
         if (this.currentPage >= pages) this.loading = false
         if (reachBottom) this.trainData = [...this.trainData, ...records]
         else this.trainData = [...records]
@@ -55,7 +61,8 @@ export default {
   },
   components: {
     TrainList,
-    LoadingMore
+    LoadingMore,
+    PlaceholderImg
   }
 }
 </script>

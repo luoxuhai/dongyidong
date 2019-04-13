@@ -39,7 +39,8 @@
          v-show="stitchIndex === 0">
       <div class="text">
         <h4>简介</h4>
-        <p>{{courseDetail.courseDescription}}</p>
+        <rich-text :nodes="courseDetail.courseDescription"
+                   space="nbsp" />
       </div>
       <div class="text">
         <h4>预期目标</h4>
@@ -178,7 +179,9 @@ export default {
       this.isJoin = data.isJoin
       data.courseTolTime = transitionTime(data.courseTolTime)
       this.courseDetail = data
-      wx.hideNavigationBarLoading()
+      setTimeout(() => {
+        wx.hideNavigationBarLoading()
+      }, 500)
     })
   },
   onUnload() {
@@ -305,7 +308,7 @@ export default {
         font-size: 14px;
         color: rgba(74, 74, 74, 1);
       }
-
+      rich-text,
       p {
         margin-top: 7px;
         font-size: 12px;

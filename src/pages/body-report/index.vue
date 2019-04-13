@@ -117,7 +117,9 @@ export default {
         index += 1
       }
       this.projectList = temp
-      wx.hideNavigationBarLoading()
+      setTimeout(() => {
+        wx.hideNavigationBarLoading()
+      }, 500)
     }))
   },
   onUnload() {
