@@ -150,13 +150,13 @@ export default {
     }
     .function-images {
       display: flex;
-      justify-content: space-between;
-      margin: 0 46px;
+      justify-content: space-around;
       .function-images-text {
         display: flex;
         flex-direction: column;
         align-items: center;
         position: relative;
+        padding: 10px 20px;
         .function-image {
           width: 22px;
           height: 22px;

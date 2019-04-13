@@ -158,6 +158,7 @@ export default {
       })
     },
     getLocation() {
+      wx.showNavigationBarLoading()
       const qqmapsdk = new QQMapWX({
         key: 'UFLBZ-JYS6J-DPAF4-FQJUZ-OG5AZ-K5BUB'
       });
@@ -195,7 +196,6 @@ export default {
     this.getHomeData()
   },
   onLoad() {
-    wx.showNavigationBarLoading()
     const token = wx.getStorageSync('token');
     if (token) this.getLocation()
     this.getHomeData()

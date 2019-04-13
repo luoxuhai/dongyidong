@@ -7,7 +7,7 @@
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": false,
-		"autoAudits": false
+		"autoAudits": true
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",

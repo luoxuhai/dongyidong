@@ -151,14 +151,23 @@ export default {
   .navbar-item {
     width: 34px;
     height: 42px;
+    padding: 0 40px;
     line-height: 42px;
     font-size: 16px;
     text-align: center;
     color: #303030;
-
     &.select {
-      border-bottom: 2px solid #ffc83a;
+      position: relative;
       color: #ffc83a;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 38px;
+        transform: translateX(-50%);
+        border-bottom: 2px solid #ffc83a;
+      }
     }
   }
 }

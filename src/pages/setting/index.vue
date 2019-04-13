@@ -135,7 +135,7 @@ export default {
           })
           break
         case 2:
-          wx.navigateTo({ url: '/pages/setting-city/main' })
+          wx.navigateTo({ url: `/pages/setting-city/main?currentCity=${this.city}` })
           break
         case 3:
           wx.navigateTo({

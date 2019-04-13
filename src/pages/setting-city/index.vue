@@ -34,13 +34,17 @@ import { mapState, mapMutations } from 'vuex'
 import { UserInfo } from '@/api'
 var pixelRatio = 1;
 export default {
-  onLoad: function () {
+  onLoad(options) {
+    this.currentCity = options.currentCity
     if (this.cityResults == null) {
       this.cityResults = this.citys;
     }
     var winInfo = wx.getSystemInfo({
       success: function (res) { pixelRatio = 750 / res.windowWidth; }
     });
+  },
+  onUnload() {
+    Object.assign(this.$data, this.$options.data());
   },
   onPageScroll: function (e) {
     this.scrollNow = e.scrollTop;
@@ -129,7 +133,7 @@ export default {
     }
   },
   data: {
-    currentCity: "北京市",
+    currentCity: "",
     scrollAZ: null,
     scrollNow: 0,
     cityResults: null,
@@ -1658,9 +1662,6 @@ export default {
         cityPinYin: 'zunyi',
         cityPY: 'zy'
       }]
-  },
-  onUnload() {
-    Object.assign(this.$data, this.$options.data());
   }
 }
 </script>
@@ -1689,14 +1690,16 @@ export default {
   width: 30rpx;
   position: fixed;
   top: 160rpx;
+  right: 10px;
   text-align: center;
-  right: 5rpx;
-  color: #FFC83A;
+  color: #ffc83a;
 }
 
 .a-z view {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
   font-size: 26rpx;
-  height: 20px;
 }
 
 .city-item-content {
