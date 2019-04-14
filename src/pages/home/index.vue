@@ -21,14 +21,14 @@
               circular>
         <block v-for="(item, index) in banners"
                :key="index">
-          <swiper-item>
+          <swiper-item @click="handleBannerClick(item.carouselShowType, item.carouselShowId)">
             <img mode="aspectFill"
                  lazy-load
                  :src="item.carouselUrl"
                  class="slide-image"
                  width="100%"
                  height="100%" />
-            <p class="title">{{ item.carouselShowType }}</p>
+            <p class="title">{{ item.carouselTitle }}</p>
           </swiper-item>
         </block>
       </swiper>
@@ -71,9 +71,11 @@ import QQMapWX from '@/libs/qqmap-wx-jssdk.min'
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
 import { Home, Carousel } from '@/api'
+import { bannerNavigateMixin } from '@/common/js/mixin'
 import { transitionTime } from "@/libs/tools"
 export default {
   name: "home",
+  mixins: [bannerNavigateMixin],
   components: {
     CourseList,
     InfoList
@@ -293,17 +295,17 @@ export default {
       }
       .title {
         position: absolute;
-        bottom: 20px;
+        bottom: 18px;
         z-index: 99;
         max-width: 90%;
-        height: 27px;
+        height: 25px;
         margin-left: 15px;
         padding: 0 5px;
-        background-color: rgba(78, 78, 78, 0.3);
+        background-color: rgba(78, 78, 78, 0.25);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        line-height: 27px;
+        line-height: 25px;
         color: #fff;
         font: {
           size: 15px;

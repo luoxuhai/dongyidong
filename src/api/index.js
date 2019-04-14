@@ -108,6 +108,10 @@ export class Course {
     const url = COURSE_URL + '/courseAction';
     return request('POST', url, data, header);
   }
+  static courseHotList(data, header) {
+    const url = COURSE_URL + '/courseHotList';
+    return request('POST', url, data, header);
+  }
 }
 
 //动态页面api

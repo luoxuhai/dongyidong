@@ -6,8 +6,7 @@
            :src="courseDetail.courseImage">
       <video v-if="videoPlay"
              enable-play-gesture
-             :show-fullscreen-btn="false"
-             :show-center-play-btn="false"
+             :show-fullscreen-btn="true"
              :autoplay="autoplay"
              :poster="courseDetail.courseImage"
              :src="courseDetail.courseUrl" />
@@ -38,8 +37,9 @@
     <div class="introduce"
          v-show="stitchIndex === 0">
       <div class="text">
-        <h4>简介</h4>
-        <rich-text :nodes="courseDetail.courseDescription"
+        <h4 style="margin-bottom: 7px">简介</h4>
+        <rich-text style="margin: 0"
+                   :nodes="courseDetail.courseDescription"
                    space="nbsp" />
       </div>
       <div class="text">
@@ -305,6 +305,7 @@ export default {
       }
 
       h4 {
+        overflow: hidden;
         font-size: 14px;
         color: rgba(74, 74, 74, 1);
       }

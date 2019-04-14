@@ -84,8 +84,9 @@ export default {
   flex-wrap: wrap;
   padding: 20px 50px 0 50px;
   .teacher-item {
-    display: felx;
+    display: flex;
     align-items: center;
+    flex-wrap: wrap;
     flex-direction: column;
     width: 120px;
     height: 150px;

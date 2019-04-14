@@ -33,3 +33,15 @@ export const pagingLoadingMixin = {
     Object.assign(this.$data, this.$options.data());
   },
 };
+
+export const bannerNavigateMixin = {
+  methods: {
+    handleBannerClick(carouselShowType, carouselShowId) {
+      let pageUrl = '';
+      if (carouselShowType === 0) {
+        pageUrl = `/pages/course-detail/main?courseId=${carouselShowId}`;
+      } else pageUrl = `/pages/trends-detail/main?messageId=${carouselShowId}`;
+      wx.navigateTo({ url: pageUrl });
+    }
+  }
+};

@@ -2,12 +2,13 @@
   <div class="course">
     <swiper indicator-dots
             autoplay
+            indicator-active-color="#CAC4C3"
             :interval="interval"
             :duration="duration"
             circular>
-      <block v-for="(item, index) in imgUrls"
+      <block v-for="(item, index) of banners"
              :key="index">
-        <swiper-item>
+        <swiper-item @click="handleBannerClick(item.carouselShowType, item.carouselShowId)">
           <img mode="aspectFill"
                :src="item.carouselUrl"
                class="slide-image">
@@ -28,7 +29,9 @@
     <div class="course-wrap">
       <course-list :title="courseTitle"
                    :data="courseData"
-                   @select="selectCourse"></course-list>
+                   @select="selectCourse" />
+      <loading-more :loading="loading"
+                    size="22" />
     </div>
   </div>
 </template>
@@ -36,12 +39,15 @@
 <script>
 import CourseList from "@/components/course-list"
 import { transitionTime } from "@/libs/tools"
-import { Home, Carousel } from '@/api'
-
+import { Home, Carousel, Course } from '@/api'
+import { bannerNavigateMixin, pagingLoadingMixin } from '@/common/js/mixin'
+import LoadingMore from "@/components/loading-more"
 export default {
   name: "course",
+  mixins: [bannerNavigateMixin, pagingLoadingMixin],
   components: {
-    CourseList
+    CourseList,
+    LoadingMore
   },
   data() {
     return {
@@ -70,7 +76,10 @@ export default {
       // 课程数据
       courseTitle: '推荐课程',
       courseData: [],
-
+      currentPage: 1,
+      totalPage: 1,
+      pageSize: 10,
+      loading: true
     }
   },
   methods: {
@@ -102,16 +111,31 @@ export default {
         url: `/pages/course-detail/main?courseId=${courseId}`
       })
     },
-    getCourseData() {
-      Home.selectMessage({}).then(res => {
-        let { courseDtoList } = res.data
-        courseDtoList.forEach((item, index) => {
-          const courseTolTime = courseDtoList[index].courseTolTime
-          courseDtoList[index].courseTolTime = transitionTime(courseTolTime)
+    loadMore(reachBottom = false) {
+      if (this.currentPage > this.totalPage) {
+        this.loading = false
+        return
+      } else this.loading = true
+
+      Course.courseHotList({}).then(res => {
+        const { pages, size, records } = res.data
+        records.forEach((item, index) => {
+          const courseTolTime = records[index].courseTolTime
+          records[index].courseTolTime = transitionTime(courseTolTime)
         });
-        this.courseData = [...courseDtoList]
+        if (records.length === 0) this.nothing = true
+        else this.nothing = false
+        if (this.currentPage >= pages) this.loading = false
+        if (reachBottom) this.courseData = [...this.courseData, ...records]
+        else this.courseData = [...records]
+        this.totalPage = pages || 1
+        this.pageSize = size
+        this.currentPage += 1
+      }).finally(() => {
         wx.stopPullDownRefresh()
       })
+    },
+    getCourseData() {
       Carousel.selectCarouselByType({
         type: 1
       }).then(res => {
