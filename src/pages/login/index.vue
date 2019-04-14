@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <section>
-      <img mode="aspectFill"
+      <img mode="aspectFit"
            src="/static/images/logo.png">
       <text class="name">动亿动体育</text>
     </section>

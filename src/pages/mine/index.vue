@@ -20,11 +20,17 @@
                :key="index"
                @click="handleEnterDetail(index)">
             <img class="function-image"
+                 mode="aspectFit"
                  :src="item.img">
             <text class="function-textone">{{item.text}}</text>
           </div>
         </div>
       </div>
+    </div>
+    <div class="logo-container">
+      <img class="logo"
+           src="/static/images/logo.png"
+           mode="aspectFit">
     </div>
   </div>
 </template>
@@ -91,80 +97,89 @@ export default {
 .container {
   height: 100vh;
   background-color: #f8f8f8;
-}
-.header {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  .header-user {
-    display: flex;
-    width: 375px;
-    height: 128px;
-    background-color: #ffc83a;
-    .header-user-img {
-      width: 70px;
-      height: 70px;
-      margin: 13px 16px 0 16px;
-      border-radius: 50%;
-    }
-    .header-text {
-      display: flex;
-      flex-direction: column;
-      margin-top: 25rpx;
-      .text-address,
-      .text-school,
-      .text-user-name {
-        color: #fff;
-      }
-      .text-user-name {
-        font: {
-          size: 16px;
-          weight: 600;
-        }
-      }
-      .text-address {
-        margin-top: 12px;
-        font-size: 12px;
-      }
-      .text-school {
-        margin-top: 5px;
-        font-size: 12px;
-      }
+  .logo-container {
+    @include center;
+    height: calc(100vh - 128px);
+    .logo {
+      width: 50vw;
+      height: 50vw;
     }
   }
-  .function {
+  .header {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    width: 345px;
-    height: 103px;
-    margin: 98px 15px auto 15px;
-    border-radius: 6px;
-    background-color: #fff;
-    .function-text {
-      margin: 0 13px 13px 13px;
-      font-size: 17px;
-      font-weight: 500;
-      color: #4a4a4a;
-    }
-    .function-images {
+    position: relative;
+    z-index: 99;
+    .header-user {
       display: flex;
-      justify-content: space-around;
-      .function-images-text {
+      width: 375px;
+      height: 128px;
+      background-color: #ffc83a;
+      .header-user-img {
+        width: 70px;
+        height: 70px;
+        margin: 13px 16px 0 16px;
+        border-radius: 50%;
+      }
+      .header-text {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        position: relative;
-        padding: 10px 20px;
-        .function-image {
-          width: 22px;
-          height: 22px;
+        margin-top: 25rpx;
+        .text-address,
+        .text-school,
+        .text-user-name {
+          color: #fff;
         }
-        .function-textone {
-          margin-top: 10px;
-          font-size: 10px;
-          color: #4a4a4a;
+        .text-user-name {
+          font: {
+            size: 16px;
+            weight: 600;
+          }
+        }
+        .text-address {
+          margin-top: 12px;
+          font-size: 12px;
+        }
+        .text-school {
+          margin-top: 5px;
+          font-size: 12px;
+        }
+      }
+    }
+    .function {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      width: 345px;
+      height: 103px;
+      margin: 98px 15px auto 15px;
+      border-radius: 6px;
+      background-color: #fff;
+      .function-text {
+        margin: 0 13px 13px 13px;
+        font-size: 17px;
+        font-weight: 500;
+        color: #4a4a4a;
+      }
+      .function-images {
+        display: flex;
+        justify-content: space-around;
+        .function-images-text {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+          padding: 10px 20px;
+          .function-image {
+            width: 22px;
+            height: 22px;
+          }
+          .function-textone {
+            margin-top: 10px;
+            font-size: 10px;
+            color: #4a4a4a;
+          }
         }
       }
     }

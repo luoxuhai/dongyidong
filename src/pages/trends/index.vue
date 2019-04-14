@@ -103,7 +103,9 @@ export default {
 .container-trends {
   padding: 42px 15px;
   .navbar {
-    @include flex(space-around, center);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;

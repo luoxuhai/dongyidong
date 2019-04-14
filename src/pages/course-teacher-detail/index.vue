@@ -2,7 +2,8 @@
   <div class="teacher-detail">
     <div class="avatar">
       <img mode="aspectFill"
-           :src="teacherDetail.teacherUrl">
+           :src="teacherDetail.teacherUrl"
+           @load="bindload">
     </div>
     <div class="desc">
       <p class="name">{{ teacherDetail.teacherName }}</p>
@@ -27,6 +28,11 @@ export default {
       teacherDetail: {}
     }
   },
+  methods: {
+    bindload() {
+      wx.hideNavigationBarLoading()
+    },
+  },
   onLoad(options) {
     wx.showNavigationBarLoading()
     TrainingTeacher.teacherDetail({ teacherId: options.teacherId })
@@ -34,9 +40,6 @@ export default {
         let teacherLabel = res.data.teacherLabel
         this.teacherDetail = res.data
         this.teacherDetail.teacherLabel = teacherLabel.split('，')
-        setTimeout(() => {
-          wx.hideNavigationBarLoading()
-        }, 500)
       })
   },
   onUnload() {
@@ -49,10 +52,10 @@ export default {
 @import "static/styles/common.scss";
 
 .teacher-detail {
-  @include flex;
+  display: flex;
   margin: 25px;
   .avatar {
-    @include flex(center, center);
+    @include center;
     width: 82px;
     height: 82px;
     border: 1px solid #ffc83a;
@@ -82,7 +85,6 @@ export default {
       color: #80848f;
     }
     .tag {
-      // @include flex(start, start, row, wrap);
       margin-top: 15px;
       .tag-item {
         display: inline-block;

@@ -79,15 +79,19 @@ export default {
 @import "static/styles/common.scss";
 
 .teacher-container {
-  @include flex(space-between, start, row, wrap);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   padding: 20px 50px 0 50px;
   .teacher-item {
-    @include flex(start, center, column);
+    display: felx;
+    align-items: center;
+    flex-direction: column;
     width: 120px;
     height: 150px;
     margin-bottom: 20px;
     .avatar {
-      @include flex(center, center);
+      @include center;
       width: 82px;
       height: 82px;
       border: 1px solid #ffc83a;

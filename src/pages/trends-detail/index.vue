@@ -2,7 +2,8 @@
   <div>
     <img class="cover"
          mode="aspectFill"
-         :src="detailContent.messageUrl">
+         :src="detailContent.messageUrl"
+         @load="bindload">
     <h1 class="title">{{ detailContent.messageTitle }}</h1>
     <p class="browse-count">{{ detailContent.messageNum}}人浏览</p>
     <rich-text class="article"
@@ -29,6 +30,9 @@ export default {
     }
   },
   methods: {
+    bindload() {
+      wx.hideNavigationBarLoading()
+    },
     handleCollect() {
       //添加收藏
       if (this.isCollect) {
@@ -67,7 +71,6 @@ export default {
       }).then(res => {
         this.detailContent = res.data
         this.isCollect = Boolean(res.data.isCollect)
-        wx.hideNavigationBarLoading()
       }).catch(err => {
 
       })

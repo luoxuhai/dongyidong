@@ -1,32 +1,32 @@
 <template>
-  <view>
-    <view class="search-box">
+  <div>
+    <div class="search-box">
       <input placeholder="中文/拼音/首字母"
              class="search-input"
              @input='bindSarchInput'
              placeholder-class='search-input-placeholder' />
-    </view>
-    <view class="currentCityTitle">当前 ： {{currentCity}}</view>
-    <view class='a-z'>
-      <view v-for="(item, index) in cityAZ"
-            :key="index">
-        <view :data-id="item.cityName"
-              @tap='bindAZ'>{{item.cityName}}</view>
-      </view>
-    </view>
-    <view class='city-item-content'>
-      <view v-for="(item, index) in cityResults"
-            :key="index">
-        <view v-if="item.cityPinYin.length > 1"
-              class="city-item"
-              :data-cityname="item.cityName"
-              @tap='citySelected'>{{item.cityName}}</view>
-        <view v-else
-              class="city-item-A-Z"
-              :data-cityname="item.cityName">{{item.cityName}}</view>
-      </view>
-    </view>
-  </view>
+    </div>
+    <div class="currentCityTitle">当前 ： {{currentCity}}</div>
+    <div class='a-z'>
+      <div v-for="(item, index) of cityAZ"
+           :key="index">
+        <div :data-id="item.cityName"
+             @tap='bindAZ'>{{item.cityName}}</div>
+      </div>
+    </div>
+    <div class='city-item-content'>
+      <div v-for="(item, index) of cityResults"
+           :key="index">
+        <div v-if="item.cityPinYin.length > 1"
+             class="city-item"
+             :data-cityname="item.cityName"
+             @tap='citySelected'>{{item.cityName}}</div>
+        <div v-else
+             class="city-item-A-Z"
+             :data-cityname="item.cityName">{{item.cityName}}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -45,13 +45,14 @@ export default {
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data());
+    this.cityResults = null
   },
-  onPageScroll: function (e) {
+  onPageScroll(e) {
     this.scrollNow = e.scrollTop;
   },
   methods: {
     ...mapMutations(['setUserInfo']),
-    bindAZ: function (e) {
+    bindAZ(e) {
       var currentCityName = e.mp.currentTarget.dataset.id
       var that = this;
       if (that.scrollAZ == null) {
@@ -80,7 +81,7 @@ export default {
         })
       }
     },
-    citySelected: function (e) {
+    citySelected(e) {
       const cityNameTemp = e.mp.currentTarget.dataset.cityname;
       this.currentCity = cityNameTemp;
       wx.showLoading({
@@ -99,7 +100,7 @@ export default {
         })
       })
     },
-    bindSarchInput: function (e) {
+    bindSarchInput(e) {
       wx.pageScrollTo({
         scrollTop: 0,
         duration: 0

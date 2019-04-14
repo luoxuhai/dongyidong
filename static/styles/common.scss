@@ -1,9 +1,7 @@
-@mixin flex($justify: start, $align: start, $direction: row, $wrap: nowrap) {
+@mixin center() {
   display: flex;
-  justify-content: $justify;
-  flex-direction: $direction;
-  align-items: $align;
-  flex-wrap: $wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin ellipsis($line) {

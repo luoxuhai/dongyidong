@@ -145,6 +145,7 @@ export default {
         type: 0
       }).then(res => {
         this.banners = res.data
+        wx.hideNavigationBarLoading()
       })
     },
     getWeather() {
@@ -178,7 +179,6 @@ export default {
                 district: ad_info.district
               }
               this.getWeather()
-              wx.hideNavigationBarLoading()
             }
           })
         }
