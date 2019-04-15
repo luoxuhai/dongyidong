@@ -142,12 +142,13 @@ export default {
         this.courseData = [...courseDtoList]
         this.infoData = [...newsDtos]
         wx.stopPullDownRefresh()
+      }).then(() => {
+        wx.hideNavigationBarLoading()
       })
       Carousel.selectCarouselByType({
         type: 0
       }).then(res => {
         this.banners = res.data
-        wx.hideNavigationBarLoading()
       })
     },
     getWeather() {

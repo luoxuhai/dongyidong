@@ -1,39 +1,39 @@
 {
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+      "desc": "你的位置信息将用于动亿动体育小程序获取天气信息"
     }
   },
   "pages": [
     "pages/home/main",
-    "pages/login/main",
+    "pages/body-report/main",
     "pages/course/main",
     "pages/course-detail/main",
     "pages/course-sec/main",
-    "pages/train/main",
-    "pages/trends/main",
-    "pages/body-report/main",
     "pages/course-teacher/main",
     "pages/course-teacher-detail/main",
+    "pages/my-train/main",
+    "pages/train/main",
+    "pages/trends/main",
     "pages/trends-detail/main",
     "pages/mine/main",
     "pages/mine-collect/main",
-    "pages/my-train/main",
     "pages/setting/main",
     "pages/setting-name/main",
     "pages/setting-city/main",
-    "pages/setting-cropper/main"
+    "pages/setting-cropper/main",   
+    "pages/login/main"
   ],
   "window": {
-    "backgroundColor": "#f7f7f7",
-    "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "动亿动体育",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F7F7F7",
+    "backgroundTextStyle": "dark",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#7F8389",
-    "backgroundColor": "#fff",
+    "backgroundColor": "#FFFFFF",
     "selectedColor": "#FFC83A",
     "borderStyle": "black",
     "list": [

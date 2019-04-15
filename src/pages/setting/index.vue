@@ -89,7 +89,6 @@ export default {
       wx.showLoading({
         title: '加载中',
       })
-
       wx.chooseImage({
         count: 1,
         sizeType: ["original"],
@@ -149,6 +148,7 @@ export default {
         this.userInfo = {
           userSchool, userCity, userImage, userNickname: decodeURI(userNickname)
         }
+        wx.hideNavigationBarLoading()
       })
     },
   },
@@ -156,13 +156,11 @@ export default {
     ...mapState(['avatarUrl', 'city', 'nickName'])
   },
   onLoad(options) {
+    wx.showNavigationBarLoading()
     this.school = this.$store.state.school
     UserInfo.selectClassAndSchool().then(res => {
       this.schoolArr = res.data
     })
-    // const { imgUrl } = options
-    // this.imgUrl = imgUrl || this.avatarUrl
-    // 
     this.getUserInfo()
   }
 }

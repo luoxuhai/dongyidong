@@ -69,10 +69,10 @@ export default {
         userId: this.$store.state.userId,
         newsId: this.messageId
       }).then(res => {
+        res.data.messageContent = res.data.messageContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto;margin: 8px auto;"')
         this.detailContent = res.data
         this.isCollect = Boolean(res.data.isCollect)
       }).catch(err => {
-
       })
     }
   },

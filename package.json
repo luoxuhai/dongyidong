@@ -1,8 +1,8 @@
 {
-  "name": "my-project",
+  "name": "dongyidong",
   "version": "1.0.0",
   "mpvueTemplateProjectVersion": "0.1.0",
-  "description": "A Mpvue project",
+  "description": "动亿动体育小程序",
   "author": "ibyli <15186743693@163.com>",
   "private": true,
   "scripts": {
