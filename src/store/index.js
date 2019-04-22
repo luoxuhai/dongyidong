@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     school: '',
     nickName: '',
     province: '',
+    gender: '',
     load: false,
   },
   mutations: {

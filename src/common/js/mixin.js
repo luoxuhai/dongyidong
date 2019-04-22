@@ -42,6 +42,6 @@ export const bannerNavigateMixin = {
         pageUrl = `/pages/course-detail/main?courseId=${carouselShowId}`;
       } else pageUrl = `/pages/trends-detail/main?messageId=${carouselShowId}`;
       wx.navigateTo({ url: pageUrl });
-    }
-  }
+    },
+  },
 };

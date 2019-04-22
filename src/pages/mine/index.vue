@@ -27,6 +27,15 @@
         </div>
       </div>
     </div>
+    <ul class="option-container">
+      <li class="option-item"
+          v-for="(item, index) of options"
+          :key="index"
+          @click="handleEnterDetailClick(index)">
+        <img :src="item.icon"
+             mode="aspectFill">
+        {{ item.title }}</li>
+    </ul>
     <div class="logo-container">
       <img class="logo"
            src="/static/images/logo.png"
@@ -42,6 +51,20 @@ export default {
   data() {
     return {
       userInfo: {},
+      options: [
+        {
+          title: '会员',
+          icon: ''
+        },
+        {
+          title: '反馈',
+          icon: ''
+        },
+        {
+          title: '绑定手机号',
+          icon: ''
+        }
+      ],
       List: [
         {
           img: "/static/images/my/collect.png",
@@ -60,6 +83,20 @@ export default {
   },
   methods: {
     ...mapMutations(['setUserInfo']),
+    handleEnterDetailClick(index) {
+      let url = ''
+      switch (index) {
+        case 0:
+          url = '/pages/mine-vip/main'
+          break
+        case 1:
+          url = '/pages/mine-feedback/main'
+          break
+        case 2:
+          url = '/pages/mine-binding/main'
+      }
+      wx.navigateTo({ url });
+    },
     getUserInfo() {
       UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(res => {
         const { userSchool, userCity, userImage, userNickname } = res.data
@@ -99,10 +136,10 @@ export default {
   background-color: #f8f8f8;
   .logo-container {
     @include center;
-    height: calc(100vh - 128px);
+    height: calc(100vh - 350px);
     .logo {
-      width: 50vw;
-      height: 50vw;
+      width: 30vw;
+      height: 30vw;
     }
   }
   .header {
@@ -157,7 +194,7 @@ export default {
       border-radius: 6px;
       background-color: #fff;
       .function-text {
-        margin: 0 13px 13px 13px;
+        margin: 5px 13px 13px 13px;
         font-size: 17px;
         font-weight: 500;
         color: #4a4a4a;
@@ -181,6 +218,32 @@ export default {
             color: #4a4a4a;
           }
         }
+      }
+    }
+  }
+  .option-container {
+    width: 345px;
+    margin: 82px auto 0;
+    background-color: #fff;
+    border-radius: 6px;
+    .option-item {
+      line-height: 45px;
+      height: 45px;
+      padding: 0 10px;
+      font: {
+        size: 14px;
+      }
+      color: #4a4a4a;
+      img {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+      }
+      &:active {
+        background-image: linear-gradient(
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0.1)
+        );
       }
     }
   }

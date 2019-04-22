@@ -1,10 +1,11 @@
-import Vue from "vue"
-import App from "./App"
-import store from "./store"
+import Vue from 'vue';
+import App from './App';
+import store from './store';
+import '../static/styles/common.css';
 
-Vue.prototype.$store = store
-Vue.config.productionTip = false
-App.mpType = "app"
+Vue.prototype.$store = store;
+Vue.config.productionTip = false;
+App.mpType = 'app';
 
-const app = new Vue(App, store)
-app.$mount()
+const app = new Vue(App, store);
+app.$mount();

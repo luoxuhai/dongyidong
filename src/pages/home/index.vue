@@ -197,6 +197,7 @@ export default {
   },
   onPullDownRefresh() {
     this.getHomeData()
+    this.getLocation()
   },
   onLoad() {
     const token = wx.getStorageSync('token');

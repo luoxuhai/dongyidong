@@ -6,7 +6,8 @@
         <h1>头像</h1>
         <div>
           <img mode="aspectFill"
-               :src="avatarUrl">
+               :src="avatarUrl"
+               @load="bindload">
           <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
@@ -66,6 +67,9 @@ export default {
     }
   },
   methods: {
+    bindload() {
+      wx.hideNavigationBarLoading()
+    },
     changePickerCity(e) {
       const index = Number(e.mp.detail.value)
       this.cityIndex = index

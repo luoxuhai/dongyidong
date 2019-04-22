@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"appid": "wx037562790c5d5253",
 	"projectname": "dongyidong",
-	"libVersion": "2.6.5",
+	"libVersion": "2.6.6",
 	"condition": {
 		"search": {
 			"current": -1,

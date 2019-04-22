@@ -43,7 +43,7 @@ export default {
           let data = res.userInfo;
           wx.login({
             success: res => {
-              let { avatarUrl, city, nickName, gender } = data
+              let { avatarUrl, city, nickName, gender, province } = data
               UserInfo.login({
                 code: res.code
               }).then(res => {
@@ -51,7 +51,9 @@ export default {
                 this.setUserInfo({
                   userId,
                   openId,
-                  token
+                  token,
+                  gender,
+                  province
                 })
                 if (status === 0) {
                   UserInfo.insertBasicUserInfo({
