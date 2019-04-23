@@ -19,3 +19,11 @@ export const transitionTime = num => {
   }
   return `${minute}:${second}`;
 };
+
+export const getCountDown = (time, success) => {
+      const interval = setInterval(() => {
+        if (time >= 0)
+          success(time--)
+        else clearInterval(interval)
+      }, 1000)
+    }

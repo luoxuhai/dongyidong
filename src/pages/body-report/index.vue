@@ -1,27 +1,27 @@
 <template>
   <div class="body-report">
-    <scroll-view>
+    <scroll-view v-if="!nothing">
       <div class="report-head">
         <img src="/static/images/body-report/book.png">
         <div class="head-con">
           <h3>姓名：<span>{{ nickName }}</span></h3>
-          <p>评价：{{ info.testAssess || '未知' }}</p>
-          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年龄：{{ info.testAge || '未知' }}</p>
+          <p>评价：{{ info.testAssess  }}</p>
+          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年龄：{{ info.testAge  }}</p>
           <p>测试时间：{{ info.testTime }}</p>
         </div>
       </div>
       <div class="rating">
         <ul>
           <li>
-            <h3>{{ info.testScore || '未知' }}</h3>
+            <h3>{{ info.testScore  }}</h3>
             <p>综合评分</p>
           </li>
           <li>
-            <h3>{{ info.testRanking || '未知'}}</h3>
+            <h3>{{ info.testRanking }}</h3>
             <p>班级排名</p>
           </li>
           <li>
-            <h3>{{ info.testGradeRanking || '未知'}}</h3>
+            <h3>{{ info.testGradeRanking }}</h3>
             <p>年级排名</p>
           </li>
         </ul>
@@ -30,9 +30,9 @@
         <div class="body-base">
           <div class="base-wrap">
             <ul>
-              <li>评价：{{ info.testEvaluate || '未知'}}</li>
-              <li>身高：{{ info.testHeight || '未知'}}cm</li>
-              <li>体重：{{ info.testWeight || '未知'}}kg</li>
+              <li>评价：{{ info.testEvaluate }}</li>
+              <li>身高：{{ info.testHeight }}cm</li>
+              <li>体重：{{ info.testWeight }}kg</li>
             </ul>
             <div class="body-line">
               <img src="/static/images/body-report/line.png">
@@ -77,16 +77,22 @@
         <p>{{ info.testGradeAssess || '未知' }}</p>
       </div>
     </scroll-view>
+    <placeholder-img v-if="nothing" />
   </div>
 </template>
 
 <script>
+import PlaceholderImg from "@/components/placeholder-img"
 import { UserInfo } from '@/api'
 import { mapState } from 'vuex'
 export default {
   name: "body-report",
+  components: {
+    PlaceholderImg
+  },
   data() {
     return {
+      nothing: false,
       info: {},
       testInfo: {},
       projectList: []
@@ -103,6 +109,7 @@ export default {
       let info = res.data
       this.info = info
       let { list } = res.data
+      if (list.length === 0) this.nothing = true
       let temp = list.filter((item) => (item.name !== null))
       const BASE_VALUE = 10
       let index = 0
@@ -117,10 +124,9 @@ export default {
         index += 1
       }
       this.projectList = temp
-      setTimeout(() => {
-        wx.hideNavigationBarLoading()
-      }, 500)
-    }))
+    })).finally(() => {
+      wx.hideNavigationBarLoading()
+    })
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data());

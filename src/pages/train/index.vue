@@ -41,11 +41,10 @@ export default {
       })
     },
     loadMore(reachBottom = false) {
-      //   if (this.currentPage > this.totalPage) {
-      //     this.loading = false
-      //     return false
-      //   } else this.loading = true
-
+      if (this.currentPage > this.totalPage) {
+        this.loading = false
+        return false
+      } else this.loading = true
       Course.userCourseList({
         pageNum: this.currentPage,
         userId: this.$store.state.userId
@@ -53,7 +52,6 @@ export default {
         const { pages, size, records, total } = res.data
         if (records.length === 0) this.nothing = true
         else this.nothing = false
-        // if (this.currentPage >= pages) this.loading = false
         records.forEach((item, index) => {
           const courseTolTime = records[index].courseTolTime
           records[index].courseTolTime = transitionTime(courseTolTime)

@@ -20,7 +20,7 @@
                :key="index"
                @click="handleEnterDetail(index)">
             <img class="function-image"
-                 mode="aspectFit"
+                 mode="aspectFill"
                  :src="item.img">
             <text class="function-textone">{{item.text}}</text>
           </div>
@@ -54,15 +54,15 @@ export default {
       options: [
         {
           title: '会员',
-          icon: ''
+          icon: '/static/images/my/vip.png'
         },
         {
           title: '反馈',
-          icon: ''
+          icon: '/static/images/my/feedback.png'
         },
         {
           title: '绑定手机号',
-          icon: ''
+          icon: '/static/images/my/binding.png'
         }
       ],
       List: [

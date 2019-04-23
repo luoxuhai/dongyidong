@@ -7,6 +7,7 @@ const TRAINING_TEACHER_URL = BASE_URL + '/client/trainingTeacher';
 const MESSAGE_NEWS_URL = BASE_URL + '/client/messageNews';
 const COURSE_URL = BASE_URL + '/client/course';
 const CAROUSEL_URL = BASE_URL + '/client/carousel';
+const FEEDBACK_URL = BASE_URL + '/client/feedback';
 const WEATHER_URL = 'http://t.weather.sojson.com/api/weather/city/101030100';
 
 export class Home {
@@ -17,6 +18,13 @@ export class Home {
   static getWeather(data) {
     const url = WEATHER_URL;
     return request('GET', url, data);
+  }
+}
+
+export class Feedback {
+  static insertFeedBack(data) {
+    const url = FEEDBACK_URL + '/insertFeedBack';
+    return request('POST', url, data);
   }
 }
 
@@ -55,6 +63,21 @@ export class UserInfo {
 
   static selectClassAndSchool(data, header) {
     const url = USER_INFO_URL + '/selectClassAndSchool';
+    return request('POST', url, data, header);
+  }
+
+  static insertPhone(data, header) {
+    const url = USER_INFO_URL + '/insertPhone';
+    return request('POST', url, data, header);
+  }
+
+  static selectPhone(data, header) {
+    const url = USER_INFO_URL + '/selectPhone';
+    return request('POST', url, data, header);
+  }
+
+  static auth(data, header) {
+    const url = USER_INFO_URL + '/auth';
     return request('POST', url, data, header);
   }
 }

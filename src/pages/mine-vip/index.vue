@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { UserInfo } from '@/api'
 export default {
   data() {
     return {
@@ -32,26 +30,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setUserInfo']),
     handleSubmitClick() {
-      this.binding = true;
-
-      // UserInfo.upDateUserBasicInfo({
-      //   userId: this.$store.state.userId,
-      //   userNickname: encodeURI(this.inputValue)
-      // }).then((res) => {
-      //   this.setUserInfo({
-      //     nickName: this.inputValue
-      //   })
-      //   wx.hideLoading()
-      //   wx.navigateBack({
-      //     delta: 1
-      //   });
-      // })
+      wx.showModal({
+        title: '提示',
+        content: '会员功能暂未开放',
+        showCancel: false
+      })
     }
-  },
-  computed: {
-    ...mapState(['avatarUrl', 'city', 'nickName'])
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
@@ -63,15 +48,18 @@ export default {
 @import "static/styles/common.scss";
 .container {
   height: 100vh;
+  padding-top: 28px;
   background-color: #fff;
 }
 .vip-container {
   width: min-content;
-  margin: 0 auto 70px;
+  margin: 0 auto 58px;
+  & li + li {
+    margin: 15px 0;
+  }
   li {
     width: 315px;
     height: 110px;
-    margin-top: 15px;
     img {
       width: 100%;
       height: 100%;

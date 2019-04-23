@@ -96,8 +96,8 @@ export default {
           });
           break
         case 2:
-          wx.switchTab({
-            url: '/pages/trends/main'
+          wx.navigateTo({
+            url: '/pages/course-news/main'
           });
           break
         case 3:

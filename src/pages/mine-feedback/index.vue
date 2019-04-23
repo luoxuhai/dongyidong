@@ -2,7 +2,7 @@
   <div class="container">
     <textarea auto-focus
               placeholder="请输入反馈详情"
-              :maxlength="20"
+              :maxlength="400"
               :show-confirm-bar="false"
               v-model="inputValue"
               class="input"
@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { UserInfo } from '@/api'
+import { Feedback } from '@/api'
 export default {
   data() {
     return {
@@ -21,24 +20,30 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setUserInfo']),
+    validateFeedback(inputValue) {
+      const re = /.{1,}/;
+      if (!re.test(inputValue))
+        wx.showModal({
+          title: '提示',
+          content: '请输入反馈内容',
+          showCancel: false
+        })
+      return re.test(inputValue)
+    },
     handleSubmitClick() {
+      if (!this.validateFeedback(this.inputValue)) return
       wx.showLoading({
-        title: '保存中',
+        title: '反馈中',
       })
-      console.log(this.inputValue);
-      // UserInfo.upDateUserBasicInfo({
-      //   userId: this.$store.state.userId,
-      //   userNickname: encodeURI(this.inputValue)
-      // }).then((res) => {
-      //   this.setUserInfo({
-      //     nickName: this.inputValue
-      //   })
-      //   wx.hideLoading()
-      //   wx.navigateBack({
-      //     delta: 1
-      //   });
-      // })
+      Feedback.insertFeedBack({
+        userId: this.$store.state.userId,
+        feedback: this.inputValue
+      }).then((res) => {
+        wx.hideLoading()
+        wx.navigateBack({
+          delta: 1
+        });
+      })
     }
   },
   onLoad() {

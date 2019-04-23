@@ -28,7 +28,8 @@ export default {
       openId: '',
       avatarUrl: '',
       nickName: '',
-      city: ''
+      city: '',
+      phoneNumber: ''
     }
     Object.keys(state).forEach(key => {
       const value = wx.getStorageSync(key);
@@ -48,14 +49,13 @@ export default {
 
 <style>
 @font-face {
-  font-family: "iconfont"; /* project id 1097190 */
-  src: url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.eot");
-  src: url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.eot?#iefix")
-      format("embedded-opentype"),
-    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.woff2") format("woff2"),
-    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.woff") format("woff"),
-    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.ttf") format("truetype"),
-    url("//at.alicdn.com/t/font_1097190_qh3hz4vqvro.svg#iconfont") format("svg");
+  font-family: 'iconfont';  /* project id 1097190 */
+  src: url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.eot');
+  src: url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.svg#iconfont') format('svg');
 }
 
 .iconfont {

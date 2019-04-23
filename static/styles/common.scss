@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-@mixin ellipsis($line) {
+@mixin ellipsis($line: 1  ) {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $line;

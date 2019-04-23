@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     nickName: '',
     province: '',
     gender: '',
+    phoneNumber: '',
     load: false,
   },
   mutations: {
