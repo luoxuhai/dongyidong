@@ -41,7 +41,7 @@ export default {
       loading: true,
       pageSize: 10,
       trendsList: [],
-      navbarList: ["全部", "技术训练", "营养饮食", "体育保健"]
+      navbarList: ['全部', '技术训练', '营养饮食', '体育保健', '资讯', '其他']
     }
   },
   methods: {

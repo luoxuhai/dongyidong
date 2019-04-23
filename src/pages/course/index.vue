@@ -91,8 +91,8 @@ export default {
           })
           break
         case 1:
-          wx.switchTab({
-            url: '/pages/train/main'
+          wx.navigateTo({
+            url: '/pages/course-train/main'
           });
           break
         case 2:
