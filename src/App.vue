@@ -5,23 +5,24 @@ import { wx_login } from '@/libs/utils'
 export default {
   onLaunch() {
     const token = wx.getStorageSync('token');
-    if (!token) {
+    if (!token)
       wx.redirectTo({ url: `/pages/login/main` });
-    } else
-      wx_login().then(res => {
-        return res
-      }).then(res => {
-        UserInfo.login({ code: res.code })
-          .then(res => {
-            const { openId, token, status, userId } = res.data
-            if (status === 0) wx.redirectTo({ url: `/pages/login/main` });
+    wx_login().then(res => {
+      return res
+    }).then(res => {
+      UserInfo.login({ code: res.code })
+        .then(res => {
+          const { openId, token, status, userId } = res.data
+          if (status === 0)
+            wx.redirectTo({ url: `/pages/login/main` });
+          else
             this.setUserInfo({
               userId,
               openId,
               token
             })
-          })
-      })
+        })
+    })
     let state = {
       userId: '',
       token: '',
@@ -49,13 +50,14 @@ export default {
 
 <style>
 @font-face {
-  font-family: 'iconfont';  /* project id 1097190 */
-  src: url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.eot');
-  src: url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1097190_cjlklnm1scc.svg#iconfont') format('svg');
+  font-family: "iconfont"; /* project id 1097190 */
+  src: url("//at.alicdn.com/t/font_1097190_cjlklnm1scc.eot");
+  src: url("//at.alicdn.com/t/font_1097190_cjlklnm1scc.eot?#iefix")
+      format("embedded-opentype"),
+    url("//at.alicdn.com/t/font_1097190_cjlklnm1scc.woff2") format("woff2"),
+    url("//at.alicdn.com/t/font_1097190_cjlklnm1scc.woff") format("woff"),
+    url("//at.alicdn.com/t/font_1097190_cjlklnm1scc.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_1097190_cjlklnm1scc.svg#iconfont") format("svg");
 }
 
 .iconfont {

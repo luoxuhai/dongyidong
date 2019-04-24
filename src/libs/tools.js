@@ -21,9 +21,8 @@ export const transitionTime = num => {
 };
 
 export const getCountDown = (time, success) => {
-      const interval = setInterval(() => {
-        if (time >= 0)
-          success(time--)
-        else clearInterval(interval)
-      }, 1000)
-    }
+  const interval = setInterval(() => {
+    if (time >= 0) success(time--);
+    else clearInterval(interval);
+  }, 1000);
+};

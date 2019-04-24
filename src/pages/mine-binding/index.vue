@@ -42,6 +42,7 @@ export default {
       inputAuthcode: '',
       authcode: '',
       currenPhoneNumber: '',
+      clearCountDown: false
     }
   },
   methods: {
@@ -60,7 +61,9 @@ export default {
         phone: phoneNumber
       }).then((res) => {
         this.binding = false
+        this.clearCountDown = true
         this.setUserInfo({ phoneNumber })
+        this.inputPhone = this.inputAuthcode = null
         wx.hideLoading()
       })
     },
@@ -69,12 +72,18 @@ export default {
       phoneNumber = this.inputPhone
       UserInfo.auth({ phone: phoneNumber }).then(res => {
         if (res.code === 1) {
-          this.validateAuthcode(void 0)
+          this.validateAuthcode(void 0, true)
           return
         }
         this.authcode = res.data
+        this.clearCountDown = false
         getCountDown(60, val => {
+          if (this.clearCountDown) {
+            this.countDown = null
+            return
+          }
           this.countDown = val
+          if (val === 0) this.authcode = null
         })
       })
     },
@@ -88,12 +97,12 @@ export default {
         })
       return re.test(inputValue)
     },
-    validateAuthcode(inputAuthcode) {
+    validateAuthcode(inputAuthcode, often = false) {
       if (this.authcode === inputAuthcode && phoneNumber === this.inputPhone) return true
       else {
         wx.showModal({
           title: '提示',
-          content: '验证码错误',
+          content: often ? '请输入正确的手机号码' : '验证码错误',
           showCancel: false
         })
         return false

@@ -1,13 +1,18 @@
 <template>
   <div class="container">
     <img mode="aspectFill"
-         src="/static/images/placeholder/nothing.png">
+         :src="imgUrl">
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    imgUrl: {
+      type: String,
+      default: '/static/images/placeholder/nothing.png'
+    }
+  }
 }
 </script>
 

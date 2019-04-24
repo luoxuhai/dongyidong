@@ -1,19 +1,21 @@
 <template>
   <div class="body-report">
-    <scroll-view v-if="!nothing">
+    <scroll-view v-if="!nothing"
+                 :style="{opacity}">
       <div class="report-head">
-        <img src="/static/images/body-report/book.png">
+        <img src="/static/images/body-report/book.png"
+             mode="aspectFill">
         <div class="head-con">
           <h3>姓名：<span>{{ nickName }}</span></h3>
-          <p>评价：{{ info.testAssess  }}</p>
-          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年龄：{{ info.testAge  }}</p>
+          <p>评价：{{ info.testAssess }}</p>
+          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年龄：{{ info.testAge }}</p>
           <p>测试时间：{{ info.testTime }}</p>
         </div>
       </div>
       <div class="rating">
         <ul>
           <li>
-            <h3>{{ info.testScore  }}</h3>
+            <h3>{{ info.testScore }}</h3>
             <p>综合评分</p>
           </li>
           <li>
@@ -52,7 +54,7 @@
             <span>成绩</span>
           </div>
           <div class="table-row"
-               v-for="(item, index) of projectList"
+               v-for="(item, index) of projects"
                :key="index">
             <span>{{ item.name }}</span>
             <span>
@@ -77,7 +79,8 @@
         <p>{{ info.testGradeAssess || '未知' }}</p>
       </div>
     </scroll-view>
-    <placeholder-img v-if="nothing" />
+    <placeholder-img v-if="nothing"
+                     imgUrl="/static/images/placeholder/body-report.png" />
   </div>
 </template>
 
@@ -92,40 +95,45 @@ export default {
   },
   data() {
     return {
+      opacity: 0,
       nothing: false,
       info: {},
       testInfo: {},
-      projectList: []
+      projects: []
     }
   },
   computed: {
     ...mapState(['nickName'])
   },
   onLoad() {
-    wx.showNavigationBarLoading()
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
     UserInfo.selectTest({
       userId: this.$store.state.userId
     }).then((res => {
+      this.opacity = 1
       let info = res.data
       this.info = info
       let { list } = res.data
-      if (list.length === 0) this.nothing = true
-      let temp = list.filter((item) => (item.name !== null))
+      if (!list) this.nothing = true
+      let tempProjects = list.filter((item) => (item.name !== null))
       const BASE_VALUE = 10
       let index = 0
-      for (let value of temp) {
+      for (let value of tempProjects) {
         if (value.name === '50米跑' || value.name === '坐位体前屈' || value.name === '50*8') {
-          temp[index].baseScore = (value.baseScore / BASE_VALUE).toFixed(1) == 0.0 ? 0 : (value.baseScore / BASE_VALUE).toFixed(1)
-          temp[index].valueScore = (value.valueScore / BASE_VALUE).toFixed(1)
-          temp[index].maxScore = (value.maxScore / BASE_VALUE).toFixed(1)
-          temp[index].midScore = (value.midScore / BASE_VALUE).toFixed(1)
-          temp[index].score = (value.score / BASE_VALUE).toFixed(1)
+          tempProjects[index].baseScore = (value.baseScore / BASE_VALUE).toFixed(1) == 0.0 ? 0 : (value.baseScore / BASE_VALUE).toFixed(1)
+          tempProjects[index].valueScore = (value.valueScore / BASE_VALUE).toFixed(1)
+          tempProjects[index].maxScore = (value.maxScore / BASE_VALUE).toFixed(1)
+          tempProjects[index].midScore = (value.midScore / BASE_VALUE).toFixed(1)
+          tempProjects[index].score = (value.score / BASE_VALUE).toFixed(1)
         }
         index += 1
       }
-      this.projectList = temp
+      this.projects = tempProjects
     })).finally(() => {
-      wx.hideNavigationBarLoading()
+      wx.hideLoading()
     })
   },
   onUnload() {

@@ -227,7 +227,8 @@ export default {
     background-color: #fff;
     border-radius: 6px;
     .option-item {
-      line-height: 45px;
+      display: flex;
+      align-items: center;
       height: 45px;
       padding: 0 10px;
       font: {
@@ -238,12 +239,6 @@ export default {
         width: 16px;
         height: 16px;
         margin-right: 10px;
-      }
-      &:active {
-        background-image: linear-gradient(
-          rgba(0, 0, 0, 0.1),
-          rgba(0, 0, 0, 0.1)
-        );
       }
     }
   }

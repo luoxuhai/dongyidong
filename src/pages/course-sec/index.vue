@@ -14,7 +14,8 @@
                   :loading="loading"
                   size="22" />
     <div v-show="optionShow"
-         class="picker">
+         class="picker"
+         :class="{ show:optionShow, hide: !optionShow}">
       <div class="button">
         <p @click="handleCloseClick">取消</p>
         <p @click="handleFilterClick">确认</p>
@@ -130,7 +131,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 216px;
+    height: 230px;
     background-color: #fff;
     picker-view {
       width: 100%;
@@ -140,7 +141,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 2em;
+      height: 3em;
       padding: 0 20px;
       font-size: 17px;
       p {
@@ -156,8 +157,30 @@ export default {
       top: 0;
       left: 0;
       width: 100%;
-      height: calc(100vh - 216px);
-      background-color: rgba(0, 0, 0, 0.3);
+      height: calc(100vh - 230px);
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    &.show {
+      animation: show 0.2s ease-out;
+    }
+    &.hide {
+      animation: hide 0.2s ease-in;
+    }
+    @keyframes show {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes hide {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
     }
   }
   .navbar {

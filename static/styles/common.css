@@ -14,3 +14,13 @@
 .button-submit:active {
   background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
 }
+.container-train {
+  padding: 0 15px;
+}
+.container-train .title {
+  height: 24px;
+  padding-left: 7px;
+  border-left: 5px solid #ffc83a;
+  font-size: 18px;
+  color: #4a4a4a;
+}
