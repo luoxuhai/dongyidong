@@ -25,7 +25,23 @@ export const wx_login = () => {
     wx.login({
       success: res => {
         resolve(res);
-      }
+      },
     });
+  });
+};
+
+export const networkError = () => {
+  wx.showModal({
+    title: '提示',
+    content: '网络连接错误',
+    showCancel: false,
+    confirmText: '返回',
+    success: res => {
+      if (res.confirm) {
+        wx.navigateBack({
+          delta: 1,
+        });
+      }
+    },
   });
 };

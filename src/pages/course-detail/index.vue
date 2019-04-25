@@ -182,6 +182,8 @@ export default {
       setTimeout(() => {
         wx.hideNavigationBarLoading()
       }, 500)
+    }).catch((err) => {
+      this.networkError()
     })
   },
   onUnload() {

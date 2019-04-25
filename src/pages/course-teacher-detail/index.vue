@@ -40,6 +40,8 @@ export default {
         let teacherLabel = res.data.teacherLabel
         this.teacherDetail = res.data
         this.teacherDetail.teacherLabel = teacherLabel.split('，')
+      }).catch(err => {
+        this.networkError()
       })
   },
   onUnload() {

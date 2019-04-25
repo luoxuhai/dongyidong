@@ -73,6 +73,7 @@ export default {
         this.detailContent = res.data
         this.isCollect = Boolean(res.data.isCollect)
       }).catch(err => {
+        this.networkError()
       })
     }
   },

@@ -161,7 +161,7 @@ export default {
   },
   onLoad(options) {
     wx.showNavigationBarLoading()
-    this.school = this.$store.state.school
+    this.school = this.$store.state.school || '未知'
     UserInfo.selectClassAndSchool().then(res => {
       this.schoolArr = res.data
     })

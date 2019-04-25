@@ -117,7 +117,10 @@ export default {
       let info = res.data
       this.info = info
       let { list } = res.data
-      if (!list) this.nothing = true
+      if (!list) {
+        this.nothing = true
+        return
+      }
       let tempProjects = list.filter((item) => (item.name !== null))
       const BASE_VALUE = 10
       let index = 0
@@ -132,7 +135,9 @@ export default {
         index += 1
       }
       this.projects = tempProjects
-    })).finally(() => {
+    })).catch((err) => {
+      this.networkError()
+    }).finally(() => {
       wx.hideLoading()
     })
   },
