@@ -113,11 +113,13 @@ export default {
     UserInfo.selectTest({
       userId: this.$store.state.userId
     }).then((res => {
-      this.opacity = 1
+      
       let info = res.data
       this.info = info
       let { list } = res.data
-      if (!list) {
+      if (list) {
+        this.opacity = 1
+      } else {
         this.nothing = true
         return
       }
