@@ -8,7 +8,7 @@ const MESSAGE_NEWS_URL = BASE_URL + '/client/messageNews';
 const COURSE_URL = BASE_URL + '/client/course';
 const CAROUSEL_URL = BASE_URL + '/client/carousel';
 const FEEDBACK_URL = BASE_URL + '/client/feedback';
-const WEATHER_URL = 'http://t.weather.sojson.com/api/weather/city/101030100';
+const WEATHER_URL = 'https://ali-weather.showapi.com/gps-to-weather';
 
 export class Home {
   static selectMessage(data) {
@@ -17,7 +17,8 @@ export class Home {
   }
   static getWeather(data) {
     const url = WEATHER_URL;
-    return request('GET', url, data);
+    const header = { Authorization: 'APPCODE 3959a3594755439a87ad73dc1ba67d0f' };
+    return request('GET', url, data, header);
   }
 }
 
