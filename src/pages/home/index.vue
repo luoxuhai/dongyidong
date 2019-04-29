@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import QQMapWX from '@/libs/qqmap-wx-jssdk.min'
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
 import { Home, Carousel } from '@/api'
@@ -163,8 +162,13 @@ export default {
         need3HourForcast: 0
       }).then(res => {
         const now = res.showapi_res_body.now
+        const { c3, c7 } = res.showapi_res_body.cityInfo
         const { quality, pm2_5 } = now.aqiDetail
         const { temperature } = now
+        this.addressInfo = {
+          city: c7,
+          district: c3
+        }
         this.weather = {
           pm2_5,
           quality,
@@ -174,27 +178,11 @@ export default {
     },
     getLocation() {
       wx.showNavigationBarLoading()
-      const qqmapsdk = new QQMapWX({
-        key: 'UFLBZ-JYS6J-DPAF4-FQJUZ-OG5AZ-K5BUB'
-      });
       wx.getLocation({
         type: 'wgs84',
         success: (res) => {
           const { latitude, longitude } = res
-          qqmapsdk.reverseGeocoder({
-            location: {
-              latitude,
-              longitude
-            },
-            success: res => {
-              const { ad_info } = res.result
-              this.addressInfo = {
-                city: ad_info.city.slice(0, -1),
-                district: ad_info.district
-              }
-              this.getWeather(latitude, longitude)
-            }
-          })
+          this.getWeather(latitude, longitude)
         }
       })
     }
@@ -211,8 +199,13 @@ export default {
     this.getLocation()
   },
   onLoad() {
-    const token = wx.getStorageSync('token');
-    if (token) this.getLocation()
+    wx.getStorage({
+      key: 'token',
+      success: (res) => {
+        if (res.data)
+          this.getLocation()
+      }
+    })
     this.getHomeData()
     setTimeout(() => {
       this.opacity = 1
