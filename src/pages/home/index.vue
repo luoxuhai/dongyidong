@@ -8,8 +8,8 @@
         <p class="quality">{{weather.quality}}</p>
       </div>
       <div class="weather-right">
-        <p><i class="iconfont">&#xe631;</i>{{weather.wendu}}℃</p>
-        <h2 :style="{borderRight: '5px solid' + borderColor[colorIndex]}">{{weather.pm25}}</h2>
+        <p><i class="iconfont">&#xe631;</i>{{weather.temperature}}℃</p>
+        <h2 :style="{borderRight: '5px solid' + borderColor[colorIndex]}">{{weather.pm2_5}}</h2>
       </div>
     </div>
     <div class="slider">
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import QQMapWX from '@/libs/qqmap-wx-jssdk.min'
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
 import { Home, Carousel } from '@/api'
@@ -86,8 +85,8 @@ export default {
       borderColor: ['#19be6b', '#ff9900', '#CF1322'],
       weather: {
         quality: '中度污染',
-        pm25: 88,
-        wendu: 22
+        pm2_5: 88,
+        temperature: 22
       },
       addressInfo: {
         city: '天津',
@@ -151,47 +150,47 @@ export default {
         this.banners = res.data
       })
     },
-    getWeather() {
-      Home.getWeather().then(res => {
-        const { pm25, quality, wendu } = res.data
+    getWeather(lat, lng) {
+      Home.getWeather({
+        from: 3,
+        lat,
+        lng,
+        needMoreDay: 0,
+        needHourData: 0,
+        needIndex: 0,
+        needAlarm: 0,
+        need3HourForcast: 0
+      }).then(res => {
+        const now = res.showapi_res_body.now
+        const { c3, c7 } = res.showapi_res_body.cityInfo
+        const { quality, pm2_5 } = now.aqiDetail
+        const { temperature } = now
+        this.addressInfo = {
+          city: c7,
+          district: c3
+        }
         this.weather = {
-          pm25,
+          pm2_5,
           quality,
-          wendu
+          temperature
         }
       })
     },
     getLocation() {
       wx.showNavigationBarLoading()
-      const qqmapsdk = new QQMapWX({
-        key: 'UFLBZ-JYS6J-DPAF4-FQJUZ-OG5AZ-K5BUB'
-      });
       wx.getLocation({
         type: 'wgs84',
         success: (res) => {
           const { latitude, longitude } = res
-          qqmapsdk.reverseGeocoder({
-            location: {
-              latitude,
-              longitude
-            },
-            success: res => {
-              const { ad_info } = res.result
-              this.addressInfo = {
-                city: ad_info.city.slice(0, -1),
-                district: ad_info.district
-              }
-              this.getWeather()
-            }
-          })
+          this.getWeather(latitude, longitude)
         }
       })
     }
   },
   computed: {
     colorIndex() {
-      if (this.weather.pm25 <= 75) return 0
-      else if (this.weather.pm25 > 75 && this.weather.pm25 <= 115) return 1
+      if (this.weather.pm2_5 <= 75) return 0
+      else if (this.weather.pm2_5 > 75 && this.weather.pm2_5 <= 115) return 1
       else return 0
     }
   },
@@ -200,12 +199,17 @@ export default {
     this.getLocation()
   },
   onLoad() {
-    const token = wx.getStorageSync('token');
-    if (token) this.getLocation()
+    wx.getStorage({
+      key: 'token',
+      success: (res) => {
+        if (res.data)
+          this.getLocation()
+      }
+    })
     this.getHomeData()
     setTimeout(() => {
       this.opacity = 1
-    }, 400)
+    }, 200)
   }
 }
 </script>

@@ -163,7 +163,7 @@ export default {
     wx.showNavigationBarLoading()
     this.school = this.$store.state.school || '未知'
     UserInfo.selectClassAndSchool().then(res => {
-      this.schoolArr = res.data
+      this.schoolArr = [...new Set(res.data)]
     })
     this.getUserInfo()
   }

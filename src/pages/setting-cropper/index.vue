@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { BASE_URL } from '@/libs/config'
+import { UPLOAD_URL } from '@/libs/config'
 import { UserInfo } from '@/api'
 import { mapState, mapMutations } from 'vuex'
 let sysInfo = wx.getSystemInfoSync();
@@ -154,14 +154,14 @@ export default {
         header: {
           token: this.$store.state.token
         },
-        url: `${BASE_URL}/client/upload/uploadImage`,
+        url: UPLOAD_URL,
         filePath,
         name: 'file',
         formData: {
           userId: this.$store.state.userId
         },
         success: res => {
-          const avatarUrl = JSON.parse(res.data).data
+          const avatarUrl = res.data.data || JSON.parse(res.data).data
           this.setUserInfo({ avatarUrl })
           UserInfo.upDateUserBasicInfo({
             userId: this.$store.state.userId,

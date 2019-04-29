@@ -14,6 +14,8 @@
 	"appid": "wx813563e24d9c9ae2",
 	"projectname": "dongyidong",
 	"libVersion": "2.6.6",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
