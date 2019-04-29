@@ -115,7 +115,7 @@ export default {
     }
   },
   onUnload() {
-    Object.assign(this.$data, this.$options.data())
+    courseType = 0
   }
 }
 </script>
