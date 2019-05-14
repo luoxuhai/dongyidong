@@ -112,15 +112,18 @@ export default {
       })
     },
     handleEnterDetail(index) {
+      let url
       switch (index) {
         case 0:
-          wx.navigateTo({
-            url: `/pages/mine-collect/main`
-          })
+          url = '/pages/mine-collect/main'
+          break
+        case 1:
+          url = '/pages/mine-feedback/main'
           break
         case 2:
-          wx.navigateTo({ url: '/pages/setting/main' });
+          url = '/pages/setting/main'
       }
+      wx.navigateTo({ url });
     }
   },
   onShow() {

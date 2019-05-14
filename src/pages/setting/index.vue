@@ -33,16 +33,24 @@
         </div>
       </li>
       <li class="setting-item">
-        <h1>学校</h1>
+        <h1>学校班级</h1>
         <div>
-          <picker mode="selector"
-                  @change="changePickerSchool"
-                  :value="schoolIndex"
-                  :range="schoolArr"
-                  range-key="schoolName">
-            <p>{{ school }}</p>
+          <picker mode="multiSelector"
+                  @change="bindMultiPickerChange"
+                  @columnchange="bindMultiPickerColumnChange"
+                  :value="multiIndex"
+                  :range="multiArray">
+            <p>{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}</p>
           </picker>
-          <!-- <p>{{userInfo.userSchool || '未知'}}</p> -->
+          <span class="iconfont">&#xe71a;</span>
+        </div>
+      </li>
+
+      <li class="setting-item"
+          @click="handleEnterClick(index = 5)">
+        <h1>学号</h1>
+        <div>
+          <p>{{ userSno || '未知' }}</p>
           <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
@@ -58,15 +66,61 @@ import { UserInfo } from '@/api'
 export default {
   data() {
     return {
+      multiIndex: [0, 0],
+      multiArray: [],
       imgUrl: '',
+      temp: [],
       schoolIndex: 0,
       schoolArr: [],
       school: '',
+      userSchool: [],
+      userGrad: [],
+      userClass: [],
       userInfo: {},
       settingList: ['头像', '姓名', '地区', '学校']
     }
   },
   methods: {
+    bindMultiPickerChange(e) {
+      const value = e.mp.detail.value
+      wx.showLoading({
+        title: '保存中',
+      })
+      let schoolId;
+      let classIdArr = [];
+      this.schoolArr.forEach((item, index) => {
+        if (item.schoolName === this.multiArray[0][value[0]]) {
+          schoolId = item.schoolId
+          classIdArr.push(item.classId)
+        }
+      })
+
+      UserInfo.upDateUserBasicInfo({
+        userId: this.$store.state.userId,
+        schoolId,
+        classId: classIdArr[value[1]]
+      }).then((res) => {
+        const school = this.multiArray[0][value[0]]
+        this.school = school
+        this.setUserInfo({ school })
+        wx.hideLoading()
+      })
+
+      this.multiIndex = e.mp.detail.value
+    },
+    bindMultiPickerColumnChange(e) {
+      const data = {
+        multiArray: this.multiArray,
+        multiIndex: this.multiIndex
+      }
+      data.multiIndex[e.mp.detail.column] = e.mp.detail.value
+      switch (e.mp.detail.column) {
+        case 0:
+          data.multiArray[1] = this.temp[e.mp.detail.value]
+      }
+      this.multiArray.splice(1, 1, data.multiArray[1])
+      this.$set(this.multiIndex, data.multiIndex)
+    },
     bindload() {
       wx.hideNavigationBarLoading()
     },
@@ -134,7 +188,7 @@ export default {
           break
         case 1:
           wx.navigateTo({
-            url: `/pages/setting-name/main?value=${this.userInfo.userNickname}&userKey=0`
+            url: `/pages/setting-name/main?type=0&value=${this.userInfo.userNickname}&userKey=0`
           })
           break
         case 2:
@@ -143,6 +197,11 @@ export default {
         case 3:
           wx.navigateTo({
             url: `/pages/setting-detail/main?value=${this.userInfo.userSchool}&userKey=0`
+          })
+          break
+        case 5:
+          wx.navigateTo({
+            url: `/pages/setting-name/main?type=1&value=${this.userInfo.userNickname}&userKey=0`
           })
       }
     },
@@ -157,13 +216,32 @@ export default {
     },
   },
   computed: {
-    ...mapState(['avatarUrl', 'city', 'nickName'])
+    ...mapState(['avatarUrl', 'city', 'nickName', 'userSno'])
   },
   onLoad(options) {
+    this.multiArray[0] = []
+    this.multiArray[1] = []
     wx.showNavigationBarLoading()
     this.school = this.$store.state.school || '未知'
     UserInfo.selectClassAndSchool().then(res => {
-      this.schoolArr = [...new Set(res.data)]
+      this.schoolArr = res.data
+      let tempMultiArray = []
+      res.data.forEach((item, index) => {
+        tempMultiArray.push(item.schoolName)
+      })
+      //去除重复学校
+      this.multiArray[0] = [...new Set(tempMultiArray)]
+      //筛选同一学校的班级
+      this.multiArray[0].forEach((item, index) => {
+        this.temp[index] = []
+        res.data.forEach((_item, _index) => {
+          if (_item.schoolName === this.multiArray[0][index])
+            this.temp[index].push(`${_item.userGrad}年级${_item.userClass}班`)
+        })
+      })
+      // console.log(temp);
+      this.multiArray[1] = this.temp[0]
+
     })
     this.getUserInfo()
   }

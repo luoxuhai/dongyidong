@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     avatarUrl: '',
     city: '',
     school: '',
+    userSno: '',
     nickName: '',
     province: '',
     gender: '',
