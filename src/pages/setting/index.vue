@@ -23,12 +23,7 @@
           @click="handleEnterClick(index = 2)">
         <h1>地区</h1>
         <div>
-          <!-- <picker mode="selector"
-                  @change="changePickerCity"
-                  :value="cityIndex"
-                  :range="cityArr"> -->
           <p>{{ city }}</p>
-          <!-- </picker> -->
           <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
@@ -36,11 +31,12 @@
         <h1>学校班级</h1>
         <div>
           <picker mode="multiSelector"
+                  @cancel="bindcancel"
                   @change="bindMultiPickerChange"
                   @columnchange="bindMultiPickerColumnChange"
                   :value="multiIndex"
                   :range="multiArray">
-            <p>{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}</p>
+            <p>{{school + ' ' + uclass}}</p>
           </picker>
           <span class="iconfont">&#xe71a;</span>
         </div>
@@ -102,24 +98,27 @@ export default {
       }).then((res) => {
         const school = this.multiArray[0][value[0]]
         this.school = school
-        this.setUserInfo({ school })
+        this.setUserInfo({ school, uclass: this.multiArray[1][value[1]] })
+        wx.setStorageSync('multiIndexArr', value)
         wx.hideLoading()
       })
 
-      this.multiIndex = e.mp.detail.value
+      this.multiIndex = value
+    },
+    bindcancel() {
+      this.multiIndex = this.multiIndexArr
+      console.log(this.multiIndex);
     },
     bindMultiPickerColumnChange(e) {
       const data = {
-        multiArray: this.multiArray,
-        multiIndex: this.multiIndex
+        multiArray: this.multiArray
       }
-      data.multiIndex[e.mp.detail.column] = e.mp.detail.value
+      this.multiIndex[e.mp.detail.column] = e.mp.detail.value
       switch (e.mp.detail.column) {
         case 0:
           data.multiArray[1] = this.temp[e.mp.detail.value]
       }
       this.multiArray.splice(1, 1, data.multiArray[1])
-      this.$set(this.multiIndex, data.multiIndex)
     },
     bindload() {
       wx.hideNavigationBarLoading()
@@ -127,21 +126,6 @@ export default {
     changePickerCity(e) {
       const index = Number(e.mp.detail.value)
       this.cityIndex = index
-    },
-    changePickerSchool(e) {
-      wx.showLoading({
-        title: '保存中',
-      })
-      const schoolId = this.schoolArr[e.mp.detail.value].schoolId
-      UserInfo.upDateUserBasicInfo({
-        userId: this.$store.state.userId,
-        schoolId
-      }).then((res) => {
-        const school = this.schoolArr[e.mp.detail.value].schoolName
-        this.school = school
-        this.setUserInfo({ school })
-        wx.hideLoading()
-      })
     },
     selectImage() {
       wx.showLoading({
@@ -214,11 +198,61 @@ export default {
         wx.hideNavigationBarLoading()
       })
     },
+    format(grade) {
+      let _grade;
+      switch (grade) {
+        case 1:
+          _grade = '一年级'
+          break
+        case 2:
+          _grade = '二年级'
+          break
+        case 3:
+          _grade = '三年级'
+          break
+        case 4:
+          _grade = '四年级'
+          break
+        case 5:
+          _grade = '五年级'
+          break
+        case 6:
+          _grade = '六年级'
+          break
+        case 7:
+          _grade = '初一'
+          break
+        case 8:
+          _grade = '初二'
+          break
+        case 8:
+          _grade = '初二'
+          break
+        case 9:
+          _grade = '初三'
+          break
+        case 10:
+          _grade = '高一'
+          break
+        case 11:
+          _grade = '高二'
+          break
+        case 12:
+          _grade = '高三'
+          break
+      }
+      return _grade
+    }
   },
   computed: {
-    ...mapState(['avatarUrl', 'city', 'nickName', 'userSno'])
+    showSchool() {
+
+    },
+    ...mapState(['avatarUrl', 'city', 'nickName', 'userSno', 'uclass'])
   },
   onLoad(options) {
+    this.multiIndex = this.multiIndexArr
+    console.log(this.multiIndexArr);
     this.multiArray[0] = []
     this.multiArray[1] = []
     wx.showNavigationBarLoading()
@@ -236,7 +270,7 @@ export default {
         this.temp[index] = []
         res.data.forEach((_item, _index) => {
           if (_item.schoolName === this.multiArray[0][index])
-            this.temp[index].push(`${_item.userGrad}年级${_item.userClass}班`)
+            this.temp[index].push(`${this.format(_item.userGrad)}${_item.userClass}班`)
         })
       })
       // console.log(temp);
@@ -277,7 +311,7 @@ export default {
         }
 
         picker {
-          width: 70vw;
+          width: 60vw;
           height: 100%;
           p {
             line-height: 45px;

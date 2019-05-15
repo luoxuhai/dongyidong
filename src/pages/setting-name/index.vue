@@ -35,7 +35,9 @@ export default {
         userId: this.$store.state.userId,
         ...data
       }).then((res) => {
-        this.setUserInfo(data)
+        if (this.type === '0')
+          this.setUserInfo({ nickName: this.inputValue })
+        else this.setUserInfo({ userSno: this.inputValue })
         wx.hideLoading()
         wx.navigateBack({
           delta: 1
@@ -70,6 +72,7 @@ export default {
   height: 100vh;
   padding-top: 10px;
   background-color: #f8f8f8;
+  box-sizing: border-box;
   .input {
     width: auto;
     height: 100px;
