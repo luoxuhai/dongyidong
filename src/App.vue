@@ -30,7 +30,9 @@ export default {
       avatarUrl: '',
       nickName: '',
       city: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      uclass: '',
+      multiIndexArr: []
     }
     Object.keys(state).forEach(key => {
       const value = wx.getStorageSync(key);

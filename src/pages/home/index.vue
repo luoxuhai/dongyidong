@@ -191,7 +191,7 @@ export default {
     colorIndex() {
       if (this.weather.pm2_5 <= 75) return 0
       else if (this.weather.pm2_5 > 75 && this.weather.pm2_5 <= 115) return 1
-      else return 0
+      else return 2
     }
   },
   onPullDownRefresh() {
