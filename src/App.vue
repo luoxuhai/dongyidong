@@ -30,6 +30,7 @@ export default {
       avatarUrl: '',
       nickName: '',
       city: '',
+      userSno: '',
       phoneNumber: '',
       uclass: '',
       multiIndexArr: []

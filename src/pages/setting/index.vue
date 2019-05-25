@@ -106,18 +106,15 @@ export default {
       this.multiIndex = value
     },
     bindcancel() {
-      this.multiIndex = this.multiIndexArr
-      console.log(this.multiIndex);
+      // this.multiIndex = this.multiIndexArr
+      // console.log(this.multiIndex);
     },
     bindMultiPickerColumnChange(e) {
       const data = {
         multiArray: this.multiArray
       }
-      this.multiIndex[e.mp.detail.column] = e.mp.detail.value
-      switch (e.mp.detail.column) {
-        case 0:
-          data.multiArray[1] = this.temp[e.mp.detail.value]
-      }
+      this.multiIndex.splice(e.mp.detail.column, 1, e.mp.detail.value)
+      if (e.mp.detail.column === 0) data.multiArray[1] = this.temp[e.mp.detail.value]
       this.multiArray.splice(1, 1, data.multiArray[1])
     },
     bindload() {
@@ -245,14 +242,10 @@ export default {
     }
   },
   computed: {
-    showSchool() {
-
-    },
     ...mapState(['avatarUrl', 'city', 'nickName', 'userSno', 'uclass'])
   },
   onLoad(options) {
-    this.multiIndex = this.multiIndexArr
-    console.log(this.multiIndexArr);
+    // this.multiIndex = this.multiIndexArr
     this.multiArray[0] = []
     this.multiArray[1] = []
     wx.showNavigationBarLoading()
@@ -278,7 +271,10 @@ export default {
 
     })
     this.getUserInfo()
-  }
+  },
+  onUnload() {
+    Object.assign(this.$data, this.$options.data());
+  },
 }
 </script>
 

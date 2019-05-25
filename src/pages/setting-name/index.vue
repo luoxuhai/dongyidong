@@ -7,7 +7,7 @@
               v-model="inputValue"
               class="input"
               type="text" />
-    <div class="button-submit" @click="handleSubmitClick">保存</div>
+    <div class="button-submit" @click="validateInputValue">保存</div>
   </div>
 </template>
 
@@ -24,7 +24,17 @@ export default {
   },
   methods: {
     ...mapMutations(['setUserInfo']),
-    handleSubmitClick() {
+    validateInputValue() {
+      if (this.inputValue.replace(/(^\s*)|(\s*$)/g, "").length === 0) {
+        wx.showModal({
+          title: '提示',
+          content: type === '0' ? '昵称不能为空' : '学号不能为空',
+          showCancel: false
+        })
+        return
+      } else this.submitUptate()
+    },
+    submitUptate() {
       wx.showLoading({
         title: '保存中',
       })
