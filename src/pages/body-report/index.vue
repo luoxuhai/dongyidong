@@ -60,11 +60,15 @@
             <span>
               <i>{{ item.baseScore }}</i>
               <i>{{ item.midScore }}</i>
-              <i v-if="item.name !== 'bmi'"
-                 :style="{width: item.name === 'bmi' ? 0 : ''}">{{ item.valueScore }}</i>
+              <i v-if="item.name !== 'BMI'"
+                 :style="{width: item.name === 'BMI' ? 0 : ''}">{{ item.valueScore }}</i>
               <i>{{ item.maxScore }}</i>
             </span>
-            <span>{{ item.baseScore + '-' + item.maxScore }}</span>
+            <!-- <span>{{ item.baseScore + '-' + item.maxScore }}</span> -->
+            <span>{{ (item.name === '50米跑' || item.name === '50x8往返跑') ? '小于' : '大于'
+              +
+              item.baseScore
+              }}</span>
             <span>{{ item.score }}</span>
           </div>
         </div>
@@ -184,6 +188,24 @@ export default {
           tempProjects[index].midScore = (value.midScore / BASE_VALUE).toFixed(1)
           tempProjects[index].score = (value.score / BASE_VALUE).toFixed(1)
         }
+        let unit = '';
+        switch (value.name) {
+          case '仰卧起坐':
+          case '跳绳':
+            unit = '个'
+            break
+          case 'BMI':
+            unit = '㎏/㎡'
+            break
+          case '坐位体前屈':
+            unit = '厘米'
+            break
+          case '肺活量':
+            unit = '毫升'
+          default:
+            unit = '秒'
+        }
+        tempProjects[index].name = `${value.name}(${unit})`
         index += 1
       }
       this.projects = tempProjects
