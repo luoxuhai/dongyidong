@@ -8,7 +8,7 @@
         <div class="head-con">
           <h3>姓名：<span>{{ nickName }}</span></h3>
           <p>评价：{{ info.testAssess }}</p>
-          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年龄：{{ info.testAge }}</p>
+          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年级班级：{{grade + ' ' + info.userClass + '班' }}</p>
           <p>测试时间：{{ info.testTime }}</p>
         </div>
       </div>
@@ -60,7 +60,8 @@
             <span>
               <i>{{ item.baseScore }}</i>
               <i>{{ item.midScore }}</i>
-              <i>{{ item.valueScore }}</i>
+              <i v-if="item.name !== 'bmi'"
+                 :style="{width: item.name === 'bmi' ? 0 : ''}">{{ item.valueScore }}</i>
               <i>{{ item.maxScore }}</i>
             </span>
             <span>{{ item.baseScore + '-' + item.maxScore }}</span>
@@ -71,12 +72,12 @@
       <div class="empty"></div>
       <div class="text">
         <h3>成绩评估</h3>
-        <p> {{ info.expectSuggess || '未知' }}</p>
+        <p> {{ info.testGradeAssess || '未知' }}</p>
       </div>
       <div class="empty"></div>
       <div class="text">
         <h3>专家建议</h3>
-        <p>{{ info.testGradeAssess || '未知' }}</p>
+        <p>{{ info.expectSuggess || '未知' }}</p>
       </div>
     </scroll-view>
     <placeholder-img v-if="nothing"
@@ -102,8 +103,58 @@ export default {
       projects: []
     }
   },
+  methods: {
+    format(grade) {
+      let _grade;
+      switch (grade) {
+        case 1:
+          _grade = '一年级'
+          break
+        case 2:
+          _grade = '二年级'
+          break
+        case 3:
+          _grade = '三年级'
+          break
+        case 4:
+          _grade = '四年级'
+          break
+        case 5:
+          _grade = '五年级'
+          break
+        case 6:
+          _grade = '六年级'
+          break
+        case 7:
+          _grade = '初一'
+          break
+        case 8:
+          _grade = '初二'
+          break
+        case 8:
+          _grade = '初二'
+          break
+        case 9:
+          _grade = '初三'
+          break
+        case 10:
+          _grade = '高一'
+          break
+        case 11:
+          _grade = '高二'
+          break
+        case 12:
+          _grade = '高三'
+          break
+      }
+      return _grade
+    }
+  },
   computed: {
-    ...mapState(['nickName'])
+    ...mapState(['nickName']),
+    grade() {
+      return this.format(this.info.userGrad)
+    }
   },
   onLoad() {
     wx.showLoading({
@@ -113,19 +164,20 @@ export default {
     UserInfo.selectTest({
       userId: this.$store.state.userId
     }).then((res => {
-      this.opacity = 1
       let info = res.data
       this.info = info
       let { list } = res.data
-      if (!list) {
+      if (list) {
+        this.opacity = 1
+      } else {
         this.nothing = true
         return
       }
       let tempProjects = list.filter((item) => (item.name !== null))
-      const BASE_VALUE = 10
+      let BASE_VALUE = 10;
       let index = 0
       for (let value of tempProjects) {
-        if (value.name === '50米跑' || value.name === '坐位体前屈' || value.name === '50*8') {
+        if (value.name === '50米跑' || value.name === '坐位体前屈') {
           tempProjects[index].baseScore = (value.baseScore / BASE_VALUE).toFixed(1) == 0.0 ? 0 : (value.baseScore / BASE_VALUE).toFixed(1)
           tempProjects[index].valueScore = (value.valueScore / BASE_VALUE).toFixed(1)
           tempProjects[index].maxScore = (value.maxScore / BASE_VALUE).toFixed(1)

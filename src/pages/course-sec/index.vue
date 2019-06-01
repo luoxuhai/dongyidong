@@ -27,7 +27,7 @@
         <picker-view-column>
           <view v-for="(item, index) of filters"
                 :key="index"
-                style="line-height: 40px; text-align: center">{{ item }}</view>
+                style="line-height: 50px; text-align: center">{{ item }}</view>
         </picker-view-column>
       </picker-view>
     </div>
@@ -115,7 +115,7 @@ export default {
     }
   },
   onUnload() {
-    Object.assign(this.$data, this.$options.data())
+    courseType = 0
   }
 }
 </script>

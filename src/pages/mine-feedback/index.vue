@@ -58,6 +58,7 @@ export default {
 .container {
   height: 100vh;
   padding-top: 10px;
+  box-sizing: border-box;
   background-color: #f8f8f8;
   .input {
     width: auto;

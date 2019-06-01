@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <textarea auto-focus
-              placeholder="输入要修改的姓名"
+              :placeholder="placeholder"
               :maxlength="20"
               :show-confirm-bar="false"
               v-model="inputValue"
               class="input"
               type="text" />
-    <div class="button-submit" @click="handleSubmitClick">保存</div>
+    <div class="button-submit" @click="validateInputValue">保存</div>
   </div>
 </template>
 
@@ -17,23 +17,37 @@ import { UserInfo } from '@/api'
 export default {
   data() {
     return {
-      inputValue: ''
+      placeholder: '输入要修改的姓名',
+      inputValue: '',
+      type: ''
     }
   },
   methods: {
     ...mapMutations(['setUserInfo']),
-    handleSubmitClick() {
+    validateInputValue() {
+      if (this.inputValue.replace(/(^\s*)|(\s*$)/g, "").length === 0) {
+        wx.showModal({
+          title: '提示',
+          content: type === '0' ? '昵称不能为空' : '学号不能为空',
+          showCancel: false
+        })
+        return
+      } else this.submitUptate()
+    },
+    submitUptate() {
       wx.showLoading({
         title: '保存中',
       })
-      console.log(this.inputValue);
+      const data = {}
+      if (this.type === '1') data.userSno = this.inputValue
+      else data.userNickname = this.inputValue
       UserInfo.upDateUserBasicInfo({
         userId: this.$store.state.userId,
-        userNickname: encodeURI(this.inputValue)
+        ...data
       }).then((res) => {
-        this.setUserInfo({
-          nickName: this.inputValue
-        })
+        if (this.type === '0')
+          this.setUserInfo({ nickName: this.inputValue })
+        else this.setUserInfo({ userSno: this.inputValue })
         wx.hideLoading()
         wx.navigateBack({
           delta: 1
@@ -42,10 +56,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(['avatarUrl', 'city', 'nickName'])
+    ...mapState(['avatarUrl', 'city', 'nickName', 'userSno'])
   },
-  onLoad() {
-    this.inputValue = this.nickName
+  onLoad(options) {
+    let title;
+    this.type = options.type
+    if (options.type === '0') title = '修改姓名'
+    else {
+      title = '修改学号'
+      this.placeholder = '输入要修改的学号'
+    }
+    wx.setNavigationBarTitle({
+      title
+    })
+    this.inputValue = options.type === '0' ? this.nickName : this.userSno
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data())
@@ -58,6 +82,7 @@ export default {
   height: 100vh;
   padding-top: 10px;
   background-color: #f8f8f8;
+  box-sizing: border-box;
   .input {
     width: auto;
     height: 100px;
