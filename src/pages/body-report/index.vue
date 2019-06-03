@@ -60,8 +60,7 @@
             <span>
               <i>{{ item.baseScore }}</i>
               <i>{{ item.midScore }}</i>
-              <i v-if="item.name !== 'BMI'"
-                 :style="{width: item.name === 'BMI' ? 0 : ''}">{{ item.valueScore }}</i>
+              <i v-if="item.name !== 'BMI'">{{ item.valueScore }}</i>
               <i>{{ item.maxScore }}</i>
             </span>
             <!-- <span>{{ item.baseScore + '-' + item.maxScore }}</span> -->
@@ -178,15 +177,23 @@ export default {
         return
       }
       let tempProjects = list.filter((item) => (item.name !== null))
-      let BASE_VALUE = 10;
+      let divisor = Number
+      let place = Number
       let index = 0
       for (let value of tempProjects) {
-        if (value.name === '50米跑' || value.name === '坐位体前屈') {
-          tempProjects[index].baseScore = (value.baseScore / BASE_VALUE).toFixed(1) == 0.0 ? 0 : (value.baseScore / BASE_VALUE).toFixed(1)
-          tempProjects[index].valueScore = (value.valueScore / BASE_VALUE).toFixed(1)
-          tempProjects[index].maxScore = (value.maxScore / BASE_VALUE).toFixed(1)
-          tempProjects[index].midScore = (value.midScore / BASE_VALUE).toFixed(1)
-          tempProjects[index].score = (value.score / BASE_VALUE).toFixed(1)
+        if (value.name === '50米跑' || value.name === '坐位体前屈' || value.name === 'BMI') {
+          if (value.name === 'BMI') {
+            divisor = 100
+            place = 2
+          } else {
+            let divisor = 10
+            let place = 1
+          }
+          tempProjects[index].baseScore = (value.baseScore / divisor).toFixed(place) == 0.0 ? 0 : (value.baseScore / divisor).toFixed(place)
+          tempProjects[index].valueScore = (value.valueScore / divisor).toFixed(place)
+          tempProjects[index].maxScore = (value.maxScore / divisor).toFixed(place)
+          tempProjects[index].midScore = (value.midScore / divisor).toFixed(place)
+          tempProjects[index].score = (value.score / divisor).toFixed(place)
         }
         let unit = '';
         switch (value.name) {
@@ -220,7 +227,7 @@ export default {
   }
 }
 </script>
-
+j
 <style scoped lang="scss">
 .body-report {
   .report-head {
