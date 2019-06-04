@@ -177,16 +177,14 @@ export default {
         return
       }
       let tempProjects = list.filter((item) => (item.name !== null))
-      let divisor = Number
+      let divisor = 10
       let place = Number
       let index = 0
       for (let value of tempProjects) {
         if (value.name === '50米跑' || value.name === '坐位体前屈' || value.name === 'BMI') {
           if (value.name === 'BMI') {
-            divisor = 100
             place = 2
           } else {
-            divisor = 10
             place = 1
           }
           tempProjects[index].baseScore = (value.baseScore / divisor).toFixed(place) == 0.0 ? 0 : (value.baseScore / divisor).toFixed(place)
@@ -209,8 +207,9 @@ export default {
             break
           case '肺活量':
             unit = 'ML'
+            break
           default:
-            unit = 'S'
+            unit = 's'
         }
         tempProjects[index].name = `${value.name}(${unit})`
         index += 1
