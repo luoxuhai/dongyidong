@@ -60,11 +60,11 @@
             <span>
               <i>{{ item.baseScore }}</i>
               <i>{{ item.midScore }}</i>
-              <i v-if="item.name !== 'BMI'">{{ item.valueScore }}</i>
+              <i v-if="item.name !== 'BMI(㎏/㎡)'">{{ item.valueScore }}</i>
               <i>{{ item.maxScore }}</i>
             </span>
             <!-- <span>{{ item.baseScore + '-' + item.maxScore }}</span> -->
-            <span>{{ (item.name === '50米跑' || item.name === '50x8往返跑') ? '小于' : '大于'
+            <span>{{ (item.name === '50米跑' || item.name === '50x8往返跑') ? '≤' : '≥'
               +
               item.baseScore
               }}</span>
@@ -186,8 +186,8 @@ export default {
             divisor = 100
             place = 2
           } else {
-            let divisor = 10
-            let place = 1
+            divisor = 10
+            place = 1
           }
           tempProjects[index].baseScore = (value.baseScore / divisor).toFixed(place) == 0.0 ? 0 : (value.baseScore / divisor).toFixed(place)
           tempProjects[index].valueScore = (value.valueScore / divisor).toFixed(place)
@@ -205,12 +205,12 @@ export default {
             unit = '㎏/㎡'
             break
           case '坐位体前屈':
-            unit = '厘米'
+            unit = '㎝'
             break
           case '肺活量':
-            unit = '毫升'
+            unit = 'ML'
           default:
-            unit = '秒'
+            unit = 'S'
         }
         tempProjects[index].name = `${value.name}(${unit})`
         index += 1
@@ -392,7 +392,7 @@ j
           color: #1c2438;
 
           &:nth-child(1) {
-            width: 86px;
+            width: 90px;
             font-size: 12px;
           }
 
