@@ -64,7 +64,7 @@
               <i>{{ item.maxScore }}</i>
             </span>
             <!-- <span>{{ item.baseScore + '-' + item.maxScore }}</span> -->
-            <span>{{ (item.name === '50米跑' || item.name === '50x8往返跑') ? '≤' : '≥'
+            <span>{{ (item.name === '50米跑(s)' || item.name === '50x8往返跑(s)') ? '≤' : '≥'
               +
               item.baseScore
               }}</span>
