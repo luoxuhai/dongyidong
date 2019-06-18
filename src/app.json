@@ -27,7 +27,8 @@
     "pages/setting-name/main",
     "pages/setting-city/main",
     "pages/setting-cropper/main",   
-    "pages/login/main"
+    "pages/login/main",
+    "pages/help/main"
   ],
   "window": {
     "navigationBarTitleText": "动亿动体育",

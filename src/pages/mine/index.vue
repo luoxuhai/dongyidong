@@ -72,7 +72,7 @@ export default {
         },
         {
           img: "/static/images/my/help.png",
-          text: "帮助反馈"
+          text: "帮助"
         },
         {
           img: "/static/images/my/setting.png",
@@ -118,7 +118,7 @@ export default {
           url = '/pages/mine-collect/main'
           break
         case 1:
-          url = '/pages/mine-feedback/main'
+          url = '/pages/help/main'
           break
         case 2:
           url = '/pages/setting/main'

@@ -1,14 +1,19 @@
 <template>
   <div class="body-report">
-    <scroll-view v-if="!nothing"
-                 :style="{opacity}">
+    <scroll-view v-if="!nothing" :style="{opacity}">
       <div class="report-head">
-        <img src="/static/images/body-report/book.png"
-             mode="aspectFill">
+        <img src="/static/images/body-report/book.png" mode="aspectFill">
         <div class="head-con">
-          <h3>姓名：<span>{{ nickName }}</span></h3>
+          <h3>
+            姓名：
+            <span>{{ nickName }}</span>
+          </h3>
           <p>评价：{{ info.testAssess }}</p>
-          <p>性别：{{ info.testSex === 0 ? '男' : '女' }} <i>|</i> 年级班级：{{grade + ' ' + info.userClass + '班' }}</p>
+          <p>
+            性别：{{ info.testSex === 0 ? '男' : '女' }}
+            <i>|</i>
+            年级班级：{{grade + ' ' + info.userClass + '班' }}
+          </p>
           <p>测试时间：{{ info.testTime }}</p>
         </div>
       </div>
@@ -49,13 +54,15 @@
         <div class="info-table">
           <div class="table-header">
             <span>项目</span>
-            <span><i>有待提高</i><i>良好</i><i>优秀</i></span>
+            <span>
+              <i>有待提高</i>
+              <i>良好</i>
+              <i>优秀</i>
+            </span>
             <span>合格范围</span>
             <span>成绩</span>
           </div>
-          <div class="table-row"
-               v-for="(item, index) of projects"
-               :key="index">
+          <div class="table-row" v-for="(item, index) of projects" :key="index">
             <span>{{ item.name }}</span>
             <span>
               <i>{{ item.baseScore }}</i>
@@ -63,11 +70,12 @@
               <i v-if="item.name !== 'BMI(㎏/㎡)'">{{ item.valueScore }}</i>
               <i>{{ item.maxScore }}</i>
             </span>
-            <!-- <span>{{ item.baseScore + '-' + item.maxScore }}</span> -->
-            <span>{{ ((item.name === '50米跑(s)' || item.name === '50x8往返跑(s)') ? '≤' : '≥')
+            <span>
+              {{ (item.name === '50米跑(s)' || item.name === '50x8往返跑(s)') ? '≤' : '≥'
               +
               item.baseScore
-              }}</span>
+              }}
+            </span>
             <span>{{ item.score }}</span>
           </div>
         </div>
@@ -75,7 +83,7 @@
       <div class="empty"></div>
       <div class="text">
         <h3>成绩评估</h3>
-        <p> {{ info.testGradeAssess || '未知' }}</p>
+        <p>{{ info.testGradeAssess || '未知' }}</p>
       </div>
       <div class="empty"></div>
       <div class="text">
@@ -83,15 +91,14 @@
         <p>{{ info.expectSuggess || '未知' }}</p>
       </div>
     </scroll-view>
-    <placeholder-img v-if="nothing"
-                     imgUrl="/static/images/placeholder/body-report.png" />
+    <placeholder-img v-if="nothing" imgUrl="/static/images/placeholder/body-report.png"/>
   </div>
 </template>
 
 <script>
-import PlaceholderImg from "@/components/placeholder-img"
-import { UserInfo } from '@/api'
-import { mapState } from 'vuex'
+import PlaceholderImg from "@/components/placeholder-img";
+import { UserInfo } from "@/api";
+import { mapState } from "vuex";
 export default {
   name: "body-report",
   components: {
@@ -104,59 +111,59 @@ export default {
       info: {},
       testInfo: {},
       projects: []
-    }
+    };
   },
   methods: {
     format(grade) {
       let _grade;
       switch (grade) {
         case 1:
-          _grade = '一年级'
-          break
+          _grade = "一年级";
+          break;
         case 2:
-          _grade = '二年级'
-          break
+          _grade = "二年级";
+          break;
         case 3:
-          _grade = '三年级'
-          break
+          _grade = "三年级";
+          break;
         case 4:
-          _grade = '四年级'
-          break
+          _grade = "四年级";
+          break;
         case 5:
-          _grade = '五年级'
-          break
+          _grade = "五年级";
+          break;
         case 6:
-          _grade = '六年级'
-          break
+          _grade = "六年级";
+          break;
         case 7:
-          _grade = '初一'
-          break
+          _grade = "初一";
+          break;
         case 8:
-          _grade = '初二'
-          break
+          _grade = "初二";
+          break;
         case 8:
-          _grade = '初二'
-          break
+          _grade = "初二";
+          break;
         case 9:
-          _grade = '初三'
-          break
+          _grade = "初三";
+          break;
         case 10:
-          _grade = '高一'
-          break
+          _grade = "高一";
+          break;
         case 11:
-          _grade = '高二'
-          break
+          _grade = "高二";
+          break;
         case 12:
-          _grade = '高三'
-          break
+          _grade = "高三";
+          break;
       }
-      return _grade
+      return _grade;
     }
   },
   computed: {
-    ...mapState(['nickName']),
+    ...mapState(["nickName"]),
     grade() {
-      return this.format(this.info.userGrad)
+      return this.format(this.info.userGrad);
     }
   },
   onLoad() {
@@ -166,65 +173,81 @@ export default {
     });
     UserInfo.selectTest({
       userId: this.$store.state.userId
-    }).then((res => {
-      let info = res.data
-      this.info = info
-      let { list } = res.data
-      if (list) {
-        this.opacity = 1
-      } else {
-        this.nothing = true
-        return
-      }
-      let tempProjects = list.filter((item) => (item.name !== null))
-      let divisor = 10
-      let place = Number
-      let index = 0
-      for (let value of tempProjects) {
-        if (value.name === '50米跑' || value.name === '坐位体前屈' || value.name === 'BMI') {
-          if (value.name === 'BMI') {
-            place = 2
-          } else {
-            place = 1
-          }
-          tempProjects[index].baseScore = (value.baseScore / divisor).toFixed(place) == 0.0 ? 0 : (value.baseScore / divisor).toFixed(place)
-          tempProjects[index].valueScore = (value.valueScore / divisor).toFixed(place)
-          tempProjects[index].maxScore = (value.maxScore / divisor).toFixed(place)
-          tempProjects[index].midScore = (value.midScore / divisor).toFixed(place)
-          tempProjects[index].score = (value.score / divisor).toFixed(place)
-        }
-        let unit = '';
-        switch (value.name) {
-          case '仰卧起坐':
-          case '跳绳':
-            unit = '个'
-            break
-          case 'BMI':
-            unit = '㎏/㎡'
-            break
-          case '坐位体前屈':
-            unit = '㎝'
-            break
-          case '肺活量':
-            unit = 'ML'
-            break
-          default:
-            unit = 's'
-        }
-        tempProjects[index].name = `${value.name}(${unit})`
-        index += 1
-      }
-      this.projects = tempProjects
-    })).catch((err) => {
-      this.networkError()
-    }).finally(() => {
-      wx.hideLoading()
     })
+      .then(res => {
+        let info = res.data;
+        this.info = info;
+        let { list } = res.data;
+        if (list) {
+          this.opacity = 1;
+        } else {
+          this.nothing = true;
+          return;
+        }
+        let tempProjects = list.filter(item => item.name !== null);
+        let divisor = 10;
+        let place = Number;
+        let index = 0;
+        for (let value of tempProjects) {
+          if (
+            value.name === "50米跑" ||
+            value.name === "坐位体前屈" ||
+            value.name === "BMI"
+          ) {
+            if (value.name === "BMI") {
+              place = 2;
+            } else {
+              place = 1;
+            }
+            tempProjects[index].baseScore =
+              (value.baseScore / divisor).toFixed(place) == 0.0
+                ? 0
+                : (value.baseScore / divisor).toFixed(place);
+            tempProjects[index].valueScore = (
+              value.valueScore / divisor
+            ).toFixed(place);
+            tempProjects[index].maxScore = (value.maxScore / divisor).toFixed(
+              place
+            );
+            tempProjects[index].midScore = (value.midScore / divisor).toFixed(
+              place
+            );
+            tempProjects[index].score = (value.score / divisor).toFixed(place);
+          }
+          let unit = "";
+          switch (value.name) {
+            case "仰卧起坐":
+            case "跳绳":
+              unit = "个";
+              break;
+            case "BMI":
+              unit = "㎏/㎡";
+              break;
+            case "坐位体前屈":
+              unit = "㎝";
+              break;
+            case "肺活量":
+              unit = "ML";
+              break;
+            default:
+              unit = "s";
+          }
+          tempProjects[index].name = `${value.name}(${unit})`;
+          index += 1;
+        }
+        this.projects = tempProjects;
+      })
+      .catch(err => {
+        this.networkError();
+      })
+      .finally(() => {
+        wx.hideLoading();
+      });
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data());
   }
-}
+};
 </script>
 j
 <style scoped lang="scss">
