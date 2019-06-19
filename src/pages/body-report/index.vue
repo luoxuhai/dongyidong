@@ -70,7 +70,8 @@
               <i v-if="item.name !== 'BMI(㎏/㎡)'">{{ item.valueScore }}</i>
               <i>{{ item.maxScore }}</i>
             </span>
-            <span>
+            <span v-if="item.name === 'BMI(㎏/㎡)'">{{item.baseScore + '～' + item.maxScore}}</span>
+            <span v-if="item.name !== 'BMI(㎏/㎡)'">
               {{ (item.name === '50米跑(s)' || item.name === '50x8往返跑(s)') ? '≤' : '≥'
               +
               item.baseScore
