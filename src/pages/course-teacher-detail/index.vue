@@ -8,9 +8,10 @@
     <div class="desc">
       <p class="name">{{ teacherDetail.teacherName }}</p>
       <p class="intro">{{ teacherDetail.teacherSlogan }}</p>
-      <rich-text class="syn"
+      <div class="syn" v-html="teacherDetail.teacherDescription"></div>
+      <!-- <rich-text class="syn"
                  :nodes="teacherDetail.teacherDescription"
-                 space="nbsp" />
+                 space="nbsp" /> -->
       <div class="tag">
         <div class="tag-item"
              v-for="(item, index) of teacherDetail.teacherLabel"

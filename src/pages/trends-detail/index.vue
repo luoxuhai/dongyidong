@@ -6,9 +6,10 @@
          @load="bindload">
     <h1 class="title">{{ detailContent.messageTitle }}</h1>
     <p class="browse-count">{{ detailContent.messageNum}}人浏览</p>
-    <rich-text class="article"
+    <article class="article" v-html="detailContent.messageContent" ></article>
+    <!-- <rich-text class="article"
                :nodes="detailContent.messageContent"
-               space="nbsp" />
+               space="nbsp" /> -->
     <div class="collect-panel"
          :class="{show: buttonShow}">
       <div class="button-collect"

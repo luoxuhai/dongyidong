@@ -38,9 +38,10 @@
          v-show="stitchIndex === 0">
       <div class="text">
         <h4 style="margin-bottom: 7px">简介</h4>
-        <rich-text style="margin: 0"
-                   :nodes="courseDetail.courseDescription"
-                   space="nbsp" />
+        <article style="margin: 0" v-html="courseDetail.courseDescription"></article>
+        <!-- <rich-text 
+                   :nodes=""
+                   space="nbsp" /> -->
       </div>
       <div class="text">
         <h4>预期目标</h4>
