@@ -1,26 +1,21 @@
 <template>
   <div class="container">
     <ul class="setting-list">
-      <li class="setting-item avatar"
-          @click="handleEnterClick(index = 0)">
+      <li class="setting-item avatar" @click="handleEnterClick(index = 0)">
         <h1>头像</h1>
         <div>
-          <img mode="aspectFill"
-               :src="avatarUrl"
-               @load="bindload">
+          <img mode="aspectFill" :src="avatarUrl" @load="bindload" />
           <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
-      <li class="setting-item"
-          @click="handleEnterClick(index = 1)">
+      <li class="setting-item" @click="handleEnterClick(index = 1)">
         <h1>姓名</h1>
         <div>
           <p>{{ nickName }}</p>
           <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
-      <li class="setting-item"
-          @click="handleEnterClick(index = 2)">
+      <li class="setting-item" @click="handleEnterClick(index = 2)">
         <h1>地区</h1>
         <div>
           <p>{{ city }}</p>
@@ -30,20 +25,21 @@
       <li class="setting-item">
         <h1>学校班级</h1>
         <div>
-          <picker mode="multiSelector"
-                  @cancel="bindcancel"
-                  @change="bindMultiPickerChange"
-                  @columnchange="bindMultiPickerColumnChange"
-                  :value="multiIndex"
-                  :range="multiArray">
-            <p>{{school + ' ' + uclass}}</p>
+          <picker
+            mode="multiSelector"
+            @cancel="bindcancel"
+            @change="bindMultiPickerChange"
+            @columnchange="bindMultiPickerColumnChange"
+            :value="multiIndex"
+            :range="multiArray"
+          >
+            <p class="uclass">{{school + ' ' + uclass}}</p>
           </picker>
           <span class="iconfont">&#xe71a;</span>
         </div>
       </li>
 
-      <li class="setting-item"
-          @click="handleEnterClick(index = 5)">
+      <li class="setting-item" @click="handleEnterClick(index = 5)">
         <h1>学号</h1>
         <div>
           <p>{{ userSno || '未知' }}</p>
@@ -51,59 +47,58 @@
         </div>
       </li>
     </ul>
-    <div class="button-logout"
-         @click="handleLogoutClick">退出登录</div>
+    <div class="button-logout" @click="handleLogoutClick">退出登录</div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { UserInfo } from '@/api'
+import { mapState, mapMutations } from "vuex";
+import { UserInfo } from "@/api";
 export default {
   data() {
     return {
       multiIndex: [0, 0],
       multiArray: [],
-      imgUrl: '',
+      imgUrl: "",
       temp: [],
       schoolIndex: 0,
       schoolArr: [],
-      school: '',
+      school: "",
       userSchool: [],
       userGrad: [],
       userClass: [],
       userInfo: {},
-      settingList: ['头像', '姓名', '地区', '学校']
-    }
+      settingList: ["头像", "姓名", "地区", "学校"]
+    };
   },
   methods: {
     bindMultiPickerChange(e) {
-      const value = e.mp.detail.value
+      const value = e.mp.detail.value;
       wx.showLoading({
-        title: '保存中',
-      })
+        title: "保存中"
+      });
       let schoolId;
       let classIdArr = [];
       this.schoolArr.forEach((item, index) => {
         if (item.schoolName === this.multiArray[0][value[0]]) {
-          schoolId = item.schoolId
-          classIdArr.push(item.classId)
+          schoolId = item.schoolId;
+          classIdArr.push(item.classId);
         }
-      })
+      });
 
       UserInfo.upDateUserBasicInfo({
         userId: this.$store.state.userId,
         schoolId,
         classId: classIdArr[value[1]]
-      }).then((res) => {
-        const school = this.multiArray[0][value[0]]
-        this.school = school
-        this.setUserInfo({ school, uclass: this.multiArray[1][value[1]] })
-        wx.setStorageSync('multiIndexArr', value)
-        wx.hideLoading()
-      })
+      }).then(res => {
+        const school = this.multiArray[0][value[0]];
+        this.school = school;
+        this.setUserInfo({ school, uclass: this.multiArray[1][value[1]] });
+        wx.setStorageSync("multiIndexArr", value);
+        wx.hideLoading();
+      });
 
-      this.multiIndex = value
+      this.multiIndex = value;
     },
     bindcancel() {
       // this.multiIndex = this.multiIndexArr
@@ -112,22 +107,23 @@ export default {
     bindMultiPickerColumnChange(e) {
       const data = {
         multiArray: this.multiArray
-      }
-      this.multiIndex.splice(e.mp.detail.column, 1, e.mp.detail.value)
-      if (e.mp.detail.column === 0) data.multiArray[1] = this.temp[e.mp.detail.value]
-      this.multiArray.splice(1, 1, data.multiArray[1])
+      };
+      this.multiIndex.splice(e.mp.detail.column, 1, e.mp.detail.value);
+      if (e.mp.detail.column === 0)
+        data.multiArray[1] = this.temp[e.mp.detail.value];
+      this.multiArray.splice(1, 1, data.multiArray[1]);
     },
     bindload() {
-      wx.hideNavigationBarLoading()
+      wx.hideNavigationBarLoading();
     },
     changePickerCity(e) {
-      const index = Number(e.mp.detail.value)
-      this.cityIndex = index
+      const index = Number(e.mp.detail.value);
+      this.cityIndex = index;
     },
     selectImage() {
       wx.showLoading({
-        title: '加载中',
-      })
+        title: "加载中"
+      });
       wx.chooseImage({
         count: 1,
         sizeType: ["original"],
@@ -137,151 +133,170 @@ export default {
           });
         },
         complete: () => {
-          wx.hideLoading()
+          wx.hideLoading();
         }
-      })
+      });
     },
-    ...mapMutations(['setUserInfo']),
+    ...mapMutations(["setUserInfo"]),
     handleLogoutClick() {
       wx.showModal({
-        title: '提示',
-        content: '确认退出登录',
-        confirmColor: '#ed3f14',
-        success: (res) => {
+        title: "提示",
+        content: "确认退出登录",
+        confirmColor: "#ed3f14",
+        success: res => {
           if (res.confirm) {
             this.setUserInfo({
-              userId: '',
-              token: '',
-              openId: '',
-            })
-            wx.clearStorageSync()
+              userId: "",
+              token: "",
+              openId: ""
+            });
+            wx.clearStorageSync();
             wx.reLaunch({
               url: `/pages/login/main`
-            })
+            });
           }
         }
-      })
+      });
     },
     handleEnterClick(index) {
       switch (index) {
         case 0:
-          this.selectImage()
-          break
+          this.selectImage();
+          break;
         case 1:
           wx.navigateTo({
-            url: `/pages/setting-name/main?type=0&value=${this.userInfo.userNickname}&userKey=0`
-          })
-          break
+            url: `/pages/setting-name/main?type=0&value=${
+              this.userInfo.userNickname
+            }&userKey=0`
+          });
+          break;
         case 2:
-          wx.navigateTo({ url: `/pages/setting-city/main?currentCity=${this.city}` })
-          break
+          wx.navigateTo({
+            url: `/pages/setting-city/main?currentCity=${this.city}`
+          });
+          break;
         case 3:
           wx.navigateTo({
-            url: `/pages/setting-detail/main?value=${this.userInfo.userSchool}&userKey=0`
-          })
-          break
+            url: `/pages/setting-detail/main?value=${
+              this.userInfo.userSchool
+            }&userKey=0`
+          });
+          break;
         case 5:
           wx.navigateTo({
-            url: `/pages/setting-name/main?type=1&value=${this.userInfo.userNickname}&userKey=0`
-          })
+            url: `/pages/setting-name/main?type=1&value=${
+              this.userInfo.userNickname
+            }&userKey=0`
+          });
       }
     },
     getUserInfo() {
-      UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(res => {
-        const { userSchool, userCity, userImage, userNickname } = res.data
-        this.userInfo = {
-          userSchool, userCity, userImage, userNickname: decodeURI(userNickname)
+      UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(
+        res => {
+          const { userSchool, userCity, userImage, userNickname } = res.data;
+          this.userInfo = {
+            userSchool,
+            userCity,
+            userImage,
+            userNickname: decodeURI(userNickname)
+          };
+          wx.hideNavigationBarLoading();
         }
-        wx.hideNavigationBarLoading()
-      })
+      );
     },
     format(grade) {
       let _grade;
       switch (grade) {
         case 1:
-          _grade = '一年级'
-          break
+          _grade = "一年级";
+          break;
         case 2:
-          _grade = '二年级'
-          break
+          _grade = "二年级";
+          break;
         case 3:
-          _grade = '三年级'
-          break
+          _grade = "三年级";
+          break;
         case 4:
-          _grade = '四年级'
-          break
+          _grade = "四年级";
+          break;
         case 5:
-          _grade = '五年级'
-          break
+          _grade = "五年级";
+          break;
         case 6:
-          _grade = '六年级'
-          break
+          _grade = "六年级";
+          break;
         case 7:
-          _grade = '初一'
-          break
+          _grade = "初一";
+          break;
         case 8:
-          _grade = '初二'
-          break
+          _grade = "初二";
+          break;
         case 8:
-          _grade = '初二'
-          break
+          _grade = "初二";
+          break;
         case 9:
-          _grade = '初三'
-          break
+          _grade = "初三";
+          break;
         case 10:
-          _grade = '高一'
-          break
+          _grade = "高一";
+          break;
         case 11:
-          _grade = '高二'
-          break
+          _grade = "高二";
+          break;
         case 12:
-          _grade = '高三'
-          break
+          _grade = "高三";
+          break;
       }
-      return _grade
+      return _grade;
     }
   },
   computed: {
-    ...mapState(['avatarUrl', 'city', 'nickName', 'userSno', 'uclass'])
+    ...mapState(["avatarUrl", "city", "nickName", "userSno", "uclass"])
   },
   onLoad(options) {
     // this.multiIndex = this.multiIndexArr
-    this.multiArray[0] = []
-    this.multiArray[1] = []
-    wx.showNavigationBarLoading()
-    this.school = this.$store.state.school || '未知'
+    this.multiArray[0] = [];
+    this.multiArray[1] = [];
+    wx.showNavigationBarLoading();
+    this.school = this.$store.state.school || "未知";
     UserInfo.selectClassAndSchool().then(res => {
-      this.schoolArr = res.data
-      let tempMultiArray = []
+      this.schoolArr = res.data;
+      let tempMultiArray = [];
       res.data.forEach((item, index) => {
-        tempMultiArray.push(item.schoolName)
-      })
+        tempMultiArray.push(item.schoolName);
+      });
       //去除重复学校
-      this.multiArray[0] = [...new Set(tempMultiArray)]
+      this.multiArray[0] = [...new Set(tempMultiArray)];
       //筛选同一学校的班级
       this.multiArray[0].forEach((item, index) => {
-        this.temp[index] = []
+        this.temp[index] = [];
         res.data.forEach((_item, _index) => {
           if (_item.schoolName === this.multiArray[0][index])
-            this.temp[index].push(`${this.format(_item.userGrad)}${_item.userClass}班`)
-        })
-      })
+            this.temp[index].push(
+              `${this.format(_item.userGrad)}${_item.userClass}班`
+            );
+        });
+      });
       // console.log(temp);
-      this.multiArray[1] = this.temp[0]
-
-    })
-    this.getUserInfo()
+      this.multiArray[1] = this.temp[0];
+    });
+    this.getUserInfo();
   },
   onUnload() {
     Object.assign(this.$data, this.$options.data());
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+@import "../../../static/styles/common.scss";
 .container {
   height: 100vh;
   background-color: #f8f8f8;
+  .uclass {
+    @include ellipsis;
+    font-size: 14px;
+  }
   .setting-list {
     li {
       display: flex;
