@@ -4,9 +4,6 @@ import { UserInfo } from '@/api'
 import { wx_login } from '@/libs/utils'
 export default {
   onLaunch() {
-    const token = wx.getStorageSync('token');
-    if (!token)
-      wx.redirectTo({ url: `/pages/login/main` });
     wx_login().then(res => {
       return res
     }).then(res => {
@@ -40,10 +37,6 @@ export default {
       if (value) state[key] = value;
     });
     this.setUserInfo(state)
-  },
-  onShow() {
-    const token = wx.getStorageSync('token');
-    if (!token) wx.redirectTo({ url: `/pages/login/main` });
   },
   methods: {
     ...mapMutations(['setUserInfo', 'setLoadState'])

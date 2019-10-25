@@ -41,13 +41,18 @@
            src="/static/images/logo.png"
            mode="aspectFit">
     </div>
+     <mask />
   </div>
 </template>
 
 <script>
 import { UserInfo } from '@/api'
+import mask from "@/components/mask"
 import { mapState, mapMutations } from 'vuex'
 export default {
+  components: {
+    mask
+  },
   data() {
     return {
       userInfo: {},

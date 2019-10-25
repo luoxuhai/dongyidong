@@ -14,6 +14,7 @@
     <loading-more v-if="!nothing"
                   :loading="loading"
                   size="22" />
+    <mask />
   </div>
 </template>
 
@@ -21,6 +22,7 @@
 import PlaceholderImg from "@/components/placeholder-img"
 import InfoList from "@/components/info-list"
 import LoadingMore from "@/components/loading-more"
+import mask from "@/components/mask"
 import { MessageNews } from "@/api"
 import { mapState } from 'vuex'
 import { pagingLoadingMixin } from '@/common/js/mixin'
@@ -29,7 +31,8 @@ export default {
   components: {
     InfoList,
     LoadingMore,
-    PlaceholderImg
+    PlaceholderImg,
+    mask
   },
   name: "trends",
   data() {

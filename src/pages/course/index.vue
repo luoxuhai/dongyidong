@@ -33,12 +33,14 @@
       <loading-more :loading="loading"
                     size="22" />
     </div>
+    <mask />
   </div>
 </template>
 
 <script>
 import CourseList from "@/components/course-list"
 import { transitionTime } from "@/libs/tools"
+import mask from "@/components/mask"
 import { Home, Carousel, Course } from '@/api'
 import { bannerNavigateMixin, pagingLoadingMixin } from '@/common/js/mixin'
 import LoadingMore from "@/components/loading-more"
@@ -47,7 +49,8 @@ export default {
   mixins: [bannerNavigateMixin, pagingLoadingMixin],
   components: {
     CourseList,
-    LoadingMore
+    LoadingMore,
+    mask
   },
   data() {
     return {

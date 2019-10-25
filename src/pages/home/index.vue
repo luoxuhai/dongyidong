@@ -63,12 +63,14 @@
                  :data="infoData"
                  @select="selectInfo"></info-list>
     </div>
+    <mask />
   </div>
 </template>
 
 <script>
 import CourseList from "@/components/course-list"
 import InfoList from "@/components/info-list"
+import mask from "@/components/mask"
 import { Home, Carousel } from '@/api'
 import { bannerNavigateMixin } from '@/common/js/mixin'
 import { transitionTime } from "@/libs/tools"
@@ -77,7 +79,8 @@ export default {
   mixins: [bannerNavigateMixin],
   components: {
     CourseList,
-    InfoList
+    InfoList,
+    mask
   },
   data() {
     return {
