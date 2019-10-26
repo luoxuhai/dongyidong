@@ -7,7 +7,7 @@
              mode="aspectFill"
              :src="userInfo.userImage">
         <div class="header-text">
-          <text class="text-user-name">{{ userInfo.userNickname }}</text>
+          <text class="text-user-name">{{ userInfo.userNickname || '登录' }}</text>
           <text class="text-address">{{ userInfo.userCity }}</text>
           <text class="text-school">{{userInfo.userSchool || '未知'}}</text>
         </div>

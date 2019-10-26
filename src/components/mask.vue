@@ -1,15 +1,10 @@
 <template>
-  <view class="mask" :style="{zIndex: isShow ? 99999 : -99999}" @click="handleToLogin"></view>
+  <view class="mask" :style="{zIndex: !token ? 99999 : -99999}" @click="handleToLogin"></view>
 </template>
 
 <script>
+import { mapState } from "vuex";
   export default {
-    data() {
-      return {
-        isShow: true
-      };
-    },
-
     methods: {
       handleToLogin() {
         wx.showModal({
@@ -26,10 +21,9 @@
         });
       }
     },
-    onShow() {
-      const token = wx.getStorageSync("token");
-      if (token) this.isShow = false
-    }
+      computed: {
+    ...mapState(["token"])
+  },
   };
 </script>
 
