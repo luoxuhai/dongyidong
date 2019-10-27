@@ -1,5 +1,5 @@
 <template>
-  <view class="mask" :style="{zIndex: !token ? 99999 : -99999}" @click="handleToLogin"></view>
+  <view class="mask" v-if="!userId" @click="handleToLogin"></view>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ import { mapState } from "vuex";
       }
     },
       computed: {
-    ...mapState(["token"])
+    ...mapState(["userId"])
   },
   };
 </script>
@@ -32,6 +32,7 @@ import { mapState } from "vuex";
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99999;
   width: 100vw;
   height: 100vh;
 }
