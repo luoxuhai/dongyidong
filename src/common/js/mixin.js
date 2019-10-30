@@ -93,6 +93,9 @@ export const trainMixin = {
             return false;
           } else this.loading = true;
         })
+        .catch(err => {
+          this.nothing = true;
+        })
         .finally(() => {
           wx.stopPullDownRefresh();
         });
