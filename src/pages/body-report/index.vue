@@ -278,6 +278,7 @@ j
       }
 
       p {
+        width: 100%;
         font-size: 11px;
         margin-top: 6px;
 

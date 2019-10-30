@@ -4,22 +4,22 @@ import { UserInfo } from '@/api'
 import { wx_login } from '@/libs/utils'
 export default {
   onLaunch() {
-    wx_login().then(res => {
-      return res
-    }).then(res => {
-      UserInfo.login({ code: res.code })
-        .then(res => {
-          const { openId, token, status, userId } = res.data
-          if (status === 0)
-            wx.redirectTo({ url: `/pages/login/main` });
-          else
-            this.setUserInfo({
-              userId,
-              openId,
-              token
-            })
-        })
-    })
+    // wx_login().then(res => {
+    //   return res
+    // }).then(res => {
+    //   UserInfo.login({ code: res.code })
+    //     .then(res => {
+    //       const { openId, token, status, userId } = res.data
+    //       if (status === 0)
+    //         wx.redirectTo({ url: `/pages/login/main` });
+    //       else
+    //         this.setUserInfo({
+    //           userId,
+    //           openId,
+    //           token
+    //         })
+    //     })
+    // })
     let state = {
       userId: '',
       token: '',
