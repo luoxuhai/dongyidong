@@ -2,7 +2,7 @@
   <div class="body-report">
     <scroll-view v-if="!nothing" :style="{opacity}">
       <div class="report-head">
-        <img src="/static/images/body-report/book.png" mode="aspectFill">
+        <img src="/static/images/body-report/book.png" mode="aspectFill" />
         <div class="head-con">
           <h3>
             姓名：
@@ -38,16 +38,16 @@
           <div class="base-wrap">
             <ul>
               <li>评价：{{ info.testEvaluate }}</li>
-              <li>身高：{{ info.testHeight }}cm</li>
-              <li>体重：{{ info.testWeight }}kg</li>
+              <li>身高：{{ testHeight }}cm</li>
+              <li>体重：{{ testWeight }}kg</li>
             </ul>
             <div class="body-line">
-              <img src="/static/images/body-report/line.png">
-              <img src="/static/images/body-report/line.png">
-              <img src="/static/images/body-report/line.png">
+              <img src="/static/images/body-report/line.png" />
+              <img src="/static/images/body-report/line.png" />
+              <img src="/static/images/body-report/line.png" />
             </div>
             <div class="body-pic">
-              <img src="/static/images/body-report/person.png">
+              <img src="/static/images/body-report/person.png" />
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@
         <p>{{ info.expectSuggess || '未知' }}</p>
       </div>
     </scroll-view>
-    <placeholder-img v-if="nothing" imgUrl="/static/images/placeholder/body-report.png"/>
+    <placeholder-img v-if="nothing" imgUrl="/static/images/placeholder/body-report.png" />
   </div>
 </template>
 
@@ -162,6 +162,12 @@ export default {
     ...mapState(["nickName"]),
     grade() {
       return this.format(this.info.userGrad);
+    },
+    testHeight() {
+      return this.info.testHeight.toFixed(2);
+    },
+    testWeight() {
+      return this.info.testWeight.toFixed(2);
     }
   },
   onLoad() {
@@ -187,9 +193,11 @@ export default {
         let place = Number;
         let index = 0;
         for (let value of tempProjects) {
-          if (
+          if (value.name === "仰卧起坐" || value.name === "肺活量") {
+            tempProjects[index].score = (value.score / divisor).toFixed();
+          } else if (
             value.name === "50米跑" ||
-            value.name === "坐位体前屈" ||
+            value.name === "50x8往返跑" ||
             value.name === "BMI"
           ) {
             if (value.name === "BMI") {
@@ -210,7 +218,9 @@ export default {
             tempProjects[index].midScore = (value.midScore / divisor).toFixed(
               place
             );
-            tempProjects[index].score = (value.score / 100).toFixed(place);
+            tempProjects[index].score = (value.score / divisor).toFixed(place);
+          } else {
+            tempProjects[index].score = (value.score / divisor).toFixed(1);
           }
           let unit = "";
           switch (value.name) {
