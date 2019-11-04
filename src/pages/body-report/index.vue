@@ -183,7 +183,7 @@ export default {
           return;
         }
         let tempProjects = list.filter(item => item.name !== null);
-        let divisor = 100;
+        let divisor = 10;
         let place = Number;
         let index = 0;
         for (let value of tempProjects) {
@@ -210,7 +210,7 @@ export default {
             tempProjects[index].midScore = (value.midScore / divisor).toFixed(
               place
             );
-            tempProjects[index].score = (value.score / divisor).toFixed(place);
+            tempProjects[index].score = (value.score / 100).toFixed(place);
           }
           let unit = "";
           switch (value.name) {
