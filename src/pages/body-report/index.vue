@@ -183,7 +183,7 @@ export default {
           return;
         }
         let tempProjects = list.filter(item => item.name !== null);
-        let divisor = 10;
+        let divisor = 100;
         let place = Number;
         let index = 0;
         for (let value of tempProjects) {
