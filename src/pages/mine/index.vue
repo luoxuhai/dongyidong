@@ -5,11 +5,11 @@
         <img class="header-user-img"
              style="background: url('/static/images/course/teacher.png') 100% / cover;"
              mode="aspectFill"
-             :src="userInfo.userImage">
+             :src="userId ? userInfo.userImage : ''">
         <div class="header-text">
-          <text class="text-user-name">{{ userInfo.userNickname || '登录' }}</text>
+          <text class="text-user-name">{{ userId ? userInfo.userNickname : '登录' }}</text>
           <text class="text-address">{{ userInfo.userCity }}</text>
-          <text class="text-school">{{userInfo.userSchool || '未知'}}</text>
+          <text class="text-school">{{userId ? userInfo.userSchool || '未知' : '未知'}}</text>
         </div>
       </div>
       <div class="function">
@@ -133,7 +133,10 @@ export default {
   },
   onShow() {
     this.getUserInfo()
-  }
+  },
+    computed: {
+    ...mapState(["userId"])
+  },
 }
 </script>
 
