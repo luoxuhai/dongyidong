@@ -164,10 +164,10 @@ export default {
       return this.format(this.info.userGrad);
     },
     testHeight() {
-      return this.info.testHeight.toFixed(2);
+      return (this.info.testHeight / 100).toFixed(2);
     },
     testWeight() {
-      return this.info.testWeight.toFixed(2);
+      return (this.info.testWeight / 100).toFixed(2);
     }
   },
   onLoad() {
@@ -190,7 +190,7 @@ export default {
         }
         let tempProjects = list.filter(item => item.name !== null);
         let divisor = 10;
-        let place = Number;
+        let place = 2;
         let index = 0;
         for (let value of tempProjects) {
           if (value.name === "仰卧起坐" || value.name === "肺活量") {
@@ -200,13 +200,8 @@ export default {
             value.name === "50x8往返跑" ||
             value.name === "BMI"
           ) {
-            if (value.name === "BMI") {
-              place = 2;
-            } else {
-              place = 1;
-            }
             tempProjects[index].baseScore =
-              (value.baseScore / divisor).toFixed(place) == 0.0
+              (value.baseScore / divisor).toFixed(place) == 0.00
                 ? 0
                 : (value.baseScore / divisor).toFixed(place);
             tempProjects[index].valueScore = (
