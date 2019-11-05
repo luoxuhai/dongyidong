@@ -195,8 +195,8 @@ export default {
         let place = 2;
         let index = 0;
         for (let value of tempProjects) {
-          if (value.name === "仰卧起坐" || value.name === "肺活量") {
-            tempProjects[index].score = (value.score / 100).toFixed();
+          if (value.name === "仰卧起坐" || value.name === "肺活量" || value.name === "跳绳") {
+            tempProjects[index].score = value.score;
           } else if (
             value.name === "50米跑" ||
             value.name === "50x8往返跑" ||
