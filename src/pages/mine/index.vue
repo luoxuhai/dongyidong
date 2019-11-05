@@ -92,7 +92,7 @@ export default {
       let url = ''
       switch (index) {
         case 0:
-          url = '/pages/mine-vip/main'
+          // url = '/pages/mine-vip/main'
           break
         case 1:
           url = '/pages/mine-feedback/main'
@@ -100,7 +100,7 @@ export default {
         case 2:
           url = '/pages/mine-binding/main'
       }
-      wx.navigateTo({ url });
+      url && wx.navigateTo({ url });
     },
     getUserInfo() {
       UserInfo.selectUserInfo({ userId: this.$store.state.userId }).then(res => {
