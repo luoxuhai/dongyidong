@@ -252,9 +252,10 @@ export default {
   onUnload() {
     Object.assign(this.$data, this.$options.data());
   }
-};
+}
+}
 </script>
-j
+
 <style scoped lang="scss">
 .body-report {
   .report-head {
