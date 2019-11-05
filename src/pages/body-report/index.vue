@@ -20,7 +20,7 @@
       <div class="rating">
         <ul>
           <li>
-            <h3>{{ info.testScore / 10 }}</h3>
+            <h3>{{ testScore }}</h3>
             <p>综合评分</p>
           </li>
           <li>
@@ -168,7 +168,9 @@ export default {
     },
     testWeight() {
       return (this.info.testWeight / 100).toFixed(2);
-    }
+    },
+    testScore(){
+     return (this.info.testScore / 10).toFixed(1);
   },
   onLoad() {
     wx.showLoading({
@@ -194,7 +196,7 @@ export default {
         let index = 0;
         for (let value of tempProjects) {
           if (value.name === "仰卧起坐" || value.name === "肺活量") {
-            tempProjects[index].score = (value.score / divisor).toFixed();
+            tempProjects[index].score = (value.score / 100).toFixed();
           } else if (
             value.name === "50米跑" ||
             value.name === "50x8往返跑" ||
@@ -213,9 +215,9 @@ export default {
             tempProjects[index].midScore = (value.midScore / divisor).toFixed(
               place
             );
-            tempProjects[index].score = (value.score / divisor).toFixed(place);
+            tempProjects[index].score = (value.score / 100).toFixed(place);
           } else {
-            tempProjects[index].score = (value.score / divisor).toFixed(1);
+            tempProjects[index].score = (value.score / 100).toFixed(1);
           }
           let unit = "";
           switch (value.name) {
