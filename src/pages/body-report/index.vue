@@ -164,10 +164,10 @@ export default {
       return this.format(this.info.userGrad);
     },
     testHeight() {
-      return (this.info.testHeight / 100).toFixed(2);
+      return (this.info.testHeight / 100).toFixed(1);
     },
     testWeight() {
-      return (this.info.testWeight / 100).toFixed(2);
+      return (this.info.testWeight / 100).toFixed(1);
     },
     testScore(){
      return (this.info.testScore / 10).toFixed(1);
