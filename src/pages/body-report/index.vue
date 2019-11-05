@@ -20,7 +20,7 @@
       <div class="rating">
         <ul>
           <li>
-            <h3>{{ info.testScore }}</h3>
+            <h3>{{ info.testScore / 10 }}</h3>
             <p>综合评分</p>
           </li>
           <li>
