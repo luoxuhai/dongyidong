@@ -9,8 +9,7 @@
       <li v-if="binding"
           class="phone-number">
         手机号
-        <input type="number"
-               v-model="inputPhone"
+        <input type="number" v-model="inputPhone"
                placeholder="请输入手机号" />
       </li>
       <li v-if="binding"
