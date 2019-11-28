@@ -20,7 +20,7 @@
       <div class="rating">
         <ul>
           <li>
-            <h3>{{ info.testScore }}</h3>
+            <h3>{{ testScore }}</h3>
             <p>综合评分</p>
           </li>
           <li>
@@ -164,11 +164,13 @@ export default {
       return this.format(this.info.userGrad);
     },
     testHeight() {
-      return (this.info.testHeight / 100).toFixed(2);
+      return (this.info.testHeight / 100).toFixed(1);
     },
     testWeight() {
-      return (this.info.testWeight / 100).toFixed(2);
-    }
+      return (this.info.testWeight / 100).toFixed(1);
+    },
+    testScore(){
+     return (this.info.testScore / 10).toFixed(1);
   },
   onLoad() {
     wx.showLoading({
@@ -193,8 +195,8 @@ export default {
         let place = 2;
         let index = 0;
         for (let value of tempProjects) {
-          if (value.name === "仰卧起坐" || value.name === "肺活量") {
-            tempProjects[index].score = (value.score / divisor).toFixed();
+          if (value.name === "仰卧起坐" || value.name === "肺活量" || value.name === "跳绳") {
+            tempProjects[index].score = value.score;
           } else if (
             value.name === "50米跑" ||
             value.name === "50x8往返跑" ||
@@ -213,9 +215,9 @@ export default {
             tempProjects[index].midScore = (value.midScore / divisor).toFixed(
               place
             );
-            tempProjects[index].score = (value.score / divisor).toFixed(place);
+            tempProjects[index].score = (value.score / 100).toFixed(place);
           } else {
-            tempProjects[index].score = (value.score / divisor).toFixed(1);
+            tempProjects[index].score = (value.score / 100).toFixed(1);
           }
           let unit = "";
           switch (value.name) {
@@ -250,9 +252,10 @@ export default {
   onUnload() {
     Object.assign(this.$data, this.$options.data());
   }
-};
+}
+}
 </script>
-j
+
 <style scoped lang="scss">
 .body-report {
   .report-head {
