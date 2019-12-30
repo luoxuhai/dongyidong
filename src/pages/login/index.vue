@@ -1,49 +1,53 @@
 <template>
   <div class="login-container">
     <section>
-      <img mode="aspectFit"
-           src="/static/images/logo.png">
+      <img mode="aspectFit" src="/static/images/logo.png" />
       <text class="name">动亿动体育</text>
     </section>
     <section>
       <p class="hint">请授权小程序以继续使用动亿动体育服务</p>
       <div class="button-login">
-        <button open-type="getUserInfo"
-                @getuserinfo="handleLogin"></button>
-        微信授权登录</div>
+        <button open-type="getUserInfo" @getuserinfo="handleLogin"></button>
+        微信授权登录
+      </div>
+      <div class="button-login" style="margin-top: 20rpx">
+        <button @click="handleBackClick"></button>
+        返回
+      </div>
     </section>
   </div>
 </template>
 
 <script>
-import { UserInfo } from '@/api'
-import { mapMutations, mapState } from 'vuex'
+import { UserInfo } from "@/api";
+import { mapMutations, mapState } from "vuex";
 export default {
-  name: '',
+  name: "",
   data() {
-    return {
-    }
+    return {};
   },
-  onLoad() {
-
-  },
+  onLoad() {},
   methods: {
-    ...mapMutations(['setUserInfo', 'setLoadState']),
+    ...mapMutations(["setUserInfo", "setLoadState"]),
+    handleBackClick() {
+      wx.switchTab({ url: `/pages/home/main` });
+    },
+
     handleLogin() {
       wx.showLoading({
-        title: '登录中',
-      })
+        title: "登录中"
+      });
       this.login();
     },
     login() {
       wx.getUserInfo({
         withCredentials: true,
-        lang: 'zh_CN',
+        lang: "zh_CN",
         success: res => {
           let data = res.userInfo;
           wx.login({
             success: res => {
-              let { avatarUrl, city, nickName, gender, province } = data
+              let { avatarUrl, city, nickName, gender, province } = data;
               UserInfo.login({
                 code: res.code
               }).then(res => {
@@ -66,16 +70,16 @@ export default {
                     this.setUserInfo({ userId })
                   })
                 }
-                wx.hideLoading()
+                wx.hideLoading();
                 wx.switchTab({ url: `/pages/home/main` });
-              })
+              });
             }
           });
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
