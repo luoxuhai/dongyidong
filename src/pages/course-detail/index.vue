@@ -1,19 +1,21 @@
 <template>
   <div class="course-detail">
     <div class="video-wrap">
-      <img v-if="!videoPlay"
+      <!-- <img v-if="!videoPlay" -->
+      <img
            mode="aspectFill"
-           :src="courseDetail.courseImage">
-      <video v-if="videoPlay"
+           src="/static/images/course/13.png" />
+           <!-- :src="courseDetail.courseImage"> -->
+      <!-- <video v-if="videoPlay"
              enable-play-gesture
              :show-fullscreen-btn="true"
              :autoplay="autoplay"
              :poster="courseDetail.courseImage"
-             :src="courseDetail.courseUrl" />
-      <span v-show="!videoPlay">{{courseDetail.courseTolTime}}</span>
-      <i v-show="!videoPlay"
+             :src="courseDetail.courseUrl" /> -->
+      <!-- <span v-show="!videoPlay">{{courseDetail.courseTolTime}}</span> -->
+      <!-- <i v-show="!videoPlay"
          class="iconfont"
-         @click="handlePlayClick">&#xe609;</i>
+         @click="handlePlayClick">&#xe609;</i> -->
     </div>
     <div class="con-wrap">
       <h4>{{ courseDetail.courseTitle }}</h4>
