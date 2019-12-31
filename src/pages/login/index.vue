@@ -10,7 +10,12 @@
       <div class="button-login">
         <button open-type="getUserInfo"
                 @getuserinfo="handleLogin"></button>
-        微信授权登录</div>
+        微信授权登录
+      </div>
+        <div class="button-login" style="margin-top: 15px">
+            <button @click="backHome"></button>
+            返回
+        </div>
     </section>
   </div>
 </template>
@@ -35,6 +40,9 @@ export default {
       })
       this.login();
     },
+      backHome() {
+          wx.switchTab({ url: `/pages/home/main` });
+      },
     login() {
       wx.getUserInfo({
         withCredentials: true,
