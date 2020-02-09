@@ -215,7 +215,8 @@ export default {
             tempProjects[index].midScore = (value.midScore / divisor).toFixed(
               place
             );
-            tempProjects[index].score = (value.score / 100).toFixed(place);
+            if (value.name === "50x8往返跑" ) tempProjects[index].score = (value.score / 100).toFixed(place);
+            else tempProjects[index].score = (value.score / divisor).toFixed(1);
           } else if ( value.name === "坐位体前屈") {
              tempProjects[index].score = (value.score / 10).toFixed(1);
           } else {
