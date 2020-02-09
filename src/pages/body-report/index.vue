@@ -164,10 +164,10 @@ export default {
       return this.format(this.info.userGrad);
     },
     testHeight() {
-      return (this.info.testHeight / 100).toFixed(1);
+      return this.info.testHeight
     },
     testWeight() {
-      return (this.info.testWeight / 100).toFixed(1);
+      return this.info.testWeight
     },
     testScore(){
      return (this.info.testScore / 10).toFixed(1);
@@ -216,6 +216,8 @@ export default {
               place
             );
             tempProjects[index].score = (value.score / 100).toFixed(place);
+          } else if ( value.name === "坐位体前屈") {
+             tempProjects[index].score = (value.score / 10).toFixed(1);
           } else {
             tempProjects[index].score = (value.score / 100).toFixed(1);
           }
