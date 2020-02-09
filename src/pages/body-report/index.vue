@@ -199,6 +199,7 @@ export default {
             tempProjects[index].score = value.score;
           } else if (
             value.name === "50米跑" ||
+            value.name === "400米耐力跑" ||
             value.name === "50x8往返跑" ||
             value.name === "BMI"
           ) {
