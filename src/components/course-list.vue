@@ -7,11 +7,11 @@
           :data-index="item.courseId"
           @click="selectItem">
         <div class="course-pic">
-          <!-- <img :src="item.courseImage" -->
-          <img src="/static/images/course/13.png"
+          <!-- <img src="/static/images/course/13.png" -->
+          <img :src="item.courseImage"
                lazy-load
                mode="aspectFill">
-          <!-- <span>{{item.courseTolTime}}</span> -->
+          <span>{{item.courseTolTime}}</span>
         </div>
         <div class="course-con">
           <h5>{{item.courseTitle}}</h5>

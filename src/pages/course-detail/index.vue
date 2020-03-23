@@ -1,21 +1,19 @@
 <template>
   <div class="course-detail">
     <div class="video-wrap">
-      <!-- <img v-if="!videoPlay" -->
-      <img
+      <img v-if="!videoPlay"
            mode="aspectFill"
-           src="/static/images/course/13.png" />
-           <!-- :src="courseDetail.courseImage"> -->
-      <!-- <video v-if="videoPlay"
+          :src="courseDetail.courseImage">
+      <video v-if="videoPlay"
              enable-play-gesture
              :show-fullscreen-btn="true"
              :autoplay="autoplay"
              :poster="courseDetail.courseImage"
-             :src="courseDetail.courseUrl" /> -->
-      <!-- <span v-show="!videoPlay">{{courseDetail.courseTolTime}}</span> -->
-      <!-- <i v-show="!videoPlay"
+             :src="courseDetail.courseUrl" />
+      <span v-show="!videoPlay">{{courseDetail.courseTolTime}}</span>
+      <i v-show="!videoPlay"
          class="iconfont"
-         @click="handlePlayClick">&#xe609;</i> -->
+         @click="handlePlayClick">&#xe609;</i>
     </div>
     <div class="con-wrap">
       <h4>{{ courseDetail.courseTitle }}</h4>
@@ -41,7 +39,7 @@
       <div class="text">
         <h4 style="margin-bottom: 7px">简介</h4>
         <article style="margin: 0" v-html="courseDetail.courseDescription"></article>
-        <!-- <rich-text 
+        <!-- <rich-text
                    :nodes=""
                    space="nbsp" /> -->
       </div>
